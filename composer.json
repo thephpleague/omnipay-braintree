@@ -19,6 +19,10 @@
             "email": "kayladnls@gmail.com"
         },
         {
+            "name": "Barry vd. Heuvel",
+            "email": "barryvdh@gmail.com"
+        },
+        {
             "name": "Omnipay Contributors",
             "homepage": "https://github.com/thephpleague/omnipay-braintree/contributors"
         }
@@ -27,7 +31,8 @@
         "psr-4": { "Omnipay\\Braintree\\" : "src/" }
     },
     "require": {
-        "omnipay/common": "~2.0"
+        "omnipay/common": "~2.0",
+        "braintree/braintree_php": "^3.1"
     },
     "require-dev": {
         "omnipay/tests": "~2.0"

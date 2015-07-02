@@ -24,6 +24,22 @@ The following gateways are provided by this package:
 
 * Braintree
 
+You need to set your `merchantId`, `publicKey` and `privateKey`. Setting `testMode` to true will use the `sandbox` environment.
+
+This gateway supports purchase through a token (payment nonce) only. You can generate a clientToken for Javascript:
+
+```php
+$clientToken = $gateway->clientToken()->send()->getToken();
+```
+
+You can use the Braintree JavaScript client to generate the token for your CreditCard data.
+
+```php
+$response = $gateway->purchase([
+            'amount' => '10.00',
+            'token' => $_POST['payment_method_nonce']
+        ])->send();
+```
 
 For general usage instructions, please see the main [Omnipay](https://github.com/thephpleague/omnipay)
 repository.
