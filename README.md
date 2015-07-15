@@ -2,9 +2,9 @@
 
 **Braintree driver for the Omnipay PHP payment processing library**
 
-[![Build Status](https://travis-ci.org/thephpleague/omnipay-braintreee.png?branch=master)](https://travis-ci.org/thephpleague/omnipay-braintreee)
-[![Latest Stable Version](https://poser.pugx.org/omnipay/braintreee/version.png)](https://packagist.org/packages/omnipay/braintreee)
-[![Total Downloads](https://poser.pugx.org/omnipay/braintreee/d/total.png)](https://packagist.org/packages/omnipay/braintreee)
+[![Build Status](https://travis-ci.org/thephpleague/omnipay-braintree.png?branch=master)](https://travis-ci.org/thephpleague/omnipay-braintree)
+[![Latest Stable Version](https://poser.pugx.org/omnipay/braintree/version.png)](https://packagist.org/packages/omnipay/braintree)
+[![Total Downloads](https://poser.pugx.org/omnipay/braintree/d/total.png)](https://packagist.org/packages/omnipay/braintree)
 
 [Omnipay](https://github.com/thephpleague/omnipay) is a framework agnostic, multi-gateway payment
 processing library for PHP 5.3+. This package implements Braintree support for Omnipay.
