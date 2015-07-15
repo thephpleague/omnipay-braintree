@@ -43,7 +43,9 @@ class AuthorizeRequest extends AbstractRequest
         ];
 
         // Remove null values
-        $data = array_filter($data);
+        $data = array_filter($data, function($value){
+            return ! is_null($value);
+        });
 
         $data += $this->getCardData();
 

@@ -22,6 +22,7 @@ class AuthorizeRequestTest extends TestCase
                 'token' => 'abc123',
                 'transactionId' => '684',
                 'testMode' => false,
+                'taxExempt' => false,
                 'card' => [
                     'firstName' => 'Kayla',
                     'shippingCompany' => 'League',
@@ -40,6 +41,7 @@ class AuthorizeRequestTest extends TestCase
         $this->assertSame('Kayla', $data['billing']['firstName']);
         $this->assertSame('League', $data['shipping']['company']);
         $this->assertFalse($data['options']['submitForSettlement']);
+        $this->assertFalse($data['taxExempt']);
 
         // Check empty values are not sent
         $this->assertFalse(isset($data['billingAddressId']));
