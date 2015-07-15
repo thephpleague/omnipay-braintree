@@ -17,9 +17,32 @@ class AuthorizeRequest extends AbstractRequest
 
         $data = [
             'amount' => $this->getAmount(),
+            'billingAddressId' => $this->getBillingAddressId(),
+            'channel' => $this->getChannel(),
+            'customFields' => $this->getCustomFields(),
+            'customerId' => $this->getCustomerId(),
+            'descriptor' => $this->getDescriptor(),
+            'deviceData' => $this->getDeviceData(),
+            'deviceSessionId' => $this->getDeviceSessionId(),
+            'merchantAccountId' => $this->getMerchantAccountId(),
+            'options' => [
+                'addBillingAddressToPaymentMethod' => $this->getAddBillingAddressToPaymentMethod(),
+                'holdInEscrow' => $this->getHoldInEscrow(),
+                'storeInVault' => $this->getStoreInVault(),
+                'storeInVaultOnSuccess' => $this->getStoreInVaultOnSuccess(),
+                'storeShippingAddressInVault' => $this->getStoreShippingAddressInVault(),
+                'submitForSettlement' => false,
+            ],
+            'orderId' => $this->getTransactionId(),
             'paymentMethodNonce' => $this->getToken(),
-            'options' => [],
+            'purchaseOrderNumber' => $this->getPurchaseOrderNumber(),
+            'recurring' => $this->getRecurring(),
+            'shippingAddressId' => $this->getShippingAddressId(),
+            'taxAmount' => $this->getTaxAmount(),
+            'taxExempt' => $this->getTaxExempt(),
         ];
+
+        $data += $this->getCardData();
 
         return $data;
     }

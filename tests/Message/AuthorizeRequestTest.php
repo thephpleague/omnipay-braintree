@@ -20,7 +20,12 @@ class AuthorizeRequestTest extends TestCase
             array(
                 'amount' => '10.00',
                 'token' => 'abc123',
+                'transactionId' => '684',
                 'testMode' => false,
+                'card' => [
+                    'firstName' => 'Kayla',
+                    'shippingCompany' => 'League',
+                ]
             )
         );
     }
@@ -31,6 +36,11 @@ class AuthorizeRequestTest extends TestCase
 
         $this->assertSame('abc123', $data['paymentMethodNonce']);
         $this->assertSame('10.00', $data['amount']);
+        $this->assertSame('684', $data['orderId']);
+        $this->assertSame('Kayla', $data['billing']['firstName']);
+        $this->assertSame('League', $data['shipping']['company']);
+        $this->assertFalse($data['options']['submitForSettlement']);
+        $this->assertNull($data['billingAddressId']);
 
         $this->request->configure();
         $this->assertSame('production', \Braintree_Configuration::environment());
