@@ -4,10 +4,10 @@ namespace Omnipay\Braintree\Message;
 
 use Omnipay\Tests\TestCase;
 
-class CaptureRequestTest extends TestCase
+class FindRequestTest extends TestCase
 {
     /**
-     * @var CaptureRequest
+     * @var FindRequest
      */
     private $request;
 
@@ -15,10 +15,9 @@ class CaptureRequestTest extends TestCase
     {
         parent::setUp();
 
-        $this->request = new CaptureRequest($this->getHttpClient(), $this->getHttpRequest(), \Braintree_Configuration::gateway());
+        $this->request = new FindRequest($this->getHttpClient(), $this->getHttpRequest(), \Braintree_Configuration::gateway());
         $this->request->initialize(
             array(
-                'amount' => '10.00',
                 'transactionReference' => 'abc123',
             )
         );
@@ -29,7 +28,6 @@ class CaptureRequestTest extends TestCase
         $data = $this->request->getData();
 
         $this->assertSame('abc123', $data['transactionReference']);
-        $this->assertSame('10.00', $data['amount']);
     }
 
 }
