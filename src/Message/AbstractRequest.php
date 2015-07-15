@@ -272,7 +272,7 @@ abstract class AbstractRequest extends BaseAbstractRequest
     /**
      * @return array
      */
-    protected function getCardData()
+    public function getCardData()
     {
         $card = $this->getCard();
 
@@ -293,15 +293,15 @@ abstract class AbstractRequest extends BaseAbstractRequest
                 'countryName' => $card->getBillingCountry(),
             ),
             'shipping' => array(
-              'company' => $card->getShippingCompany(),
-              'firstName' => $card->getShippingFirstName(),
-              'lastName' => $card->getShippingLastName(),
-              'streetAddress' => $card->getShippingAddress1(),
-              'extendedAddress' =>  $card->getShippingAddress2(),
-              'locality' => $card->getShippingCity(),
-              'postalCode' => $card->getShippingPostcode(),
-              'region' => $card->getShippingState(),
-              'countryName' => $card->getShippingCountry(),
+                'company' => $card->getShippingCompany(),
+                'firstName' => $card->getShippingFirstName(),
+                'lastName' => $card->getShippingLastName(),
+                'streetAddress' => $card->getShippingAddress1(),
+                'extendedAddress' =>  $card->getShippingAddress2(),
+                'locality' => $card->getShippingCity(),
+                'postalCode' => $card->getShippingPostcode(),
+                'region' => $card->getShippingState(),
+                'countryName' => $card->getShippingCountry(),
             )
         );
     }
