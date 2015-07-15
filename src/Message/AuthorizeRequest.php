@@ -42,6 +42,9 @@ class AuthorizeRequest extends AbstractRequest
             'taxExempt' => $this->getTaxExempt(),
         ];
 
+        // Remove null values
+        $data = array_filter($data);
+
         $data += $this->getCardData();
 
         return $data;

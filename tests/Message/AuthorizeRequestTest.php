@@ -40,7 +40,9 @@ class AuthorizeRequestTest extends TestCase
         $this->assertSame('Kayla', $data['billing']['firstName']);
         $this->assertSame('League', $data['shipping']['company']);
         $this->assertFalse($data['options']['submitForSettlement']);
-        $this->assertNull($data['billingAddressId']);
+
+        // Check empty values are not sent
+        $this->assertFalse(isset($data['billingAddressId']));
 
         $this->request->configure();
         $this->assertSame('production', \Braintree_Configuration::environment());
