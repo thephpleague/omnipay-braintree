@@ -1,7 +1,6 @@
 <?php
 namespace Omnipay\Braintree\Message;
 
-use Braintree_Transaction;
 use Omnipay\Common\Message\ResponseInterface;
 
 /**
@@ -29,7 +28,7 @@ class CaptureRequest extends AbstractRequest
      */
     public function sendData($data)
     {
-        $response = Braintree_Transaction::submitForSettlement($data['transactionReference'], $data['amount']);
+        $response = $this->braintree->transaction()->submitForSettlement($data['transactionReference'], $data['amount']);
 
         return $this->createResponse($response);
     }

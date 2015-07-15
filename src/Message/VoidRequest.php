@@ -1,7 +1,6 @@
 <?php
 namespace Omnipay\Braintree\Message;
 
-use Braintree_Transaction;
 use Omnipay\Common\Message\ResponseInterface;
 
 /**
@@ -28,7 +27,7 @@ class VoidRequest extends AbstractRequest
      */
     public function sendData($data)
     {
-        $response = Braintree_Transaction::void($data['transactionReference']);
+        $response = $this->braintree->transaction()->void($data['transactionReference']);
 
         return $this->createResponse($response);
     }

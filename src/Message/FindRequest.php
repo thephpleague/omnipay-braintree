@@ -1,7 +1,6 @@
 <?php
 namespace Omnipay\Braintree\Message;
 
-use Braintree_Transaction;
 use Omnipay\Common\Message\ResponseInterface;
 
 /**
@@ -28,7 +27,7 @@ class FindRequest extends AbstractRequest
      */
     public function sendData($data)
     {
-        $response = Braintree_Transaction::find($data['transactionReference']);
+        $response = $this->braintree->transaction()->find($data['transactionReference']);
 
         return $this->createResponse($response);
     }

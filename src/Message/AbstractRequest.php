@@ -2,7 +2,9 @@
 
 namespace Omnipay\Braintree\Message;
 
-use Braintree_Configuration;
+use Braintree_Gateway;
+use Guzzle\Http\ClientInterface;
+use Symfony\Component\HttpFoundation\Request as HttpRequest;
 use Omnipay\Common\Message\AbstractRequest as BaseAbstractRequest;
 
 /**
@@ -11,6 +13,25 @@ use Omnipay\Common\Message\AbstractRequest as BaseAbstractRequest;
  */
 abstract class AbstractRequest extends BaseAbstractRequest
 {
+    /**
+     * @var \Braintree_Gateway
+     */
+    protected $braintree;
+
+    /**
+     * Create a new Request
+     *
+     * @param ClientInterface $httpClient  A Guzzle client to make API calls with
+     * @param HttpRequest     $httpRequest A Symfony HTTP request object
+     * @param Braintree_Gateway $braintree The Braintree Gateway
+     */
+    public function __construct(ClientInterface $httpClient, HttpRequest $httpRequest, Braintree_Gateway $braintree)
+    {
+        $this->braintree = $braintree;
+
+          parent::__construct($httpClient, $httpRequest);
+    }
+
     /**
      * Set the correct configuration sending
      *
@@ -25,21 +46,19 @@ abstract class AbstractRequest extends BaseAbstractRequest
 
     public function configure()
     {
-        // Reset to the initial state
-        Braintree_Configuration::reset();
-
         // When in testMode, use the sandbox environment
         if ($this->getTestMode()) {
-            Braintree_Configuration::environment('sandbox');
+            $this->braintree->config->environment('sandbox');
         } else {
-            Braintree_Configuration::environment('production');
+            $this->braintree->config->environment('production');
         }
 
         // Set the keys
-        Braintree_Configuration::merchantId($this->getMerchantId());
-        Braintree_Configuration::publicKey($this->getPublicKey());
-        Braintree_Configuration::privateKey($this->getPrivateKey());
+        $this->braintree->config->merchantId($this->getMerchantId());
+        $this->braintree->config->publicKey($this->getPublicKey());
+        $this->braintree->config->privateKey($this->getPrivateKey());
     }
+
     public function getMerchantId()
     {
         return $this->getParameter('merchantId');

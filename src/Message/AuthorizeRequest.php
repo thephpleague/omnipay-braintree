@@ -1,7 +1,6 @@
 <?php
 namespace Omnipay\Braintree\Message;
 
-use Braintree_Transaction;
 use Omnipay\Common\Message\ResponseInterface;
 
 /**
@@ -60,7 +59,7 @@ class AuthorizeRequest extends AbstractRequest
      */
     public function sendData($data)
     {
-        $response = Braintree_Transaction::sale($data);
+        $response = $this->braintree->transaction()->sale($data);
 
         return $this->createResponse($response);
     }

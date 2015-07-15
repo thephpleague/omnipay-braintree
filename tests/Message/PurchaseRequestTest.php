@@ -15,7 +15,7 @@ class PurchaseRequestTest extends TestCase
     {
         parent::setUp();
 
-        $this->request = new PurchaseRequest($this->getHttpClient(), $this->getHttpRequest());
+        $this->request = new PurchaseRequest($this->getHttpClient(), $this->getHttpRequest(), \Braintree_Configuration::gateway());
         $this->request->initialize(
             array(
                 'amount' => '10.00',

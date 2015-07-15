@@ -1,7 +1,6 @@
 <?php
 namespace Omnipay\Braintree\Message;
 
-use Braintree_Transaction;
 use Omnipay\Common\Message\ResponseInterface;
 
 /**
@@ -29,7 +28,7 @@ class RefundRequest extends AbstractRequest
      */
     public function sendData($data)
     {
-        $response = Braintree_Transaction::void($data['transactionReference'], $data['amount']);
+        $response = $this->braintree->transaction()->refund($data['transactionReference'], $data['amount']);
 
         return $this->createResponse($response);
     }

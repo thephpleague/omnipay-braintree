@@ -3,12 +3,44 @@
 namespace Omnipay\Braintree;
 
 use Omnipay\Common\AbstractGateway;
-
+use Braintree_Gateway;
+use Braintree_Configuration;
+use Guzzle\Http\ClientInterface;
+use Symfony\Component\HttpFoundation\Request as HttpRequest;
 /**
  * Braintree Gateway
  */
 class Gateway extends AbstractGateway
 {
+    /**
+     * @var \Braintree_Gateway
+     */
+    protected $braintree;
+
+    /**
+     * Create a new gateway instance
+     *
+     * @param ClientInterface $httpClient  A Guzzle client to make API calls with
+     * @param HttpRequest     $httpRequest A Symfony HTTP request object
+     * @param Braintree_Gateway $braintree The Braintree gateway
+     */
+    public function __construct(ClientInterface $httpClient = null, HttpRequest $httpRequest = null, Braintree_Gateway $braintree = null)
+    {
+        $this->braintree = $braintree ?: Braintree_Configuration::gateway();
+
+        parent::__construct($httpClient, $httpRequest);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    protected function createRequest($class, array $parameters)
+    {
+        $obj = new $class($this->httpClient, $this->httpRequest, $this->braintree);
+
+        return $obj->initialize(array_replace($this->getParameters(), $parameters));
+    }
+
     public function getName()
     {
         return 'Braintree';

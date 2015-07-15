@@ -1,7 +1,6 @@
 <?php
 namespace Omnipay\Braintree\Message;
 
-use Braintree_ClientToken;
 use Omnipay\Common\Message\ResponseInterface;
 
 /**
@@ -25,7 +24,7 @@ class ClientTokenRequest extends AbstractRequest
      */
     public function sendData($data)
     {
-        $token = Braintree_ClientToken::generate($data);
+        $token = $this->braintree->clientToken()->generate($data);
 
         return new ClientTokenResponse($this, $token);
     }
