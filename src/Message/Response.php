@@ -3,19 +3,15 @@
 namespace Omnipay\Braintree\Message;
 
 use Omnipay\Common\Message\AbstractResponse;
-use Omnipay\Common\Message\RequestInterface;
 
 /**
  * Response
  */
 class Response extends AbstractResponse
 {
-    public function __construct(RequestInterface $request, $data)
-    {
-        $this->request = $request;
-        $this->data = $data;
-    }
-
+    /**
+     * @return bool
+     */
     public function isSuccessful()
     {
         if (isset($this->data->success)) {
@@ -25,6 +21,9 @@ class Response extends AbstractResponse
         return false;
     }
 
+    /**
+     * @return string|null
+     */
     public function getMessage()
     {
         if (isset($this->data->message) && $this->data->message) {
@@ -34,19 +33,48 @@ class Response extends AbstractResponse
         return null;
     }
 
+    /**
+     * @return string
+     */
     public function getCode()
     {
-        if (isset($this->data->transaction) && $this->data->transaction) {
-            return $this->data->transaction->status;
-        }
-
-        return null;
+        return $this->transactionValue('status');
     }
 
+    /**
+     * @return string
+     */
     public function getTransactionReference()
     {
-        if (isset($this->data->transaction) && $this->data->transaction) {
-            return $this->data->transaction->id;
+        return $this->transactionValue('id');
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getAmount()
+    {
+        return $this->transactionValue('amount');
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getTransactionId()
+    {
+        return $this->transactionValue('orderId');
+    }
+
+    /**
+     * Return a value from the transaction object
+     *
+     * @param  string  $key
+     * @return mixed
+     */
+    protected function transactionValue($key)
+    {
+        if (isset($this->data->transaction) && $this->data->transaction && isset($this->data->transaction->$key)) {
+            return $this->data->transaction->$key;
         }
 
         return null;
