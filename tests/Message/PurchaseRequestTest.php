@@ -7,7 +7,7 @@ use Omnipay\Tests\TestCase;
 class PurchaseRequestTest extends TestCase
 {
     /**
-     * @var AuthorizeRequest
+     * @var PurchaseRequest
      */
     private $request;
 
