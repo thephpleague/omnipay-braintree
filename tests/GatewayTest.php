@@ -38,6 +38,24 @@ class GatewayTest extends GatewayTestCase
         $this->assertSame('10.00', $request->getAmount());
     }
 
+    public function testCreateCustomer()
+    {
+        $request = $this->gateway->createCustomer();
+        $this->assertInstanceOf('Omnipay\Braintree\Message\CreateCustomerRequest', $request);
+    }
+
+    public function testDeleteCustomer()
+    {
+        $request = $this->gateway->deleteCustomer();
+        $this->assertInstanceOf('Omnipay\Braintree\Message\DeleteCustomerRequest', $request);
+    }
+
+    public function testUpdateCustomer()
+    {
+        $request = $this->gateway->updateCustomer();
+        $this->assertInstanceOf('Omnipay\Braintree\Message\UpdateCustomerRequest', $request);
+    }
+
     public function testPurchase()
     {
         $request = $this->gateway->purchase(array('amount' => '10.00'));

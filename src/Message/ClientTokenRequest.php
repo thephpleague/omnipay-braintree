@@ -12,8 +12,15 @@ class ClientTokenRequest extends AbstractRequest
 {
     public function getData()
     {
-        // TODO; customer data?
-        return [];
+        $data = [];
+        if ($customerId = $this->getCustomerId()) {
+            $data['customerId'] = $customerId;
+        }
+        if ($options = $this->getOptions()) {
+            $data['options'] = $options;
+        }
+
+        return $data;
     }
 
     /**

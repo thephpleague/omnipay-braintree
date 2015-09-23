@@ -119,6 +119,16 @@ abstract class AbstractRequest extends BaseAbstractRequest
         return $this->setParameter('customFields', $value);
     }
 
+    public function getCustomerData()
+    {
+        return $this->getParameter('customerData');
+    }
+
+    public function setCustomerData($value)
+    {
+        return $this->setParameter('customerData', $value);
+    }
+
     public function getCustomerId()
     {
         return $this->getParameter('customerId');
@@ -247,6 +257,16 @@ abstract class AbstractRequest extends BaseAbstractRequest
     public function setPurchaseOrderNumber($value)
     {
         return $this->setParameter('purchaseOrderNumber', $value);
+    }
+
+    public function getOptions()
+    {
+        return $this->getParameter('options');
+    }
+
+    public function setOptions($value)
+    {
+        return $this->setParameter('options', $value);
     }
 
     public function getTaxAmount()
