@@ -25,14 +25,6 @@ class AuthorizeRequest extends AbstractRequest
             'deviceData' => $this->getDeviceData(),
             'deviceSessionId' => $this->getDeviceSessionId(),
             'merchantAccountId' => $this->getMerchantAccountId(),
-            'options' => [
-                'addBillingAddressToPaymentMethod' => $this->getAddBillingAddressToPaymentMethod(),
-                'holdInEscrow' => $this->getHoldInEscrow(),
-                'storeInVault' => $this->getStoreInVault(),
-                'storeInVaultOnSuccess' => $this->getStoreInVaultOnSuccess(),
-                'storeShippingAddressInVault' => $this->getStoreShippingAddressInVault(),
-                'submitForSettlement' => false,
-            ],
             'orderId' => $this->getTransactionId(),
             'purchaseOrderNumber' => $this->getPurchaseOrderNumber(),
             'recurring' => $this->getRecurring(),
@@ -55,7 +47,9 @@ class AuthorizeRequest extends AbstractRequest
             return ! is_null($value);
         });
 
+        $data += $this->getOptionData();
         $data += $this->getCardData();
+        $data['options']['submitForSettlement'] = false;
 
         return $data;
     }

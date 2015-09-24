@@ -126,4 +126,25 @@ class AbstractRequestTest extends TestCase
         $this->assertSame($card['shippingCountry'], $data['shipping']['countryName']);
 
     }
+
+    public function testOptionData()
+    {
+        $options = [
+            'addBillingAddressToPaymentMethod' => false,
+            'failOnDuplicatePaymentMethod'     => true,
+            'holdInEscrow'                     => false,
+            'storeInVault'                     => true,
+            'storeInVaultOnSuccess'            => false,
+            'storeShippingAddressInVault'      => true,
+        ];
+        $this->request->initialize($options);
+        $data = $this->request->getOptionData();
+
+        $this->assertSame($options['addBillingAddressToPaymentMethod'], $data['options']['addBillingAddressToPaymentMethod']);
+        $this->assertSame($options['failOnDuplicatePaymentMethod'], $data['options']['failOnDuplicatePaymentMethod']);
+        $this->assertSame($options['holdInEscrow'], $data['options']['holdInEscrow']);
+        $this->assertSame($options['storeInVault'], $data['options']['storeInVault']);
+        $this->assertSame($options['storeInVaultOnSuccess'], $data['options']['storeInVaultOnSuccess']);
+        $this->assertSame($options['storeShippingAddressInVault'], $data['options']['storeShippingAddressInVault']);
+    }
 }

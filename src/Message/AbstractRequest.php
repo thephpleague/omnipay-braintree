@@ -259,16 +259,6 @@ abstract class AbstractRequest extends BaseAbstractRequest
         return $this->setParameter('purchaseOrderNumber', $value);
     }
 
-    public function getOptions()
-    {
-        return $this->getParameter('options');
-    }
-
-    public function setOptions($value)
-    {
-        return $this->setParameter('options', $value);
-    }
-
     public function getTaxAmount()
     {
         return $this->getParameter('taxAmount');
@@ -309,6 +299,16 @@ abstract class AbstractRequest extends BaseAbstractRequest
         return $this->setToken($value);
     }
 
+    public function getFailOnDuplicatePaymentMethod()
+    {
+        return $this->getParameter('failOnDuplicatePaymentMethod');
+    }
+
+    public function setFailOnDuplicatePaymentMethod($value)
+    {
+        return $this->setParameter('failOnDuplicatePaymentMethod', (bool) $value);
+    }
+
     /**
      * @return array
      */
@@ -344,6 +344,32 @@ abstract class AbstractRequest extends BaseAbstractRequest
                 'countryName' => $card->getShippingCountry(),
             )
         );
+    }
+
+    /**
+     * @return array
+     */
+    public function getOptionData()
+    {
+        $data = array(
+            'addBillingAddressToPaymentMethod' => $this->getAddBillingAddressToPaymentMethod(),
+            'failOnDuplicatePaymentMethod' => $this->getFailOnDuplicatePaymentMethod(),
+            'holdInEscrow' => $this->getHoldInEscrow(),
+            'storeInVault' => $this->getStoreInVault(),
+            'storeInVaultOnSuccess' => $this->getStoreInVaultOnSuccess(),
+            'storeShippingAddressInVault' => $this->getStoreShippingAddressInVault(),
+        );
+
+        // Remove null values
+        $data = array_filter($data, function($value){
+            return ! is_null($value);
+        });
+
+        if (empty($data)) {
+            return $data;
+        } else {
+            return array('options' => $data);
+        }
     }
 
     protected function createResponse($data)

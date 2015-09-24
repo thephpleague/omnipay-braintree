@@ -16,9 +16,7 @@ class ClientTokenRequest extends AbstractRequest
         if ($customerId = $this->getCustomerId()) {
             $data['customerId'] = $customerId;
         }
-        if ($options = $this->getOptions()) {
-            $data['options'] = $options;
-        }
+        $data += $this->getOptionData();
 
         return $data;
     }

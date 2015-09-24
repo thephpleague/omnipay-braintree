@@ -27,15 +27,19 @@ class ClientTokenRequestTest extends TestCase
 
     public function testGetDataWithCustomer()
     {
-        $data = array(
+        $setData = array(
+            'customerId' => '4815162342',
+            'failOnDuplicatePaymentMethod' => true,
+        );
+        $expectedData = array(
             'customerId' => '4815162342',
             'options' => array(
                 'failOnDuplicatePaymentMethod' => true,
             ),
         );
-        $this->request->initialize($data);
+        $this->request->initialize($setData);
         $this->assertSame('4815162342', $this->request->getCustomerId());
-        $this->assertSame($data, $this->request->getData());
+        $this->assertSame($expectedData, $this->request->getData());
     }
 
 }
