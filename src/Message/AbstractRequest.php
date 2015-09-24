@@ -309,6 +309,36 @@ abstract class AbstractRequest extends BaseAbstractRequest
         return $this->setParameter('failOnDuplicatePaymentMethod', (bool) $value);
     }
 
+    public function getMakeDefault()
+    {
+        return $this->getParameter('makeDefault');
+    }
+
+    public function setMakeDefault($value)
+    {
+        return $this->setParameter('makeDefault', (bool) $value);
+    }
+
+    public function getVerifyCard()
+    {
+        return $this->getParameter('verifyCard');
+    }
+
+    public function setVerifyCard($value)
+    {
+        return $this->setParameter('verifyCard', (bool) $value);
+    }
+
+    public function getVerificationMerchantAccountId()
+    {
+        return $this->getParameter('verificationMerchantAccountId');
+    }
+
+    public function setVerificationMerchantAccountId($value)
+    {
+        return $this->setParameter('verificationMerchantAccountId', $value);
+    }
+
     /**
      * @return array
      */
@@ -353,11 +383,14 @@ abstract class AbstractRequest extends BaseAbstractRequest
     {
         $data = array(
             'addBillingAddressToPaymentMethod' => $this->getAddBillingAddressToPaymentMethod(),
-            'failOnDuplicatePaymentMethod' => $this->getFailOnDuplicatePaymentMethod(),
-            'holdInEscrow' => $this->getHoldInEscrow(),
-            'storeInVault' => $this->getStoreInVault(),
-            'storeInVaultOnSuccess' => $this->getStoreInVaultOnSuccess(),
-            'storeShippingAddressInVault' => $this->getStoreShippingAddressInVault(),
+            'failOnDuplicatePaymentMethod'     => $this->getFailOnDuplicatePaymentMethod(),
+            'holdInEscrow'                     => $this->getHoldInEscrow(),
+            'makeDefault'                      => $this->getMakeDefault(),
+            'storeInVault'                     => $this->getStoreInVault(),
+            'storeInVaultOnSuccess'            => $this->getStoreInVaultOnSuccess(),
+            'storeShippingAddressInVault'      => $this->getStoreShippingAddressInVault(),
+            'verifyCard'                       => $this->getVerifyCard(),
+            'verificationMerchantAccountId'    => $this->getVerificationMerchantAccountId(),
         );
 
         // Remove null values

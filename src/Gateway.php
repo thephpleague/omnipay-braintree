@@ -151,6 +151,33 @@ class Gateway extends AbstractGateway
 
     /**
      * @param array $parameters
+     * @return Message\CreatePaymentMethodRequest
+     */
+    public function createPaymentMethod(array $parameters = array())
+    {
+        return $this->createRequest('\Omnipay\Braintree\Message\CreatePaymentMethodRequest', $parameters);
+    }
+
+    /**
+     * @param array $parameters
+     * @return Message\DeletePaymentMethodRequest
+     */
+    public function deletePaymentMethod(array $parameters = array())
+    {
+        return $this->createRequest('\Omnipay\Braintree\Message\DeletePaymentMethodRequest', $parameters);
+    }
+
+    /**
+     * @param array $parameters
+     * @return Message\UpdatePaymentMethodRequest
+     */
+    public function updatePaymentMethod(array $parameters = array())
+    {
+        return $this->createRequest('\Omnipay\Braintree\Message\UpdatePaymentMethodRequest', $parameters);
+    }
+
+    /**
+     * @param array $parameters
      * @return Message\PurchaseRequest
      */
     public function purchase(array $parameters = array())

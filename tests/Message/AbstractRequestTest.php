@@ -131,20 +131,26 @@ class AbstractRequestTest extends TestCase
     {
         $options = [
             'addBillingAddressToPaymentMethod' => false,
+            'makeDefault'                      => true,
             'failOnDuplicatePaymentMethod'     => true,
             'holdInEscrow'                     => false,
             'storeInVault'                     => true,
             'storeInVaultOnSuccess'            => false,
             'storeShippingAddressInVault'      => true,
+            'verifyCard'                       => false,
+            'verificationMerchantAccountId'    => true,
         ];
         $this->request->initialize($options);
         $data = $this->request->getOptionData();
 
         $this->assertSame($options['addBillingAddressToPaymentMethod'], $data['options']['addBillingAddressToPaymentMethod']);
+        $this->assertSame($options['makeDefault'], $data['options']['makeDefault']);
         $this->assertSame($options['failOnDuplicatePaymentMethod'], $data['options']['failOnDuplicatePaymentMethod']);
         $this->assertSame($options['holdInEscrow'], $data['options']['holdInEscrow']);
         $this->assertSame($options['storeInVault'], $data['options']['storeInVault']);
         $this->assertSame($options['storeInVaultOnSuccess'], $data['options']['storeInVaultOnSuccess']);
         $this->assertSame($options['storeShippingAddressInVault'], $data['options']['storeShippingAddressInVault']);
+        $this->assertSame($options['verifyCard'], $data['options']['verifyCard']);
+        $this->assertSame($options['verificationMerchantAccountId'], $data['options']['verificationMerchantAccountId']);
     }
 }
