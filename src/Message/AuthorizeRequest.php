@@ -33,13 +33,18 @@ class AuthorizeRequest extends AbstractRequest
                 'submitForSettlement' => false,
             ],
             'orderId' => $this->getTransactionId(),
-            'paymentMethodNonce' => $this->getToken(),
             'purchaseOrderNumber' => $this->getPurchaseOrderNumber(),
             'recurring' => $this->getRecurring(),
             'shippingAddressId' => $this->getShippingAddressId(),
             'taxAmount' => $this->getTaxAmount(),
             'taxExempt' => $this->getTaxExempt(),
         ];
+
+        if ($this->getUsePaymentMethodToken() === true) {
+            $data['paymentMethodToken'] = $this->getToken();
+        } else {
+            $data['paymentMethodNonce'] = $this->getToken();
+        }
 
         // Remove null values
         $data = array_filter($data, function($value){

@@ -269,6 +269,16 @@ abstract class AbstractRequest extends BaseAbstractRequest
         return $this->setParameter('taxExempt', (bool) $value);
     }
 
+    public function getUsePaymentMethodToken()
+    {
+        return $this->getParameter('usePaymentMethodToken');
+    }
+
+    public function setUsePaymentMethodToken($value)
+    {
+        return $this->setParameter('usePaymentMethodToken', (bool)$value);
+    }
+
     /**
      * @return array
      */
