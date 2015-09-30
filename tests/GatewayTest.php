@@ -56,6 +56,18 @@ class GatewayTest extends GatewayTestCase
         $this->assertInstanceOf('Omnipay\Braintree\Message\UpdateCustomerRequest', $request);
     }
 
+    public function testCreateMerchantAccount()
+    {
+        $request = $this->gateway->createMerchantAccount();
+        $this->assertInstanceOf('Omnipay\Braintree\Message\CreateMerchantAccountRequest', $request);
+    }
+    
+    public function testUpdateMerchantAccount()
+    {
+        $request = $this->gateway->updateMerchantAccount();
+        $this->assertInstanceOf('Omnipay\Braintree\Message\UpdateMerchantAccountRequest', $request);
+    }
+
     public function testCreatePaymentMethod()
     {
         $request = $this->gateway->createPaymentMethod();
