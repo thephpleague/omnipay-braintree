@@ -35,6 +35,7 @@ class AuthorizeRequestTest extends TestCase
     {
         $data = $this->request->getData();
 
+        $this->assertArrayNotHasKey('paymentMethodToken', $data);
         $this->assertSame('abc123', $data['paymentMethodNonce']);
         $this->assertSame('10.00', $data['amount']);
         $this->assertSame('684', $data['orderId']);
@@ -48,6 +49,28 @@ class AuthorizeRequestTest extends TestCase
 
         $this->request->configure();
         $this->assertSame('production', \Braintree_Configuration::environment());
+    }
+
+    public function testPaymentToken()
+    {
+        $this->request->initialize(
+            array(
+                'amount' => '10.00',
+                'token' => 'abc123',
+                'transactionId' => '684',
+                'testMode' => false,
+                'taxExempt' => false,
+                'card' => [
+                    'firstName' => 'Kayla',
+                    'shippingCompany' => 'League',
+                ],
+                'usePaymentMethodToken' => true
+            )
+        );
+
+        $data = $this->request->getData();
+        $this->assertSame('abc123', $data['paymentMethodToken']);
+        $this->assertArrayNotHasKey('paymentMethodNonce', $data);
     }
 
     public function testSandboxEnvironment()
