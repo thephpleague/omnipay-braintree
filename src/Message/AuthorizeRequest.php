@@ -1,6 +1,7 @@
 <?php
 namespace Omnipay\Braintree\Message;
 
+use Omnipay\Common\Exception\InvalidRequestException;
 use Omnipay\Common\Message\ResponseInterface;
 
 /**
@@ -12,7 +13,7 @@ class AuthorizeRequest extends AbstractRequest
 {
     public function getData()
     {
-        $this->validate('amount', 'token');
+        $this->validate('amount');
 
         $data = [
             'amount' => $this->getAmount(),
@@ -40,10 +41,13 @@ class AuthorizeRequest extends AbstractRequest
             'taxExempt' => $this->getTaxExempt(),
         ];
 
-        if ($this->getUsePaymentMethodToken() === true) {
-            $data['paymentMethodToken'] = $this->getToken();
-        } else {
+        // special validation
+        if ($this->getPaymentMethodToken()) {
+            $data['paymentMethodToken'] = $this->getPaymentMethodToken();
+        } elseif($this->getToken()) {
             $data['paymentMethodNonce'] = $this->getToken();
+        } else {
+            throw new InvalidRequestException("The token (payment nonce) or paymentMethodToken field should be set.");
         }
 
         // Remove null values
