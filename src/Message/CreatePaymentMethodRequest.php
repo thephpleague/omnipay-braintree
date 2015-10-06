@@ -1,21 +1,22 @@
 <?php
+
 namespace Omnipay\Braintree\Message;
 
 use Omnipay\Common\Message\ResponseInterface;
 
 /**
- * Authorize Request
+ * Create PaymentMethod Request
  *
- * @method ClientTokenResponse send()
+ * @method Response send()
  */
-class ClientTokenRequest extends AbstractRequest
+class CreatePaymentMethodRequest extends AbstractRequest
 {
     public function getData()
     {
-        $data = [];
-        if ($customerId = $this->getCustomerId()) {
-            $data['customerId'] = $customerId;
-        }
+        $data = array(
+            'customerId' => $this->getCustomerId(),
+            'paymentMethodNonce' => $this->getToken(),
+        );
         $data += $this->getOptionData();
 
         return $data;
@@ -29,8 +30,8 @@ class ClientTokenRequest extends AbstractRequest
      */
     public function sendData($data)
     {
-        $token = $this->braintree->clientToken()->generate($data);
+        $response = $this->braintree->paymentMethod()->create($data);
 
-        return new ClientTokenResponse($this, $token);
+        return $this->createResponse($response);
     }
 }

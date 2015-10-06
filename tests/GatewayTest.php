@@ -38,6 +38,54 @@ class GatewayTest extends GatewayTestCase
         $this->assertSame('10.00', $request->getAmount());
     }
 
+    public function testCreateCustomer()
+    {
+        $request = $this->gateway->createCustomer();
+        $this->assertInstanceOf('Omnipay\Braintree\Message\CreateCustomerRequest', $request);
+    }
+
+    public function testDeleteCustomer()
+    {
+        $request = $this->gateway->deleteCustomer();
+        $this->assertInstanceOf('Omnipay\Braintree\Message\DeleteCustomerRequest', $request);
+    }
+
+    public function testUpdateCustomer()
+    {
+        $request = $this->gateway->updateCustomer();
+        $this->assertInstanceOf('Omnipay\Braintree\Message\UpdateCustomerRequest', $request);
+    }
+
+    public function testCreateMerchantAccount()
+    {
+        $request = $this->gateway->createMerchantAccount();
+        $this->assertInstanceOf('Omnipay\Braintree\Message\CreateMerchantAccountRequest', $request);
+    }
+    
+    public function testUpdateMerchantAccount()
+    {
+        $request = $this->gateway->updateMerchantAccount();
+        $this->assertInstanceOf('Omnipay\Braintree\Message\UpdateMerchantAccountRequest', $request);
+    }
+
+    public function testCreatePaymentMethod()
+    {
+        $request = $this->gateway->createPaymentMethod();
+        $this->assertInstanceOf('Omnipay\Braintree\Message\CreatePaymentMethodRequest', $request);
+    }
+
+    public function testDeletePaymentMethod()
+    {
+        $request = $this->gateway->deletePaymentMethod();
+        $this->assertInstanceOf('Omnipay\Braintree\Message\DeletePaymentMethodRequest', $request);
+    }
+
+    public function testUpdatePaymentMethod()
+    {
+        $request = $this->gateway->updatePaymentMethod();
+        $this->assertInstanceOf('Omnipay\Braintree\Message\UpdatePaymentMethodRequest', $request);
+    }
+
     public function testPurchase()
     {
         $request = $this->gateway->purchase(array('amount' => '10.00'));

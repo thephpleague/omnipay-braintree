@@ -115,11 +115,83 @@ class Gateway extends AbstractGateway
 
     /**
      * @param array $parameters
+     * @return Message\CreateCustomerRequest
+     */
+    public function createCustomer(array $parameters = array())
+    {
+        return $this->createRequest('\Omnipay\Braintree\Message\CreateCustomerRequest', $parameters);
+    }
+
+    /**
+     * @param array $parameters
+     * @return Message\DeleteCustomerRequest
+     */
+    public function deleteCustomer(array $parameters = array())
+    {
+        return $this->createRequest('\Omnipay\Braintree\Message\DeleteCustomerRequest', $parameters);
+    }
+
+    /**
+     * @param array $parameters
+     * @return Message\UpdateCustomerRequest
+     */
+    public function updateCustomer(array $parameters = array())
+    {
+        return $this->createRequest('\Omnipay\Braintree\Message\UpdateCustomerRequest', $parameters);
+    }
+
+    /**
+     * @param array $parameters
      * @return Message\PurchaseRequest
      */
     public function find(array $parameters = array())
     {
         return $this->createRequest('\Omnipay\Braintree\Message\FindRequest', $parameters);
+    }
+
+    /**
+     * @param array $parameters
+     * @return Message\CreateMerchantAccountRequest
+     */
+    public function createMerchantAccount(array $parameters = array())
+    {
+        return $this->createRequest('\Omnipay\Braintree\Message\CreateMerchantAccountRequest', $parameters);
+    }
+
+    /**
+     * @param array $parameters
+     * @return Message\UpdateMerchantAccountRequest
+     */
+    public function updateMerchantAccount(array $parameters = array())
+    {
+        return $this->createRequest('\Omnipay\Braintree\Message\UpdateMerchantAccountRequest', $parameters);
+    }
+
+    /**
+     * @param array $parameters
+     * @return Message\CreatePaymentMethodRequest
+     */
+    public function createPaymentMethod(array $parameters = array())
+    {
+        return $this->createRequest('\Omnipay\Braintree\Message\CreatePaymentMethodRequest', $parameters);
+    }
+
+    /**
+     * @param array $parameters
+     * @return Message\DeletePaymentMethodRequest
+     */
+    public function deletePaymentMethod(array $parameters = array())
+    {
+        return $this->createRequest('\Omnipay\Braintree\Message\DeletePaymentMethodRequest', $parameters);
+    }
+
+    /**
+     * @param array $parameters
+     * @return Message\UpdatePaymentMethodRequest
+     */
+    public function updatePaymentMethod(array $parameters = array())
+    {
+        return $this->createRequest('\Omnipay\Braintree\Message\UpdatePaymentMethodRequest', $parameters);
     }
 
     /**
