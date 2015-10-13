@@ -11,6 +11,10 @@ class CustomerResponse extends Response
 {
     public function getCustomerData()
     {
-        return $this->data->customer;
+        if (isset($this->data->customer)) {
+            return $this->data->customer;
+        }
+
+        return null;
     }
 }
