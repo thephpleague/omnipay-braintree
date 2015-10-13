@@ -6,7 +6,7 @@ use Omnipay\Common\Message\ResponseInterface;
 /**
  * Authorize Request
  *
- * @method DeleteCustomerRequest send()
+ * @method Response send()
  */
 class DeleteCustomerRequest extends AbstractRequest
 {

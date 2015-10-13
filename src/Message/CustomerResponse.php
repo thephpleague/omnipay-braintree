@@ -5,7 +5,7 @@ namespace Omnipay\Braintree\Message;
 use Omnipay\Common\Message\RequestInterface;
 
 /**
- * Response
+ * CustomerResponse
  */
 class CustomerResponse extends Response
 {
