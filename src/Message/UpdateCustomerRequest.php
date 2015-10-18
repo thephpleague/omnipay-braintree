@@ -6,7 +6,7 @@ use Omnipay\Common\Message\ResponseInterface;
 /**
  * Authorize Request
  *
- * @method UpdateCustomerRequest send()
+ * @method CustomerResponse send()
  */
 class UpdateCustomerRequest extends AbstractRequest
 {

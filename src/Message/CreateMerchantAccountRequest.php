@@ -6,7 +6,7 @@ use Omnipay\Common\Message\ResponseInterface;
 /**
  * Merchant account Request
  *
- * @method CreateCustomerRequest send()
+ * @method Response send()
  */
 class CreateMerchantAccountRequest extends AbstractMerchantAccountRequest
 {

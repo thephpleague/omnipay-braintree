@@ -6,7 +6,7 @@ use Omnipay\Common\Message\AbstractResponse;
 use Omnipay\Common\Message\RequestInterface;
 
 /**
- * Response
+ * ClientTokenResponse
  */
 class ClientTokenResponse extends AbstractResponse
 {

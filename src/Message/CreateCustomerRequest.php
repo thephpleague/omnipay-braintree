@@ -6,7 +6,7 @@ use Omnipay\Common\Message\ResponseInterface;
 /**
  * Authorize Request
  *
- * @method CreateCustomerRequest send()
+ * @method CustomerResponse send()
  */
 class CreateCustomerRequest extends AbstractRequest
 {
@@ -19,7 +19,7 @@ class CreateCustomerRequest extends AbstractRequest
      * Send the request with specified data
      *
      * @param  mixed $data The data to send
-     * @return ResponseInterface
+     * @return CustomerResponse
      */
     public function sendData($data)
     {
