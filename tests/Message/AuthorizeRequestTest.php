@@ -23,10 +23,10 @@ class AuthorizeRequestTest extends TestCase
                 'transactionId' => '684',
                 'testMode' => false,
                 'taxExempt' => false,
-                'card' => [
+                'card' => array(
                     'firstName' => 'Kayla',
                     'shippingCompany' => 'League',
-                ]
+                )
             )
         );
     }
@@ -59,10 +59,10 @@ class AuthorizeRequestTest extends TestCase
                 'transactionId' => '684',
                 'testMode' => false,
                 'taxExempt' => false,
-                'card' => [
+                'card' => array(
                     'firstName' => 'Kayla',
                     'shippingCompany' => 'League',
-                ],
+                ),
                 'paymentMethodToken' => 'fake-token-123'
             )
         );
@@ -80,10 +80,10 @@ class AuthorizeRequestTest extends TestCase
                 'transactionId' => '684',
                 'testMode' => false,
                 'taxExempt' => false,
-                'card' => [
+                'card' => array(
                     'firstName' => 'Kayla',
                     'shippingCompany' => 'League',
-                ],
+                ),
                 'paymentMethodNonce' => 'abc123'
             )
         );
