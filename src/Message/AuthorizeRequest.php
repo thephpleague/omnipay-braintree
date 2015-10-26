@@ -15,7 +15,7 @@ class AuthorizeRequest extends AbstractRequest
     {
         $this->validate('amount');
 
-        $data = [
+        $data = array(
             'amount' => $this->getAmount(),
             'billingAddressId' => $this->getBillingAddressId(),
             'channel' => $this->getChannel(),
@@ -31,7 +31,7 @@ class AuthorizeRequest extends AbstractRequest
             'shippingAddressId' => $this->getShippingAddressId(),
             'taxAmount' => $this->getTaxAmount(),
             'taxExempt' => $this->getTaxExempt(),
-        ];
+        );
 
         // special validation
         if ($this->getPaymentMethodToken()) {

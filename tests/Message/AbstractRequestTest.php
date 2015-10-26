@@ -38,7 +38,7 @@ class AbstractRequestTest extends TestCase
             array('privateKey', 'abc123'),
             array('billingAddressId', 'abc123'),
             array('channel', 'abc123'),
-            array('customFields', ['a' => 'b']),
+            array('customFields', array('a' => 'b')),
             array('customerId', 'abc123'),
             array('descriptor', array('a' => 'b')),
             array('deviceData', 'abc123'),
@@ -129,7 +129,7 @@ class AbstractRequestTest extends TestCase
 
     public function testOptionData()
     {
-        $options = [
+        $options = array(
             'addBillingAddressToPaymentMethod' => false,
             'makeDefault'                      => true,
             'failOnDuplicatePaymentMethod'     => true,
@@ -139,7 +139,7 @@ class AbstractRequestTest extends TestCase
             'storeShippingAddressInVault'      => true,
             'verifyCard'                       => false,
             'verificationMerchantAccountId'    => true,
-        ];
+        );
         $this->request->initialize($options);
         $data = $this->request->getOptionData();
 
