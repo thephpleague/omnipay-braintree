@@ -31,8 +31,12 @@ This gateway supports purchase through a token (payment nonce) only. You can gen
 ```php
 $clientToken = $gateway->clientToken()->send()->getToken();
 ```
+The generated token will come in handy when using the Javascript SDK to display the [Drop-in Payment UI](https://developers.braintreepayments.com/guides/drop-in/javascript/v2) or [hosted fields](https://developers.braintreepayments.com/guides/hosted-fields/setup-and-integration/javascript/v2) used to collect payment method information.
 
-You can use the Braintree JavaScript client to generate the token for your CreditCard data.
+On successful submission of the payment form, a one-time-use token that references a payment method provided by your customer, such as a credit card or PayPal account is dynamically added to the form as the value of a hidden `payment_method_nonce` input field.
+
+Use the `payment_method_nonce` to process your customer order like so:
+
 
 ```php
 $response = $gateway->purchase([
