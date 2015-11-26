@@ -119,7 +119,7 @@ class Gateway extends AbstractGateway
      */
     public function findCustomer($id)
     {
-        return $this->createRequest('\Omnipay\Braintree\Message\FindCustomerRequest', ['customerId' => $id]);
+        return $this->createRequest('\Omnipay\Braintree\Message\FindCustomerRequest', array('customerId' => $id));
     }
 
     /**
