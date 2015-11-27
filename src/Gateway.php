@@ -229,4 +229,14 @@ class Gateway extends AbstractGateway
     {
         return $this->createRequest('\Omnipay\Braintree\Message\VoidRequest', $parameters);
     }
+
+    /**
+     * @param array $parameters
+     *
+     * @return \Omnipay\Common\Message\AbstractRequest
+     */
+    public function createSubscription(array $parameters = array())
+    {
+        return $this->createRequest('\Omnipay\Braintree\Message\CreateSubscriptionRequest', $parameters);
+    }
 }
