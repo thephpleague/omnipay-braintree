@@ -55,7 +55,7 @@ repository.
 $customer = $gateway->createCustomer([
     'customerData' => [
         'id' => 1,
-        'firstName' => 'John",
+        'firstName' => 'John',
         'lastName' => 'Doe'
     ]
 ])->send();
@@ -75,7 +75,7 @@ You can find full list of options [here](https://developers.braintreepayments.co
 $subscription = $gateway->createSubscription([
     'subscriptionData' => [
         'paymentMethodToken' => 'payment_method_token',
-        'planId' => 'weekly",
+        'planId' => 'weekly',
         'price' => '30.00'
     ]
 ])->send();
