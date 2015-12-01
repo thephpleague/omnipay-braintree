@@ -24,6 +24,13 @@ class GatewayTest extends GatewayTestCase
         );
     }
 
+    public function testFindCustomer()
+    {
+        $request = $this->gateway->findCustomer(1);
+        $this->assertInstanceOf('\Omnipay\Braintree\Message\FindCustomerRequest', $request);
+        $this->assertEquals(1, $request->getCustomerId());
+    }
+
     public function testAuthorize()
     {
         $request = $this->gateway->authorize(array('amount' => '10.00'));
