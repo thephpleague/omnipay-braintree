@@ -62,7 +62,7 @@ $customer = $gateway->createCustomer([
 ```
 You can find full list of options [here](https://developers.braintreepayments.com/reference/request/customer/create/php).
 
-###Find Customer (By id)
+###Find customer (By id)
 
 ```php
 $customer = $gateway->findCustomer(1)->send();
@@ -81,6 +81,23 @@ $subscription = $gateway->createSubscription([
 ])->send();
 ```
 You can find full list of options [here](https://developers.braintreepayments.com/reference/request/subscription/create/php)
+
+###Cancel subscription
+
+```php
+$subscription = $gateway->cancelSubscription('id')->send();
+```
+You can find full list of options [here](https://developers.braintreepayments.com/reference/request/subscription/cancel/php)
+
+###Parse webhook notification
+
+```php
+$notification = $gateway->parseNotification([
+    'bt_signature' => 'signature',
+    'bt_payload' => 'payload'
+])->send();
+```
+You can find full list of options [here](https://developers.braintreepayments.com/guides/webhooks/parse/php)
 
 ## Support
 
