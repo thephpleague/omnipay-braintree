@@ -93,11 +93,81 @@ class AuthorizeRequestTest extends TestCase
         $this->assertArrayNotHasKey('paymentMethodToken', $data);
     }
 
+    public function testSubMerchantSale()
+    {
+        $this->request->initialize(
+            array(
+                'amount' => '100.00',
+                'holdInEscrow' => true,
+                'merchantAccountId' => 'blue_ladders_store',
+                'paymentMethodToken' => 'fake-token-123',
+                'serviceFeeAmount' => '10.00',
+            )
+        );
+
+        $data = $this->request->getData();
+        $this->assertTrue($data['options']['holdInEscrow']);
+        $this->assertSame('blue_ladders_store', $data['merchantAccountId']);
+        $this->assertSame('10.00', $data['serviceFeeAmount']);
+    }
+
     public function testSandboxEnvironment()
     {
         $this->request->setTestMode(true);
 
         $this->request->configure();
         $this->assertSame('sandbox', \Braintree_Configuration::environment());
+    }
+
+    public function testServiceFeeAmount()
+    {
+        $this->assertSame($this->request, $this->request->setServiceFeeAmount('2.00'));
+        $this->assertSame('2.00', $this->request->getServiceFeeAmount());
+    }
+
+    public function testServiceFeeAmountWithFloat()
+    {
+        $this->assertSame($this->request, $this->request->setServiceFeeAmount(2.0));
+        $this->assertSame('2.00', $this->request->getServiceFeeAmount());
+    }
+
+    public function testServiceFeeAmountWithEmpty()
+    {
+        $this->assertSame($this->request, $this->request->setServiceFeeAmount(null));
+        $this->assertSame(null, $this->request->getServiceFeeAmount());
+    }
+
+    public function testGetServiceFeeAmountNoDecimals()
+    {
+        $this->assertSame($this->request, $this->request->setCurrency('JPY'));
+        $this->assertSame($this->request, $this->request->setServiceFeeAmount('1366'));
+        $this->assertSame('1366', $this->request->getServiceFeeAmount());
+    }
+
+    public function testGetServiceFeeAmountNoDecimalsRounding()
+    {
+        $this->assertSame($this->request, $this->request->setServiceFeeAmount('136.5'));
+        $this->assertSame($this->request, $this->request->setCurrency('JPY'));
+        $this->assertSame('137', $this->request->getServiceFeeAmount());
+    }
+
+    /**
+     * @expectedException \Omnipay\Common\Exception\InvalidRequestException
+     */
+    public function testServiceFeeAmountWithIntThrowsException()
+    {
+        // ambiguous value, avoid errors upgrading from v0.9
+        $this->assertSame($this->request, $this->request->setServiceFeeAmount(10));
+        $this->request->getServiceFeeAmount();
+    }
+
+    /**
+     * @expectedException \Omnipay\Common\Exception\InvalidRequestException
+     */
+    public function testServiceFeeAmountWithIntStringThrowsException()
+    {
+        // ambiguous value, avoid errors upgrading from v0.9
+        $this->assertSame($this->request, $this->request->setServiceFeeAmount('10'));
+        $this->request->getServiceFeeAmount();
     }
 }

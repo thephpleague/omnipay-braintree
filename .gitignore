@@ -1,3 +1,2 @@
-.idea/*
-vendor/*
-public/*
+composer.lock
+vendor/

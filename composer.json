@@ -32,7 +32,7 @@
     },
     "require": {
         "omnipay/common": "~2.0",
-        "braintree/braintree_php": "^2.0"
+        "braintree/braintree_php": "^2.39|^3.0"
     },
     "require-dev": {
         "omnipay/tests": "~2.0"
