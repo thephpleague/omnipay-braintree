@@ -4,6 +4,7 @@ namespace Omnipay\Braintree\Message;
 
 use Braintree_Gateway;
 use Guzzle\Http\ClientInterface;
+use Omnipay\Common\Exception\InvalidRequestException;
 use Symfony\Component\HttpFoundation\Request as HttpRequest;
 use Omnipay\Common\Message\AbstractRequest as BaseAbstractRequest;
 
@@ -207,6 +208,29 @@ abstract class AbstractRequest extends BaseAbstractRequest
     public function setHoldInEscrow($value)
     {
         return $this->setParameter('holdInEscrow', (bool) $value);
+    }
+
+    public function getServiceFeeAmount()
+    {
+        $amount = $this->getParameter('serviceFeeAmount');
+        if ($amount !== null) {
+            if (!is_float($amount) &&
+                $this->getCurrencyDecimalPlaces() > 0 &&
+                false === strpos((string)$amount, '.')
+            ) {
+                throw new InvalidRequestException(
+                    'Please specify amount as a string or float, ' .
+                    'with decimal places (e.g. \'10.00\' to represent $10.00).'
+                );
+            }
+
+            return $this->formatCurrency($amount);
+        }
+    }
+
+    public function setServiceFeeAmount($value)
+    {
+        return $this->setParameter('serviceFeeAmount', $value);
     }
 
     public function getStoreInVault()
