@@ -138,17 +138,22 @@ class GatewayTest extends GatewayTestCase
 
     public function testParseNotification()
     {
-        $xml = '<notification></notification>';
-        $payload = base64_encode($xml);
-        $signature = \Braintree_Digest::hexDigestSha1(\Braintree_Configuration::privateKey(), $payload);
-        $gatewayMock = $this->buildGatewayMock($payload);
-        $gateway = new Gateway($this->getHttpClient(), $this->getHttpRequest(), $gatewayMock);
-        $params = array(
-            'bt_signature' => $payload.'|'.$signature,
-            'bt_payload' => $payload
-        );
-        $request = $gateway->parseNotification($params);
-        $this->assertInstanceOf('\Braintree_WebhookNotification', $request);
+        /* Webhook notifications need PHP >= 5.4 */
+        if (PHP_VERSION >= '5.4') {
+            $xml = '<notification></notification>';
+            $payload = base64_encode($xml);
+            $signature = \Braintree_Digest::hexDigestSha1(\Braintree_Configuration::privateKey(), $payload);
+            $gatewayMock = $this->buildGatewayMock($payload);
+            $gateway = new Gateway($this->getHttpClient(), $this->getHttpRequest(), $gatewayMock);
+            $params = array(
+                'bt_signature' => $payload.'|'.$signature,
+                'bt_payload' => $payload
+            );
+            $request = $gateway->parseNotification($params);
+            $this->assertInstanceOf('\Braintree_WebhookNotification', $request);
+        } else {
+            $this->assertTrue(true);
+        }
     }
 
     /**
