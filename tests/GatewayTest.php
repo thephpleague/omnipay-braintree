@@ -3,7 +3,6 @@
 namespace Omnipay\Braintree;
 
 use Omnipay\Tests\GatewayTestCase;
-use Omnipay\Common\CreditCard;
 
 class GatewayTest extends GatewayTestCase
 {
@@ -123,5 +122,57 @@ class GatewayTest extends GatewayTestCase
     {
         $request = $this->gateway->clientToken(array());
         $this->assertInstanceOf('Omnipay\Braintree\Message\ClientTokenRequest', $request);
+    }
+
+    public function testCreateSubscription()
+    {
+        $request = $this->gateway->createSubscription(array());
+        $this->assertInstanceOf('Omnipay\Braintree\Message\CreateSubscriptionRequest', $request);
+    }
+
+    public function testCancelSubscription()
+    {
+        $request = $this->gateway->cancelSubscription('1');
+        $this->assertInstanceOf('Omnipay\Braintree\Message\CancelSubscriptionRequest', $request);
+    }
+
+    public function testParseNotification()
+    {
+        $xml = '<notification></notification>';
+        $payload = base64_encode($xml);
+        $signature = \Braintree_Digest::hexDigestSha1(\Braintree_Configuration::privateKey(), $payload);
+        $gatewayMock = $this->buildGatewayMock($payload);
+        $gateway = new Gateway($this->getHttpClient(), $this->getHttpRequest(), $gatewayMock);
+        $params = array(
+            'bt_signature' => $payload.'|'.$signature,
+            'bt_payload' => $payload
+        );
+        $request = $gateway->parseNotification($params);
+        $this->assertInstanceOf('\Braintree_WebhookNotification', $request);
+    }
+
+    /**
+     * @param $payload
+     *
+     * @return \Braintree_Gateway
+     */
+    protected function buildGatewayMock($payload)
+    {
+        $configuration = $this->getMockBuilder('\Braintree_Configuration')
+            ->disableOriginalConstructor()
+            ->setMethods(array(
+                'assertHasAccessTokenOrKeys'
+            ))
+            ->getMock();
+        $configuration->expects($this->any())
+            ->method('assertHasAccessTokenOrKeys')
+            ->will($this->returnValue(null));
+
+
+
+        $configuration->setPublicKey($payload);
+
+        \Braintree_Configuration::$global = $configuration;
+        return \Braintree_Configuration::gateway();
     }
 }
