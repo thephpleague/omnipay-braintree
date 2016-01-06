@@ -30,7 +30,7 @@ abstract class AbstractRequest extends BaseAbstractRequest
     {
         $this->braintree = $braintree;
 
-          parent::__construct($httpClient, $httpRequest);
+        parent::__construct($httpClient, $httpRequest);
     }
 
     /**
