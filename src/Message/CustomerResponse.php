@@ -2,8 +2,6 @@
 
 namespace Omnipay\Braintree\Message;
 
-use Omnipay\Common\Message\RequestInterface;
-
 /**
  * CustomerResponse
  */
