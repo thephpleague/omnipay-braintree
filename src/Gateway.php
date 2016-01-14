@@ -263,5 +263,13 @@ class Gateway extends AbstractGateway
             $parameters['bt_signature'],
             $parameters['bt_payload']
         );
+    
+    /**
+     * @param array $parameters
+     * @return Message\FindRequest
+     */
+    public function fetchTransaction(array $parameters = array())
+    {
+        return $this->createRequest('\Omnipay\Braintree\Message\FindRequest', $parameters);
     }
 }
