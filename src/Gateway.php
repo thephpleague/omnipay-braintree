@@ -229,4 +229,39 @@ class Gateway extends AbstractGateway
     {
         return $this->createRequest('\Omnipay\Braintree\Message\VoidRequest', $parameters);
     }
+
+    /**
+     * @param array $parameters
+     *
+     * @return \Omnipay\Common\Message\AbstractRequest
+     */
+    public function createSubscription(array $parameters = array())
+    {
+        return $this->createRequest('\Omnipay\Braintree\Message\CreateSubscriptionRequest', $parameters);
+    }
+
+    /**
+     * @param string $subscriptionId
+     *
+     * @return \Omnipay\Common\Message\AbstractRequest
+     */
+    public function cancelSubscription($subscriptionId)
+    {
+        return $this->createRequest('\Omnipay\Braintree\Message\CancelSubscriptionRequest', array('id' => $subscriptionId));
+    }
+
+    /**
+     * @param array $parameters
+     *
+     * @return \Braintree_WebhookNotification
+     *
+     * @throws \Braintree_Exception_InvalidSignature
+     */
+    public function parseNotification(array $parameters = array())
+    {
+        return \Braintree_WebhookNotification::parse(
+            $parameters['bt_signature'],
+            $parameters['bt_payload']
+        );
+    }
 }

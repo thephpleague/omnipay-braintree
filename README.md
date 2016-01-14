@@ -48,6 +48,57 @@ $response = $gateway->purchase([
 For general usage instructions, please see the main [Omnipay](https://github.com/thephpleague/omnipay)
 repository.
 
+## Driver specific usage
+### Create customer
+
+```php
+$customer = $gateway->createCustomer([
+    'customerData' => [
+        'id' => 1,
+        'firstName' => 'John',
+        'lastName' => 'Doe'
+    ]
+])->send();
+```
+You can find full list of options [here](https://developers.braintreepayments.com/reference/request/customer/create/php).
+
+###Find customer (By id)
+
+```php
+$customer = $gateway->findCustomer(1)->send();
+```
+You can find full list of options [here](https://developers.braintreepayments.com/reference/request/customer/find/php)
+
+###Create subscription
+
+```php
+$subscription = $gateway->createSubscription([
+    'subscriptionData' => [
+        'paymentMethodToken' => 'payment_method_token',
+        'planId' => 'weekly',
+        'price' => '30.00'
+    ]
+])->send();
+```
+You can find full list of options [here](https://developers.braintreepayments.com/reference/request/subscription/create/php)
+
+###Cancel subscription
+
+```php
+$subscription = $gateway->cancelSubscription('id')->send();
+```
+You can find full list of options [here](https://developers.braintreepayments.com/reference/request/subscription/cancel/php)
+
+###Parse webhook notification
+
+```php
+$notification = $gateway->parseNotification([
+    'bt_signature' => 'signature',
+    'bt_payload' => 'payload'
+])->send();
+```
+You can find full list of options [here](https://developers.braintreepayments.com/guides/webhooks/parse/php)
+
 ## Support
 
 If you are having general issues with Omnipay, we suggest posting on
