@@ -263,7 +263,8 @@ class Gateway extends AbstractGateway
             $parameters['bt_signature'],
             $parameters['bt_payload']
         );
-    
+    }
+
     /**
      * @param array $parameters
      * @return Message\FindRequest
