@@ -251,6 +251,14 @@ class Gateway extends AbstractGateway
     }
 
     /**
+     * @return \Omnipay\Common\Message\PlansRequest
+     */
+    public function plans()
+    {
+        return $this->createRequest('\Omnipay\Braintree\Message\PlanRequest', array());
+    }
+
+    /**
      * @param array $parameters
      *
      * @return \Braintree_WebhookNotification
