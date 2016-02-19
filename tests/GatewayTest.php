@@ -106,6 +106,13 @@ class GatewayTest extends GatewayTestCase
         $this->assertSame('10.00', $request->getAmount());
     }
 
+    public function testReleaseFromEscrow()
+    {
+        $request = $this->gateway->releaseFromEscrow(array('transactionId' => 'abc123'));
+        $this->assertInstanceOf('Omnipay\Braintree\Message\ReleaseFromEscrowRequest', $request);
+        $this->assertSame('abc123', $request->getTransactionId());
+    }
+
     public function testVoid()
     {
         $request = $this->gateway->void();
