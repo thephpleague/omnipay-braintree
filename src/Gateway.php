@@ -225,6 +225,15 @@ class Gateway extends AbstractGateway
      * @param array $parameters
      * @return Message\PurchaseRequest
      */
+    public function releaseFromEscrow(array $parameters = array())
+    {
+        return $this->createRequest('\Omnipay\Braintree\Message\ReleaseFromEscrowRequest', $parameters);
+    }
+
+    /**
+     * @param array $parameters
+     * @return Message\PurchaseRequest
+     */
     public function void(array $parameters = array())
     {
         return $this->createRequest('\Omnipay\Braintree\Message\VoidRequest', $parameters);
