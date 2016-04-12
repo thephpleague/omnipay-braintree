@@ -14,10 +14,12 @@ class CreatePaymentMethodRequest extends AbstractRequest
     public function getData()
     {
         $data = array(
-            'cardholderName' => $this->getCardholderName(),
             'customerId' => $this->getCustomerId(),
             'paymentMethodNonce' => $this->getToken(),
         );
+        if ($cardholderName = $this->getCardholderName()) {
+            $data['cardholderName'] = $cardholderName;
+        }
         $data += $this->getOptionData();
 
         return $data;

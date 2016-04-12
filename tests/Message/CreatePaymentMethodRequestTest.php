@@ -6,15 +6,10 @@ use Omnipay\Tests\TestCase;
 
 class CreatePaymentMethodRequestTest extends TestCase
 {
-    /**
-     * @var CreatePaymentMethodRequest
-     */
-    private $request;
-
-    public function setUp()
+    public function testGetData()
     {
-        $this->request = new CreatePaymentMethodRequest($this->getHttpClient(), $this->getHttpRequest(), \Braintree_Configuration::gateway());
-        $this->request->initialize(
+        $request = $this->createPaymentMethodRequest();
+        $request->initialize(
             array(
                 'customerId' => '4815162342',
                 'token' => 'abc123',
@@ -22,10 +17,7 @@ class CreatePaymentMethodRequestTest extends TestCase
                 'verificationMerchantAccountId' => '123581321',
             )
         );
-    }
 
-    public function testGetData()
-    {
         $expectedData = array(
             'customerId' => '4815162342',
             'paymentMethodNonce' => 'abc123',
@@ -34,6 +26,39 @@ class CreatePaymentMethodRequestTest extends TestCase
                 'verificationMerchantAccountId' => '123581321',
             )
         );
-        $this->assertSame($expectedData, $this->request->getData());
+        $this->assertSame($expectedData, $request->getData());
+    }
+
+    public function testGetDataWithCardholderName()
+    {
+        $request = $this->createPaymentMethodRequest();
+        $request->initialize(
+            array(
+                'customerId' => '4815162342',
+                'token' => 'abc123',
+                'cardholderName' => 'John Yolo',
+                'verifyCard' => true,
+                'verificationMerchantAccountId' => '123581321',
+            )
+        );
+
+        $expectedData = array(
+            'customerId' => '4815162342',
+            'paymentMethodNonce' => 'abc123',
+            'cardholderName' => 'John Yolo',
+            'options' => array(
+                'verifyCard' => true,
+                'verificationMerchantAccountId' => '123581321',
+            )
+        );
+        $this->assertSame($expectedData, $request->getData());
+    }
+
+    /**
+     * @return CreatePaymentMethodRequest
+     */
+    private function createPaymentMethodRequest()
+    {
+        return new CreatePaymentMethodRequest($this->getHttpClient(), $this->getHttpRequest(), \Braintree_Configuration::gateway());
     }
 }
