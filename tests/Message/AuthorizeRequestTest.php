@@ -87,7 +87,12 @@ class AuthorizeRequestTest extends TestCase
                 'paymentMethodNonce' => 'abc123'
             )
         );
-    
+
+        $data = $this->request->getData();
+        $this->assertSame('abc123', $data['paymentMethodNonce']);
+        $this->assertArrayNotHasKey('paymentMethodToken', $data);
+    }
+
     public function testCustomerId()
     {
         $this->request->initialize(
@@ -106,12 +111,8 @@ class AuthorizeRequestTest extends TestCase
 
         $data = $this->request->getData();
         $this->assertSame('abc123', $data['customerId']);
-        $this->assertArrayNotHasKey('customerId', $data);
-    }
-
-        $data = $this->request->getData();
-        $this->assertSame('abc123', $data['paymentMethodNonce']);
         $this->assertArrayNotHasKey('paymentMethodToken', $data);
+        $this->assertArrayNotHasKey('paymentMethodNonce', $data);
     }
 
     public function testSubMerchantSale()
