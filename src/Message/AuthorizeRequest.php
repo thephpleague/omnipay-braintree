@@ -48,6 +48,12 @@ class AuthorizeRequest extends AbstractRequest
             return ! is_null($value);
         });
 
+        if ($this->getCardholderName()) {
+            $data['creditCard'] = array(
+                'cardholderName' => $this->getCardholderName(),
+            );
+        }
+
         $data += $this->getOptionData();
         $data += $this->getCardData();
         $data['options']['submitForSettlement'] = false;
@@ -66,5 +72,25 @@ class AuthorizeRequest extends AbstractRequest
         $response = $this->braintree->transaction()->sale($data);
 
         return $this->createResponse($response);
+    }
+
+    /**
+     * [optional] The cardholder name associated with the credit card. 175 character maximum.
+     * Required for iOS integration because its missing in "tokenizeCard" function there.
+     * See: https://developers.braintreepayments.com/reference/request/transaction/sale/php#credit_card.cardholder_name
+     *
+     * @param $value
+     * @return mixed
+     */
+    public function setCardholderName($value)
+    {
+        $cardholderName = trim($value);
+        $cardholderName = strlen($cardholderName)>0 ? $cardholderName : null;
+        return $this->setParameter('cardholderName', $cardholderName);
+    }
+
+    public function getCardholderName()
+    {
+        return $this->getParameter('cardholderName');
     }
 }
