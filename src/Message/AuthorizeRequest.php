@@ -37,10 +37,12 @@ class AuthorizeRequest extends AbstractRequest
         // special validation
         if ($this->getPaymentMethodToken()) {
             $data['paymentMethodToken'] = $this->getPaymentMethodToken();
-        } elseif($this->getToken()) {
+        } elseif ($this->getToken()) {
             $data['paymentMethodNonce'] = $this->getToken();
+        } elseif ($this->getCustomerId()) {
+            $data['customerId'] = $this->getCustomerId();
         } else {
-            throw new InvalidRequestException("The token (payment nonce) or paymentMethodToken field should be set.");
+            throw new InvalidRequestException("The token (payment nonce), paymentMethodToken or customerId field should be set.");
         }
 
         // Remove null values
