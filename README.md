@@ -69,6 +69,31 @@ $customer = $gateway->findCustomer(1)->send();
 ```
 You can find full list of options [here](https://developers.braintreepayments.com/reference/request/customer/find/php)
 
+### Create payment method
+
+```php
+$method = $gateway->createPaymentMethod([
+    'customerId' => $user->getId(),
+    'paymentMethodNonce' => 'paymentnonce',
+    'options' => [
+        'verifyCard' => true
+    ]
+]);
+```
+You can find full list of options [here](https://developers.braintreepayments.com/reference/request/payment-method/create/php).
+
+### Update payment method
+
+```php
+$method = $gateway->updatePaymentMethod([
+    'paymentMethodToken' => 'token123',
+    'options' => [
+        'paymentMethodNonce' => 'paymentnonce'
+    ]
+]);
+```
+You can find full list of options [here](https://developers.braintreepayments.com/reference/request/payment-method/update/php).
+
 ###Create subscription
 
 ```php
