@@ -15,7 +15,11 @@ class UpdatePaymentMethodRequest extends AbstractRequest
     {
         $data = array();
         $data['token'] = $this->getToken();
-        $data['parameters'] = $this->parameters->get('paymentMethodOptions');
+        $options = $this->parameters->get('paymentMethodOptions');
+
+        if (null !== $options) {
+            $data['options'] = $options;
+        }
 
         return $data;
     }
@@ -28,7 +32,7 @@ class UpdatePaymentMethodRequest extends AbstractRequest
      */
     public function sendData($data)
     {
-        $response = $this->braintree->paymentMethod()->update($data['token'], $data['parameters']);
+        $response = $this->braintree->paymentMethod()->update($data['token'], $data['options']);
 
         return $this->createResponse($response);
     }

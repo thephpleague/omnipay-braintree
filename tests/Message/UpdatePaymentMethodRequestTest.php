@@ -20,16 +20,16 @@ class UpdatePaymentMethodRequestTest extends TestCase
     {
         $this->request->initialize(
             array(
-                'token' => 'abcd1234',
-                'makeDefault' => true,
+                'paymentMethodToken' => 'abcd1234',
+                'options' => array(
+                    'makeDefault' => true,
+                )
             )
         );
         $expected = array(
             'token' => 'abcd1234',
-            'parameters' => array(
-                'options' => array(
-                    'makeDefault' => true,
-                ),
+            'options' => array(
+                'makeDefault' => true,
             ),
         );
         $this->assertSame($expected, $this->request->getData());
@@ -39,7 +39,7 @@ class UpdatePaymentMethodRequestTest extends TestCase
     {
         $this->request->initialize(
             array(
-                'token' => 'abcd1234',
+                'paymentMethodToken' => 'abcd1234',
             )
         );
         $expected = array(
