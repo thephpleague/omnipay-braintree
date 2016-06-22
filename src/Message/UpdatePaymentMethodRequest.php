@@ -13,12 +13,12 @@ class UpdatePaymentMethodRequest extends AbstractRequest
 {
     public function getData()
     {
-        $parameters = array();
-        $parameters += $this->getOptionData();
-
+        $data = array();
         $data['token'] = $this->getToken();
-        if (!empty($parameters)) {
-            $data['parameters'] = $parameters;
+        $options = $this->parameters->get('paymentMethodOptions');
+
+        if (null !== $options) {
+            $data['options'] = $options;
         }
 
         return $data;
@@ -32,8 +32,28 @@ class UpdatePaymentMethodRequest extends AbstractRequest
      */
     public function sendData($data)
     {
-        $response = $this->braintree->paymentMethod()->update($data['token'], $data['parameters']);
+        $response = $this->braintree->paymentMethod()->update($data['token'], $data['options']);
 
         return $this->createResponse($response);
+    }
+
+    /**
+     * @param string $value
+     *
+     * @return \Omnipay\Common\Message\AbstractRequest
+     */
+    public function setPaymentMethodToken($value)
+    {
+        return $this->setParameter('token', $value);
+    }
+
+    /**
+     * @param array $options
+     *
+     * @return \Omnipay\Common\Message\AbstractRequest
+     */
+    public function setOptions(array $options = array())
+    {
+        return $this->setParameter('paymentMethodOptions', $options);
     }
 }
