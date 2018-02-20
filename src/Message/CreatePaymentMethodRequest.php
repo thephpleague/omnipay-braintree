@@ -20,6 +20,24 @@ class CreatePaymentMethodRequest extends AbstractRequest
         if ($cardholderName = $this->getCardholderName()) {
             $data['cardholderName'] = $cardholderName;
         }
+
+        if ($this->getStreetAddress()!=='') {
+            $data['billingAddress'] = [];
+            $data['billingAddress']['streetAddress'] = $this->getStreetAddress();
+        }
+        if ($this->getLocality()!=='') {
+            $data['billingAddress']['locality'] = $this->getLocality();
+        }
+        if ($this->getPostalCode()!=='') {
+            $data['billingAddress']['postalCode'] = $this->getPostalCode();
+        }
+        if ($this->getRegion()!=='') {
+            $data['billingAddress']['region'] = $this->getRegion();
+        }
+        if ($this->getCountryCodeAlpha2()!=='') {
+            $data['billingAddress']['countryCodeAlpha2'] = $this->getCountryCodeAlpha2();
+        }
+
         $data += $this->getOptionData();
 
         return $data;
@@ -56,5 +74,58 @@ class CreatePaymentMethodRequest extends AbstractRequest
     public function getCardholderName()
     {
         return $this->getParameter('cardholderName');
+    }
+
+    /*
+     * Required for AVS Rules
+    */
+    public function getStreetAddress()
+    {
+        return $this->getParameter('streetAddress');
+    }
+
+    public function setStreetAddress($value)
+    {
+        return $this->setParameter('streetAddress', $value);
+    }
+
+    public function getLocality()
+    {
+        return $this->getParameter('locality');
+    }
+
+    public function setLocality($value)
+    {
+        return $this->setParameter('locality', $value);
+    }
+
+    public function getPostalCode()
+    {
+        return $this->getParameter('postalCode');
+    }
+
+    public function setPostalCode($value)
+    {
+        return $this->setParameter('postalCode', $value);
+    }
+
+    public function getRegion()
+    {
+        return $this->getParameter('region');
+    }
+
+    public function setRegion($value)
+    {
+        return $this->setParameter('region', $value);
+    }
+
+    public function getCountryCodeAlpha2()
+    {
+        return $this->getParameter('countryCodeAlpha2');
+    }
+
+    public function setCountryCodeAlpha2($value)
+    {
+        return $this->setParameter('countryCodeAlpha2', $value);
     }
 }
