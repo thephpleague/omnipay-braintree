@@ -3,7 +3,7 @@
 namespace Omnipay\Braintree\Message;
 
 use Braintree_Gateway;
-use Guzzle\Http\ClientInterface;
+use Omnipay\Common\Http\ClientInterface;
 use Omnipay\Common\Exception\InvalidRequestException;
 use Symfony\Component\HttpFoundation\Request as HttpRequest;
 use Omnipay\Common\Message\AbstractRequest as BaseAbstractRequest;

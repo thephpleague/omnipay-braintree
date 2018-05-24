@@ -5,7 +5,7 @@ namespace Omnipay\Braintree;
 use Omnipay\Common\AbstractGateway;
 use Braintree_Gateway;
 use Braintree_Configuration;
-use Guzzle\Http\ClientInterface;
+use Omnipay\Common\Http\ClientInterface;
 use Symfony\Component\HttpFoundation\Request as HttpRequest;
 /**
  * Braintree Gateway
