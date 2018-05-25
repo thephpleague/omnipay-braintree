@@ -3,7 +3,7 @@
 namespace Omnipay\Braintree\Message;
 
 use Braintree\Exception\NotFound;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Omnipay\Common\Exception\NotFoundException;
 
 /**
  * Find Customer Request
@@ -22,14 +22,14 @@ class FindCustomerRequest extends AbstractRequest
      * @param mixed $data
      *
      * @return \Omnipay\Braintree\Message\CustomerResponse|\Omnipay\Common\Message\ResponseInterface
-     * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
+     * @throws \Omnipay\Common\Exception\NotFoundException
      */
     public function sendData($data)
     {
         try {
             $response = $this->braintree->customer()->find($this->getCustomerId());
         } catch (NotFound $exception) {
-            throw new NotFoundHttpException($exception->getMessage());
+            throw new NotFoundException($exception->getMessage());
         }
 
         return $this->response = new CustomerResponse($this, $response);
