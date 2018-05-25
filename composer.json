@@ -32,14 +32,14 @@
     },
     "require": {
         "omnipay/common": "^3",
-        "braintree/braintree_php": "^2.39|^3.0"
+        "braintree/braintree_php": "^3.0"
     },
     "require-dev": {
         "omnipay/tests": "^3"
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "2.0.x-dev"
+            "dev-master": "3.0.x-dev"
         }
     }
 }
