@@ -6,7 +6,6 @@ use Omnipay\Common\Message\ResponseInterface;
 
 /**
  * Update PaymentMethod Request
- *
  * @method Response send()
  */
 class UpdatePaymentMethodRequest extends AbstractRequest
@@ -28,11 +27,12 @@ class UpdatePaymentMethodRequest extends AbstractRequest
      * Send the request with specified data
      *
      * @param  mixed $data The data to send
+     *
      * @return ResponseInterface
      */
     public function sendData($data)
     {
-        $response = $this->braintree->paymentMethod()->update($data['token'], $data['options']);
+        $response = $this->braintree->paymentMethod()->update($data['token'], $data);
 
         return $this->createResponse($response);
     }
@@ -45,6 +45,16 @@ class UpdatePaymentMethodRequest extends AbstractRequest
     public function setPaymentMethodToken($value)
     {
         return $this->setParameter('token', $value);
+    }
+
+    /**
+     * @param $value
+     *
+     * @return \Omnipay\Common\Message\AbstractRequest
+     */
+    public function setMakeDefault($value)
+    {
+        return $this->setOptions(['makeDefault' => (bool) $value]);
     }
 
     /**

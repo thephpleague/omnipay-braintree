@@ -31,11 +31,11 @@
         "psr-4": { "Omnipay\\Braintree\\" : "src/" }
     },
     "require": {
-        "omnipay/common": "~2.0",
+        "omnipay/common": "^3",
         "braintree/braintree_php": "^2.39|^3.0"
     },
     "require-dev": {
-        "omnipay/tests": "~2.0"
+        "omnipay/tests": "^3"
     },
     "extra": {
         "branch-alias": {

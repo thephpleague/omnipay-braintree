@@ -2,8 +2,6 @@
 
 namespace Omnipay\Braintree;
 
-use DateTime;
-use DateTimeZone;
 use Omnipay\Common\Helper;
 use Symfony\Component\HttpFoundation\ParameterBag;
 
