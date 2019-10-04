@@ -8,7 +8,7 @@ use Omnipay\Tests\TestCase;
 
 class MerchantIndividualTest extends TestCase
 {
-    public function setUp()
+    public function setUp(): void
     {
         $this->individual = new MerchantIndividual();
     }

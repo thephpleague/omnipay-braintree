@@ -15,7 +15,7 @@ class PlanRequestTest extends TestCase
     /** @var PlanRequest */
     private $request;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 
