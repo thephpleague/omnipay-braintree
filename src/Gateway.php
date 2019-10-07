@@ -276,7 +276,19 @@ class Gateway extends AbstractGateway
      */
     public function parseNotification(array $parameters = array())
     {
-        return \Braintree_WebhookNotification::parse(
+        // When in testMode, use the sandbox environment
+        if ($this->getTestMode()) {
+            $this->braintree->config->environment('sandbox');
+        } else {
+            $this->braintree->config->environment('production');
+        }
+
+        // Set the keys
+        $this->braintree->config->merchantId($this->getMerchantId());
+        $this->braintree->config->publicKey($this->getPublicKey());
+        $this->braintree->config->privateKey($this->getPrivateKey());
+
+        return $this->braintree->webhookNotification()->parse(
             $parameters['bt_signature'],
             $parameters['bt_payload']
         );
