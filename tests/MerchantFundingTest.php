@@ -7,7 +7,7 @@ use Omnipay\Tests\TestCase;
 
 class MerchantFundingTest extends TestCase
 {
-    public function setUp(): void
+    public function setUp()
     {
         $this->funding = new MerchantFunding();
     }

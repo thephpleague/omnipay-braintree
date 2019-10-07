@@ -12,7 +12,7 @@ class UpdateMerchantAccountRequestTest extends TestCase
      */
     private $request;
 
-    public function setUp(): void
+    public function setUp()
     {
         parent::setUp();
 

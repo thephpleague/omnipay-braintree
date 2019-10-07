@@ -13,7 +13,7 @@ class AbstractMerchantAccountRequestTest extends TestCase
      */
     private $request;
 
-    public function setUp(): void
+    public function setUp()
     {
         $this->request = Mockery::mock('\Omnipay\Braintree\Message\AbstractMerchantAccountRequest')->makePartial();
         $this->request->initialize();

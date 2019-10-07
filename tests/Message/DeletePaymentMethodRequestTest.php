@@ -11,7 +11,7 @@ class DeletePaymentMethodRequestTest extends TestCase
      */
     private $request;
 
-    public function setUp(): void
+    public function setUp()
     {
         $this->request = new DeletePaymentMethodRequest($this->getHttpClient(), $this->getHttpRequest(), \Braintree_Configuration::gateway());
         $this->request->initialize(

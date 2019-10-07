@@ -11,7 +11,7 @@ class UpdatePaymentMethodRequestTest extends TestCase
      */
     private $request;
 
-    public function setUp(): void
+    public function setUp()
     {
         $this->request = new UpdatePaymentMethodRequest($this->getHttpClient(), $this->getHttpRequest(), \Braintree_Configuration::gateway());
     }
