@@ -2,6 +2,8 @@
 
 namespace Omnipay\Braintree\Message;
 
+use Omnipay\Braintree\Item;
+use Omnipay\Braintree\ItemBag;
 use Omnipay\Tests\TestCase;
 
 class AuthorizeRequestTest extends TestCase
@@ -193,5 +195,44 @@ class AuthorizeRequestTest extends TestCase
         // ambiguous value, avoid errors upgrading from v0.9
         $this->assertSame($this->request, $this->request->setServiceFeeAmount('10'));
         $this->request->getServiceFeeAmount();
+    }
+
+    public function testPaymentWithItems()
+    {
+        $this->request->initialize(
+            array(
+                'amount' => '10.00',
+                'token' => 'abc123',
+                'transactionId' => '684',
+                'testMode' => false,
+                'taxExempt' => false,
+                'card' => array(
+                    'firstName' => 'Kayla',
+                    'shippingCompany' => 'League',
+                ),
+                'items' => array(
+                    array(
+                        'kind' => 'debit',
+                        'name' => 'Item Name',
+                        'quantity' => '2',
+                        'totalAmount' => '19.98',
+                        'unitAmount' => '9.99',
+                    )
+                )
+            )
+        );
+
+        $data = $this->request->getData();
+        $this->assertTrue(is_array($data['lineItems']));
+        $this->assertCount(1, $data['lineItems']);
+
+        foreach ($data['lineItems'] as $lineItem) {
+            $this->assertTrue(is_array($lineItem));
+            $this->assertEquals('debit', $lineItem['kind']);
+            $this->assertEquals('Item Name', $lineItem['name']);
+            $this->assertEquals('2', $lineItem['quantity']);
+            $this->assertEquals('19.98', $lineItem['totalAmount']);
+            $this->assertEquals('9.99', $lineItem['unitAmount']);
+        }
     }
 }

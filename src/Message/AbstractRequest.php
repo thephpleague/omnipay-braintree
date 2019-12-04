@@ -3,10 +3,11 @@
 namespace Omnipay\Braintree\Message;
 
 use Braintree_Gateway;
-use Omnipay\Common\Http\ClientInterface;
+use Omnipay\Braintree\ItemBag;
 use Omnipay\Common\Exception\InvalidRequestException;
-use Symfony\Component\HttpFoundation\Request as HttpRequest;
+use Omnipay\Common\Http\ClientInterface;
 use Omnipay\Common\Message\AbstractRequest as BaseAbstractRequest;
+use Symfony\Component\HttpFoundation\Request as HttpRequest;
 
 /**
  * Abstract Request
@@ -427,6 +428,38 @@ abstract class AbstractRequest extends BaseAbstractRequest
         } else {
             return array('options' => $data);
         }
+    }
+
+    /**
+     * Set the items in this order
+     *
+     * @param ItemBag|array $items An array of items in this order
+     * @return $this
+     */
+    public function setItems($items)
+    {
+        if ($items && !$items instanceof ItemBag) {
+            $items = new ItemBag($items);
+        }
+
+        return $this->setParameter('items', $items);
+    }
+
+    public function getItems()
+    {
+        $itemBag = parent::getItems();
+
+        if (!$itemBag instanceof ItemBag || $itemBag->count() < 1) {
+            return null;
+        }
+
+        $items = [];
+
+        foreach ($itemBag as $item) {
+            $items[] = $item->getParameters();
+        }
+
+        return $items;
     }
 
     protected function createResponse($data)
