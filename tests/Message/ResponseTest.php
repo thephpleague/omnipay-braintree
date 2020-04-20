@@ -2,9 +2,10 @@
 
 namespace Omnipay\Braintree\Message;
 
+use Braintree\Configuration;
+use Braintree\Result\Error;
+use Braintree\Result\Successful;
 use Omnipay\Tests\TestCase;
-use Braintree_Result_Successful;
-use Braintree_Result_Error;
 
 class ResponseTest extends TestCase
 {
@@ -17,12 +18,12 @@ class ResponseTest extends TestCase
     {
         parent::setUp();
 
-        $this->request = new AuthorizeRequest($this->getHttpClient(), $this->getHttpRequest(), \Braintree_Configuration::gateway());
+        $this->request = new AuthorizeRequest($this->getHttpClient(), $this->getHttpRequest(), Configuration::gateway());
     }
 
     public function testSuccess()
     {
-        $data = new Braintree_Result_Successful(1, 'transaction');
+        $data = new Successful(1, 'transaction');
 
         $response = new Response($this->request, $data);
 
@@ -33,7 +34,7 @@ class ResponseTest extends TestCase
 
     public function testError()
     {
-        $data = new Braintree_Result_Error(array('errors' => array(), 'params' => array(), 'message' => 'short message'));
+        $data = new Error(array('errors' => array(), 'params' => array(), 'message' => 'short message'));
 
         $response = new Response($this->request, $data);
 

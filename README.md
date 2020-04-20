@@ -15,7 +15,7 @@ Omnipay is installed via [Composer](http://getcomposer.org/). To install, simply
 to your `composer.json` file:
 
 ```
-composer require omnipay/braintree:"~3.0@dev"
+composer require omnipay/braintree:"~4.0@dev"
 ```
 
 ## Basic Usage

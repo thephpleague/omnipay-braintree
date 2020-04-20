@@ -2,6 +2,7 @@
 
 namespace Omnipay\Braintree\Message;
 
+use Braintree\Configuration;
 use Omnipay\Tests\TestCase;
 
 class UpdatePaymentMethodRequestTest extends TestCase
@@ -13,7 +14,7 @@ class UpdatePaymentMethodRequestTest extends TestCase
 
     public function setUp()
     {
-        $this->request = new UpdatePaymentMethodRequest($this->getHttpClient(), $this->getHttpRequest(), \Braintree_Configuration::gateway());
+        $this->request = new UpdatePaymentMethodRequest($this->getHttpClient(), $this->getHttpRequest(), Configuration::gateway());
     }
 
     public function testGetData()

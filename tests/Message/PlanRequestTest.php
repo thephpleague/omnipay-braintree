@@ -40,14 +40,14 @@ class PlanRequestTest extends TestCase
 
     protected function buildMockGateway()
     {
-        $gateway = $this->getMockBuilder('\Braintree_Gateway')
+        $gateway = $this->getMockBuilder('\Braintree\Gateway')
             ->disableOriginalConstructor()
             ->setMethods(array(
                 'plan'
             ))
             ->getMock();
 
-        $plan = $this->getMockBuilder('\Braintree_PlanGateway')
+        $plan = $this->getMockBuilder('\Braintree\PlanGateway')
             ->disableOriginalConstructor()
             ->getMock();
 

@@ -3,6 +3,7 @@
 namespace Omnipay\Braintree\Message;
 
 use Omnipay\Tests\TestCase;
+use Braintree\Configuration;
 
 class DeletePaymentMethodRequestTest extends TestCase
 {
@@ -13,7 +14,7 @@ class DeletePaymentMethodRequestTest extends TestCase
 
     public function setUp()
     {
-        $this->request = new DeletePaymentMethodRequest($this->getHttpClient(), $this->getHttpRequest(), \Braintree_Configuration::gateway());
+        $this->request = new DeletePaymentMethodRequest($this->getHttpClient(), $this->getHttpRequest(), Configuration::gateway());
         $this->request->initialize(
             array(
                 'token' => 'abcd1234',

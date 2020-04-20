@@ -2,7 +2,7 @@
 
 namespace Omnipay\Braintree\Message;
 
-use Braintree_Gateway;
+use Braintree\Gateway;
 use Omnipay\Common\Http\ClientInterface;
 use Omnipay\Common\Exception\InvalidRequestException;
 use Symfony\Component\HttpFoundation\Request as HttpRequest;
@@ -15,7 +15,7 @@ use Omnipay\Common\Message\AbstractRequest as BaseAbstractRequest;
 abstract class AbstractRequest extends BaseAbstractRequest
 {
     /**
-     * @var \Braintree_Gateway
+     * @var Gateway
      */
     protected $braintree;
 
@@ -24,9 +24,9 @@ abstract class AbstractRequest extends BaseAbstractRequest
      *
      * @param ClientInterface $httpClient  A Guzzle client to make API calls with
      * @param HttpRequest     $httpRequest A Symfony HTTP request object
-     * @param Braintree_Gateway $braintree The Braintree Gateway
+     * @param Gateway $braintree The Braintree Gateway
      */
-    public function __construct(ClientInterface $httpClient, HttpRequest $httpRequest, Braintree_Gateway $braintree)
+    public function __construct(ClientInterface $httpClient, HttpRequest $httpRequest, Gateway $braintree)
     {
         $this->braintree = $braintree;
 
@@ -371,11 +371,11 @@ abstract class AbstractRequest extends BaseAbstractRequest
         $card = $this->getCard();
 
         if (!$card) {
-            return array();
+            return [];
         }
 
         return array(
-            'billing' => array(
+            'billing' => [
                 'company' => $card->getBillingCompany(),
                 'firstName' => $card->getBillingFirstName(),
                 'lastName' => $card->getBillingLastName(),
@@ -385,8 +385,8 @@ abstract class AbstractRequest extends BaseAbstractRequest
                 'postalCode' => $card->getBillingPostcode(),
                 'region' => $card->getBillingState(),
                 'countryName' => $card->getBillingCountry(),
-            ),
-            'shipping' => array(
+            ],
+            'shipping' => [
                 'company' => $card->getShippingCompany(),
                 'firstName' => $card->getShippingFirstName(),
                 'lastName' => $card->getShippingLastName(),
@@ -396,7 +396,7 @@ abstract class AbstractRequest extends BaseAbstractRequest
                 'postalCode' => $card->getShippingPostcode(),
                 'region' => $card->getShippingState(),
                 'countryName' => $card->getShippingCountry(),
-            )
+            ]
         );
     }
 
@@ -405,7 +405,7 @@ abstract class AbstractRequest extends BaseAbstractRequest
      */
     public function getOptionData()
     {
-        $data = array(
+        $data = [
             'addBillingAddressToPaymentMethod' => $this->getAddBillingAddressToPaymentMethod(),
             'failOnDuplicatePaymentMethod'     => $this->getFailOnDuplicatePaymentMethod(),
             'holdInEscrow'                     => $this->getHoldInEscrow(),
@@ -415,17 +415,17 @@ abstract class AbstractRequest extends BaseAbstractRequest
             'storeShippingAddressInVault'      => $this->getStoreShippingAddressInVault(),
             'verifyCard'                       => $this->getVerifyCard(),
             'verificationMerchantAccountId'    => $this->getVerificationMerchantAccountId(),
-        );
+        ];
 
         // Remove null values
-        $data = array_filter($data, function($value){
+        $data = array_filter($data, function($value) {
             return ! is_null($value);
         });
 
         if (empty($data)) {
             return $data;
         } else {
-            return array('options' => $data);
+            return ['options' => $data];
         }
     }
 
