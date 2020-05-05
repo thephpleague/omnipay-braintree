@@ -1,17 +1,8 @@
 {
-    "name": "omnipay/braintree",
+    "name": "theiconic/omnipay-braintree",
     "type": "library",
     "description": "Braintree gateway for Omnipay payment processing library",
-    "keywords": [
-        "gateway",
-        "merchant",
-        "omnipay",
-        "pay",
-        "payment",
-        "braintree",
-        "purchase"
-    ],
-    "homepage": "https://github.com/thephpleague/omnipay-braintree",
+    "homepage": "https://github.com/theiconic/omnipay-braintree",
     "license": "MIT",
     "authors": [
         {

@@ -143,6 +143,12 @@ class GatewayTest extends GatewayTestCase
         $this->assertInstanceOf('Omnipay\Braintree\Message\CancelSubscriptionRequest', $request);
     }
 
+    public function testSearchTransaction()
+    {
+        $request = $this->gateway->searchTransaction(['purchaseOrderNumber' => '2187588535']);
+        $this->assertInstanceOf('Omnipay\Braintree\Message\SearchRequest', $request);
+    }
+
     public function testParseNotification()
     {
         if(\Braintree_Version::MAJOR >= 3) {
