@@ -290,4 +290,13 @@ class Gateway extends AbstractGateway
     {
         return $this->createRequest('\Omnipay\Braintree\Message\FindRequest', $parameters);
     }
+
+    /**
+     * @param array $parameters
+     * @return Message\SearchRequest
+     */
+    public function searchTransaction(array $parameters = array())
+    {
+        return $this->createRequest('\Omnipay\Braintree\Message\SearchRequest', $parameters);
+    }
 }
