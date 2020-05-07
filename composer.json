@@ -1,5 +1,5 @@
 {
-    "name": "omnipay/braintree",
+    "name": "theiconic/omnipay-braintree",
     "type": "library",
     "description": "Braintree gateway for Omnipay payment processing library",
     "keywords": [
@@ -11,22 +11,8 @@
         "braintree",
         "purchase"
     ],
-    "homepage": "https://github.com/thephpleague/omnipay-braintree",
+    "homepage": "https://github.com/theiconic/omnipay-braintree",
     "license": "MIT",
-    "authors": [
-        {
-            "name": "Kayla Daniels",
-            "email": "kayladnls@gmail.com"
-        },
-        {
-            "name": "Barry vd. Heuvel",
-            "email": "barryvdh@gmail.com"
-        },
-        {
-            "name": "Omnipay Contributors",
-            "homepage": "https://github.com/thephpleague/omnipay-braintree/contributors"
-        }
-    ],
     "autoload": {
         "psr-4": { "Omnipay\\Braintree\\" : "src/" }
     },

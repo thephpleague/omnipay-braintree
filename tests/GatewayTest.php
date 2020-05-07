@@ -172,6 +172,12 @@ class GatewayTest extends GatewayTestCase
         }
     }
 
+    public function testSearchTransaction()
+    {
+        $request = $this->gateway->searchTransaction(['purchaseOrderNumber' => '2187588535']);
+        $this->assertInstanceOf('Omnipay\Braintree\Message\SearchRequest', $request);
+    }
+
     /**
      * @param $payload
      *
