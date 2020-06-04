@@ -2,7 +2,7 @@
 
 namespace Omnipay\Braintree\Message;
 
-use Braintree_Gateway;
+use Braintree\Gateway;
 use Omnipay\Braintree\ItemBag;
 use Omnipay\Common\Exception\InvalidRequestException;
 use Omnipay\Common\Http\ClientInterface;
@@ -11,23 +11,22 @@ use Symfony\Component\HttpFoundation\Request as HttpRequest;
 
 /**
  * Abstract Request
- *
  */
 abstract class AbstractRequest extends BaseAbstractRequest
 {
     /**
-     * @var \Braintree_Gateway
+     * @var Gateway
      */
     protected $braintree;
 
     /**
      * Create a new Request
      *
-     * @param ClientInterface $httpClient  A Guzzle client to make API calls with
+     * @param ClientInterface $httpClient A Guzzle client to make API calls with
      * @param HttpRequest     $httpRequest A Symfony HTTP request object
-     * @param Braintree_Gateway $braintree The Braintree Gateway
+     * @param Gateway         $braintree The Braintree Gateway
      */
-    public function __construct(ClientInterface $httpClient, HttpRequest $httpRequest, Braintree_Gateway $braintree)
+    public function __construct(ClientInterface $httpClient, HttpRequest $httpRequest, Gateway $braintree)
     {
         $this->braintree = $braintree;
 

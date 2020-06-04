@@ -2,8 +2,8 @@
 
 namespace Omnipay\Braintree\Message;
 
-use Omnipay\Braintree\Item;
-use Omnipay\Braintree\ItemBag;
+use Braintree\Configuration;
+use Omnipay\Common\Exception\InvalidRequestException;
 use Omnipay\Tests\TestCase;
 
 class AuthorizeRequestTest extends TestCase
@@ -13,23 +13,23 @@ class AuthorizeRequestTest extends TestCase
      */
     private $request;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 
-        $this->request = new AuthorizeRequest($this->getHttpClient(), $this->getHttpRequest(), \Braintree_Configuration::gateway());
+        $this->request = new AuthorizeRequest($this->getHttpClient(), $this->getHttpRequest(), Configuration::gateway());
         $this->request->initialize(
-            array(
+            [
                 'amount' => '10.00',
                 'token' => 'abc123',
                 'transactionId' => '684',
                 'testMode' => false,
                 'taxExempt' => false,
-                'card' => array(
+                'card' => [
                     'firstName' => 'Kayla',
                     'shippingCompany' => 'League',
-                )
-            )
+                ]
+            ]
         );
     }
 
@@ -50,23 +50,23 @@ class AuthorizeRequestTest extends TestCase
         $this->assertFalse(isset($data['billingAddressId']));
 
         $this->request->configure();
-        $this->assertSame('production', \Braintree_Configuration::environment());
+        $this->assertSame('production', Configuration::environment());
     }
 
     public function testPaymentMethodToken()
     {
         $this->request->initialize(
-            array(
+            [
                 'amount' => '10.00',
                 'transactionId' => '684',
                 'testMode' => false,
                 'taxExempt' => false,
-                'card' => array(
+                'card' => [
                     'firstName' => 'Kayla',
                     'shippingCompany' => 'League',
-                ),
+                ],
                 'paymentMethodToken' => 'fake-token-123'
-            )
+            ]
         );
 
         $data = $this->request->getData();
@@ -77,17 +77,17 @@ class AuthorizeRequestTest extends TestCase
     public function testPaymentMethodNonce()
     {
         $this->request->initialize(
-            array(
+            [
                 'amount' => '10.00',
                 'transactionId' => '684',
                 'testMode' => false,
                 'taxExempt' => false,
-                'card' => array(
+                'card' => [
                     'firstName' => 'Kayla',
                     'shippingCompany' => 'League',
-                ),
+                ],
                 'paymentMethodNonce' => 'abc123'
-            )
+            ]
         );
 
         $data = $this->request->getData();
@@ -98,17 +98,17 @@ class AuthorizeRequestTest extends TestCase
     public function testCustomerId()
     {
         $this->request->initialize(
-            array(
+            [
                 'amount' => '10.00',
                 'transactionId' => '684',
                 'testMode' => false,
                 'taxExempt' => false,
-                'card' => array(
+                'card' => [
                     'firstName' => 'Kayla',
                     'shippingCompany' => 'League',
-                ),
+                ],
                 'customerId' => 'abc123'
-            )
+            ]
         );
 
         $data = $this->request->getData();
@@ -120,13 +120,13 @@ class AuthorizeRequestTest extends TestCase
     public function testSubMerchantSale()
     {
         $this->request->initialize(
-            array(
+            [
                 'amount' => '100.00',
                 'holdInEscrow' => true,
                 'merchantAccountId' => 'blue_ladders_store',
                 'paymentMethodToken' => 'fake-token-123',
                 'serviceFeeAmount' => '10.00',
-            )
+            ]
         );
 
         $data = $this->request->getData();
@@ -140,7 +140,7 @@ class AuthorizeRequestTest extends TestCase
         $this->request->setTestMode(true);
 
         $this->request->configure();
-        $this->assertSame('sandbox', \Braintree_Configuration::environment());
+        $this->assertSame('sandbox', Configuration::environment());
     }
 
     public function testServiceFeeAmount()
@@ -177,21 +177,17 @@ class AuthorizeRequestTest extends TestCase
         $this->assertSame('137', $this->request->getServiceFeeAmount());
     }
 
-    /**
-     * @expectedException \Omnipay\Common\Exception\InvalidRequestException
-     */
     public function testServiceFeeAmountWithIntThrowsException()
     {
+        $this->expectException(InvalidRequestException::class);
         // ambiguous value, avoid errors upgrading from v0.9
         $this->assertSame($this->request, $this->request->setServiceFeeAmount(10));
         $this->request->getServiceFeeAmount();
     }
 
-    /**
-     * @expectedException \Omnipay\Common\Exception\InvalidRequestException
-     */
     public function testServiceFeeAmountWithIntStringThrowsException()
     {
+        $this->expectException(InvalidRequestException::class);
         // ambiguous value, avoid errors upgrading from v0.9
         $this->assertSame($this->request, $this->request->setServiceFeeAmount('10'));
         $this->request->getServiceFeeAmount();
@@ -200,26 +196,26 @@ class AuthorizeRequestTest extends TestCase
     public function testPaymentWithItems()
     {
         $this->request->initialize(
-            array(
+            [
                 'amount' => '10.00',
                 'token' => 'abc123',
                 'transactionId' => '684',
                 'testMode' => false,
                 'taxExempt' => false,
-                'card' => array(
+                'card' => [
                     'firstName' => 'Kayla',
                     'shippingCompany' => 'League',
-                ),
-                'items' => array(
-                    array(
+                ],
+                'items' => [
+                    [
                         'kind' => 'debit',
                         'name' => 'Item Name',
                         'quantity' => '2',
                         'totalAmount' => '19.98',
                         'unitAmount' => '9.99',
-                    )
-                )
-            )
+                    ]
+                ]
+            ]
         );
 
         $data = $this->request->getData();

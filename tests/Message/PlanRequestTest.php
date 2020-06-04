@@ -8,6 +8,8 @@
 
 namespace Omnipay\Braintree\Message;
 
+use Braintree\Gateway;
+use Braintree\PlanGateway;
 use Omnipay\Tests\TestCase;
 
 class PlanRequestTest extends TestCase
@@ -15,7 +17,7 @@ class PlanRequestTest extends TestCase
     /** @var PlanRequest */
     private $request;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 
@@ -35,19 +37,19 @@ class PlanRequestTest extends TestCase
         $data = array();
         $response = $this->request->sendData($data);
 
-        $this->assertInstanceOf('Omnipay\BrainTree\Message\PlanResponse', $response);
+        $this->assertInstanceOf(PlanResponse::class, $response);
     }
 
     protected function buildMockGateway()
     {
-        $gateway = $this->getMockBuilder('\Braintree_Gateway')
+        $gateway = $this->getMockBuilder(Gateway::class)
             ->disableOriginalConstructor()
             ->setMethods(array(
                 'plan'
             ))
             ->getMock();
 
-        $plan = $this->getMockBuilder('\Braintree_PlanGateway')
+        $plan = $this->getMockBuilder(PlanGateway::class)
             ->disableOriginalConstructor()
             ->getMock();
 

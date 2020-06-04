@@ -2,6 +2,7 @@
 
 namespace Omnipay\Braintree\Message;
 
+use Braintree\Configuration;
 use Omnipay\Tests\TestCase;
 
 class ClientTokenRequestTest extends TestCase
@@ -11,11 +12,11 @@ class ClientTokenRequestTest extends TestCase
      */
     private $request;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 
-        $this->request = new ClientTokenRequest($this->getHttpClient(), $this->getHttpRequest(), \Braintree_Configuration::gateway());
+        $this->request = new ClientTokenRequest($this->getHttpClient(), $this->getHttpRequest(), Configuration::gateway());
     }
 
     public function testGetData()
@@ -27,16 +28,16 @@ class ClientTokenRequestTest extends TestCase
 
     public function testGetDataWithCustomer()
     {
-        $setData = array(
+        $setData = [
             'customerId' => '4815162342',
             'failOnDuplicatePaymentMethod' => true,
-        );
-        $expectedData = array(
+        ];
+        $expectedData = [
             'customerId' => '4815162342',
-            'options' => array(
+            'options' => [
                 'failOnDuplicatePaymentMethod' => true,
-            ),
-        );
+            ],
+        ];
         $this->request->initialize($setData);
         $this->assertSame('4815162342', $this->request->getCustomerId());
         $this->assertSame($expectedData, $this->request->getData());

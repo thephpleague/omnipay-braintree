@@ -2,6 +2,7 @@
 
 namespace Omnipay\Braintree\Message;
 
+use Braintree\Configuration;
 use Omnipay\Tests\TestCase;
 
 class UpdatePaymentMethodRequestTest extends TestCase
@@ -11,40 +12,40 @@ class UpdatePaymentMethodRequestTest extends TestCase
      */
     private $request;
 
-    public function setUp()
+    public function setUp(): void
     {
-        $this->request = new UpdatePaymentMethodRequest($this->getHttpClient(), $this->getHttpRequest(), \Braintree_Configuration::gateway());
+        $this->request = new UpdatePaymentMethodRequest($this->getHttpClient(), $this->getHttpRequest(), Configuration::gateway());
     }
 
     public function testGetData()
     {
         $this->request->initialize(
-            array(
+            [
                 'paymentMethodToken' => 'abcd1234',
-                'options' => array(
+                'options' => [
                     'makeDefault' => true,
-                )
-            )
+                ]
+            ]
         );
-        $expected = array(
+        $expected = [
             'token' => 'abcd1234',
-            'options' => array(
+            'options' => [
                 'makeDefault' => true,
-            ),
-        );
+            ],
+        ];
         $this->assertSame($expected, $this->request->getData());
     }
 
     public function testGetDataNoParameters()
     {
         $this->request->initialize(
-            array(
+            [
                 'paymentMethodToken' => 'abcd1234',
-            )
+            ]
         );
-        $expected = array(
+        $expected = [
             'token' => 'abcd1234',
-        );
+        ];
         $this->assertSame($expected, $this->request->getData());
     }
 }

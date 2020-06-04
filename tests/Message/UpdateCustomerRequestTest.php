@@ -2,6 +2,7 @@
 
 namespace Omnipay\Braintree\Message;
 
+use Braintree\Configuration;
 use Omnipay\Tests\TestCase;
 
 class UpdateCustomerRequestTest extends TestCase
@@ -11,20 +12,20 @@ class UpdateCustomerRequestTest extends TestCase
      */
     private $request;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 
-        $this->request = new UpdateCustomerRequest($this->getHttpClient(), $this->getHttpRequest(), \Braintree_Configuration::gateway());
+        $this->request = new UpdateCustomerRequest($this->getHttpClient(), $this->getHttpRequest(), Configuration::gateway());
         $this->request->initialize(
-            array(
+            [
                 'customerId' => '4815162342',
-                'customerData' => array(
+                'customerData' => [
                     'firstName' => 'Mike',
                     'lastName' => 'Jones',
                     'email' => 'mike.jones@example.com',
-                ),
-            )
+                ],
+            ]
         );
     }
 
@@ -34,11 +35,11 @@ class UpdateCustomerRequestTest extends TestCase
 
         $this->assertSame('4815162342', $data['customerId']);
         $this->assertSame(
-            array(
+            [
                 'firstName' => 'Mike',
                 'lastName' => 'Jones',
                 'email' => 'mike.jones@example.com',
-            ),
+            ],
             $data['customerData']
         );
     }
@@ -47,11 +48,11 @@ class UpdateCustomerRequestTest extends TestCase
     {
         $this->assertSame('4815162342', $this->request->getCustomerId());
         $this->assertSame(
-            array(
+            [
                 'firstName' => 'Mike',
                 'lastName' => 'Jones',
                 'email' => 'mike.jones@example.com',
-            ),
+            ],
             $this->request->getCustomerData()
         );
     }
