@@ -5,14 +5,15 @@ namespace Omnipay\Braintree\Message;
 use Omnipay\Common\Message\ResponseInterface;
 
 /**
- * Update PaymentMethod Request
+ * Update PaymentMethod Request.
+ *
  * @method Response send()
  */
 class UpdatePaymentMethodRequest extends AbstractRequest
 {
     public function getData()
     {
-        $data = array();
+        $data = [];
         $data['token'] = $this->getToken();
         $options = $this->parameters->get('paymentMethodOptions');
 
@@ -24,9 +25,9 @@ class UpdatePaymentMethodRequest extends AbstractRequest
     }
 
     /**
-     * Send the request with specified data
+     * Send the request with specified data.
      *
-     * @param  mixed $data The data to send
+     * @param mixed $data The data to send
      *
      * @return ResponseInterface
      */
@@ -62,7 +63,7 @@ class UpdatePaymentMethodRequest extends AbstractRequest
      *
      * @return \Omnipay\Common\Message\AbstractRequest
      */
-    public function setOptions(array $options = array())
+    public function setOptions(array $options = [])
     {
         return $this->setParameter('paymentMethodOptions', $options);
     }
