@@ -1,5 +1,5 @@
 {
-    "name": "omnipay/braintree",
+    "name": "mattyrad/omnipay-braintree",
     "type": "library",
     "description": "Braintree gateway for Omnipay payment processing library",
     "keywords": [
