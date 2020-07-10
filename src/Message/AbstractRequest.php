@@ -436,9 +436,11 @@ abstract class AbstractRequest extends BaseAbstractRequest
     {
         $line_items = array();
 
-        $items = $this->getItems();
+        if (! $this->getItems()) {
+            return $line_items;
+        }
 
-        foreach ((array) $items as $item) {
+        foreach ($this->getItems() as $item) {
 
             $item_kind = ($item->getPrice() >= 0.00)
                 ? 'debit'
