@@ -3,6 +3,7 @@
 namespace Omnipay\Braintree\Message;
 
 use Omnipay\Tests\TestCase;
+use Braintree\Configuration;
 
 class RefundRequestTest extends TestCase
 {
@@ -15,7 +16,7 @@ class RefundRequestTest extends TestCase
     {
         parent::setUp();
 
-        $this->request = new RefundRequest($this->getHttpClient(), $this->getHttpRequest(), \Braintree_Configuration::gateway());
+        $this->request = new RefundRequest($this->getHttpClient(), $this->getHttpRequest(), Configuration::gateway());
         $this->request->initialize(
             array(
                 'amount' => '10.00',

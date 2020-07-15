@@ -5,6 +5,7 @@
  */
 
 namespace Omnipay\Braintree\Message;
+use Braintree\Configuration;
 use Omnipay\Tests\TestCase;
 
 class CustomerResponseTest extends TestCase
@@ -18,7 +19,7 @@ class CustomerResponseTest extends TestCase
     {
         parent::setUp();
 
-        $this->request = new CreateCustomerRequest($this->getHttpClient(), $this->getHttpRequest(), \Braintree_Configuration::gateway());
+        $this->request = new CreateCustomerRequest($this->getHttpClient(), $this->getHttpRequest(), Configuration::gateway());
     }
 
     public function testGetSubscriptionData()

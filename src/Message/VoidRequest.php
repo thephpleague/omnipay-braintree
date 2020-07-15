@@ -4,7 +4,7 @@ namespace Omnipay\Braintree\Message;
 use Omnipay\Common\Message\ResponseInterface;
 
 /**
- * Authorize Request
+ * Authorize Request.
  *
  * @method Response send()
  */
@@ -14,15 +14,16 @@ class VoidRequest extends AbstractRequest
     {
         $this->validate('transactionReference');
 
-        return array(
+        return [
             'transactionReference' => $this->getTransactionReference(),
-        );
+        ];
     }
 
     /**
-     * Send the request with specified data
+     * Send the request with specified data.
      *
-     * @param  mixed $data The data to send
+     * @param mixed $data The data to send
+     *
      * @return ResponseInterface
      */
     public function sendData($data)

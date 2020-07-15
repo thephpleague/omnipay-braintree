@@ -25,25 +25,25 @@ abstract class AbstractMerchantAccountRequest extends AbstractRequest
     {
         $business = $this->getBusiness();
 
-        if (!$business) {
-            return array();
+        if (! $business) {
+            return [];
         }
 
-        $data = array(
-            'address' => array(
+        $data = [
+            'address' => [
                 'streetAddress' => $business->getAddress1(),
                 'locality' => $business->getCity(),
                 'postalCode' => $business->getPostCode(),
                 'region' => $business->getState(),
-            ),
+            ],
             'dbaName' => $business->getDbaName(),
             'email' => $business->getEmail(),
             'legalName' => $business->getLegalName(),
             'taxId' => $business->getTaxId(),
-        );
+        ];
 
         // Remove null values
-        $data = array_filter($data, function($value){
+        $data = array_filter($data, function ($value) {
             return ! is_null($value);
         });
 
@@ -58,11 +58,12 @@ abstract class AbstractMerchantAccountRequest extends AbstractRequest
      * Sets the business.
      *
      * @param MerchantBusiness|array $value
+     *
      * @return $this
      */
     public function setBusiness($value)
     {
-        if ($value && !$value instanceof MerchantBusiness) {
+        if ($value && ! $value instanceof MerchantBusiness) {
             $value = new MerchantBusiness($value);
         }
 
@@ -85,28 +86,28 @@ abstract class AbstractMerchantAccountRequest extends AbstractRequest
     {
         $funding = $this->getFunding();
 
-        if (!$funding) {
-            return array();
+        if (! $funding) {
+            return [];
         }
 
-        $data = array(
+        $data = [
             'accountNumber' => $funding->getAccountNumber(),
             'descriptor' => $funding->getDescriptor(),
             'destination' => $funding->getDestination(),
             'email' => $funding->getEmail(),
             'mobilePhone' => $funding->getMobilePhone(),
-            'routingNumber' =>  $funding->getRoutingNumber(),
-        );
+            'routingNumber' => $funding->getRoutingNumber(),
+        ];
 
         // Remove null values
-        $data = array_filter($data, function($value){
+        $data = array_filter($data, function ($value) {
             return ! is_null($value);
         });
 
         if (empty($data)) {
             return $data;
         } else {
-            return array('funding' => $data);
+            return ['funding' => $data];
         }
     }
 
@@ -114,17 +115,18 @@ abstract class AbstractMerchantAccountRequest extends AbstractRequest
      * Sets the funding.
      *
      * @param MerchantFunding|array $value
+     *
      * @return $this
      */
     public function setFunding($value)
     {
-        if ($value && !$value instanceof MerchantFunding) {
+        if ($value && ! $value instanceof MerchantFunding) {
             $value = new MerchantFunding($value);
         }
 
         return $this->setParameter('funding', $value);
     }
-    
+
     /**
      * @return MerchantIndividual
      */
@@ -142,34 +144,34 @@ abstract class AbstractMerchantAccountRequest extends AbstractRequest
     {
         $individual = $this->getIndividual();
 
-        if (!$individual) {
-            return array();
+        if (! $individual) {
+            return [];
         }
 
-        $data = array(
-            'address' => array(
+        $data = [
+            'address' => [
                 'streetAddress' => $individual->getAddress1(),
                 'locality' => $individual->getCity(),
                 'postalCode' => $individual->getPostCode(),
                 'region' => $individual->getState(),
-            ),
+            ],
             'dateOfBirth' => $individual->getBirthday(),
             'email' => $individual->getEmail(),
             'firstName' => $individual->getFirstName(),
             'lastName' => $individual->getLastName(),
             'phone' => $individual->getPhone(),
             'ssn' => $individual->getSsn(),
-        );
+        ];
 
         // Remove null values
-        $data = array_filter($data, function($value){
+        $data = array_filter($data, function ($value) {
             return ! is_null($value);
         });
 
         if (empty($data)) {
             return $data;
         } else {
-            return array('individual' => $data);
+            return ['individual' => $data];
         }
     }
 
@@ -177,11 +179,12 @@ abstract class AbstractMerchantAccountRequest extends AbstractRequest
      * Sets the individual.
      *
      * @param MerchantIndividual|array $value
+     *
      * @return $this
      */
     public function setIndividual($value)
     {
-        if ($value && !$value instanceof MerchantIndividual) {
+        if ($value && ! $value instanceof MerchantIndividual) {
             $value = new MerchantIndividual($value);
         }
 
@@ -198,6 +201,7 @@ abstract class AbstractMerchantAccountRequest extends AbstractRequest
 
     /**
      * @param string $masterMerchantAccountId
+     *
      * @return $this
      */
     public function setMasterMerchantAccountId($masterMerchantAccountId)
@@ -217,6 +221,7 @@ abstract class AbstractMerchantAccountRequest extends AbstractRequest
 
     /**
      * @param bool $tosAccepted
+     *
      * @return $this
      */
     public function setTosAccepted($tosAccepted)

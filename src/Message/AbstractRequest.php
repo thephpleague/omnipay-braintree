@@ -2,31 +2,30 @@
 
 namespace Omnipay\Braintree\Message;
 
-use Braintree_Gateway;
-use Omnipay\Common\Http\ClientInterface;
+use Braintree\Gateway;
 use Omnipay\Common\Exception\InvalidRequestException;
-use Symfony\Component\HttpFoundation\Request as HttpRequest;
+use Omnipay\Common\Http\ClientInterface;
 use Omnipay\Common\Message\AbstractRequest as BaseAbstractRequest;
+use Symfony\Component\HttpFoundation\Request as HttpRequest;
 
 /**
- * Abstract Request
- *
+ * Abstract Request.
  */
 abstract class AbstractRequest extends BaseAbstractRequest
 {
     /**
-     * @var \Braintree_Gateway
+     * @var Gateway
      */
     protected $braintree;
 
     /**
-     * Create a new Request
+     * Create a new Request.
      *
      * @param ClientInterface $httpClient  A Guzzle client to make API calls with
      * @param HttpRequest     $httpRequest A Symfony HTTP request object
-     * @param Braintree_Gateway $braintree The Braintree Gateway
+     * @param Gateway         $braintree   The Braintree Gateway
      */
-    public function __construct(ClientInterface $httpClient, HttpRequest $httpRequest, Braintree_Gateway $braintree)
+    public function __construct(ClientInterface $httpClient, HttpRequest $httpRequest, Gateway $braintree)
     {
         $this->braintree = $braintree;
 
@@ -34,7 +33,7 @@ abstract class AbstractRequest extends BaseAbstractRequest
     }
 
     /**
-     * Set the correct configuration sending
+     * Set the correct configuration sending.
      *
      * @return \Omnipay\Common\Message\ResponseInterface
      */
@@ -214,9 +213,9 @@ abstract class AbstractRequest extends BaseAbstractRequest
     {
         $amount = $this->getParameter('serviceFeeAmount');
         if ($amount !== null) {
-            if (!is_float($amount) &&
+            if (! is_float($amount) &&
                 $this->getCurrencyDecimalPlaces() > 0 &&
-                false === strpos((string)$amount, '.')
+                false === strpos((string) $amount, '.')
             ) {
                 throw new InvalidRequestException(
                     'Please specify amount as a string or float, ' .
@@ -370,34 +369,34 @@ abstract class AbstractRequest extends BaseAbstractRequest
     {
         $card = $this->getCard();
 
-        if (!$card) {
-            return array();
+        if (! $card) {
+            return [];
         }
 
-        return array(
-            'billing' => array(
+        return [
+            'billing' => [
                 'company' => $card->getBillingCompany(),
                 'firstName' => $card->getBillingFirstName(),
                 'lastName' => $card->getBillingLastName(),
                 'streetAddress' => $card->getBillingAddress1(),
-                'extendedAddress' =>  $card->getBillingAddress2(),
+                'extendedAddress' => $card->getBillingAddress2(),
                 'locality' => $card->getBillingCity(),
                 'postalCode' => $card->getBillingPostcode(),
                 'region' => $card->getBillingState(),
                 'countryName' => $card->getBillingCountry(),
-            ),
-            'shipping' => array(
+            ],
+            'shipping' => [
                 'company' => $card->getShippingCompany(),
                 'firstName' => $card->getShippingFirstName(),
                 'lastName' => $card->getShippingLastName(),
                 'streetAddress' => $card->getShippingAddress1(),
-                'extendedAddress' =>  $card->getShippingAddress2(),
+                'extendedAddress' => $card->getShippingAddress2(),
                 'locality' => $card->getShippingCity(),
                 'postalCode' => $card->getShippingPostcode(),
                 'region' => $card->getShippingState(),
                 'countryName' => $card->getShippingCountry(),
-            )
-        );
+            ],
+        ];
     }
 
     /**
@@ -405,27 +404,27 @@ abstract class AbstractRequest extends BaseAbstractRequest
      */
     public function getOptionData()
     {
-        $data = array(
+        $data = [
             'addBillingAddressToPaymentMethod' => $this->getAddBillingAddressToPaymentMethod(),
-            'failOnDuplicatePaymentMethod'     => $this->getFailOnDuplicatePaymentMethod(),
-            'holdInEscrow'                     => $this->getHoldInEscrow(),
-            'makeDefault'                      => $this->getMakeDefault(),
-            'storeInVault'                     => $this->getStoreInVault(),
-            'storeInVaultOnSuccess'            => $this->getStoreInVaultOnSuccess(),
-            'storeShippingAddressInVault'      => $this->getStoreShippingAddressInVault(),
-            'verifyCard'                       => $this->getVerifyCard(),
-            'verificationMerchantAccountId'    => $this->getVerificationMerchantAccountId(),
-        );
+            'failOnDuplicatePaymentMethod' => $this->getFailOnDuplicatePaymentMethod(),
+            'holdInEscrow' => $this->getHoldInEscrow(),
+            'makeDefault' => $this->getMakeDefault(),
+            'storeInVault' => $this->getStoreInVault(),
+            'storeInVaultOnSuccess' => $this->getStoreInVaultOnSuccess(),
+            'storeShippingAddressInVault' => $this->getStoreShippingAddressInVault(),
+            'verifyCard' => $this->getVerifyCard(),
+            'verificationMerchantAccountId' => $this->getVerificationMerchantAccountId(),
+        ];
 
         // Remove null values
-        $data = array_filter($data, function($value){
+        $data = array_filter($data, function ($value) {
             return ! is_null($value);
         });
 
         if (empty($data)) {
             return $data;
         } else {
-            return array('options' => $data);
+            return ['options' => $data];
         }
     }
 

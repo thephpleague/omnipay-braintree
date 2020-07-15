@@ -2,6 +2,7 @@
 
 namespace Omnipay\Braintree\Message;
 
+use Braintree\Configuration;
 use Omnipay\Tests\TestCase;
 
 class CaptureRequestTest extends TestCase
@@ -15,7 +16,7 @@ class CaptureRequestTest extends TestCase
     {
         parent::setUp();
 
-        $this->request = new CaptureRequest($this->getHttpClient(), $this->getHttpRequest(), \Braintree_Configuration::gateway());
+        $this->request = new CaptureRequest($this->getHttpClient(), $this->getHttpRequest(), Configuration::gateway());
         $this->request->initialize(
             array(
                 'amount' => '10.00',

@@ -2,6 +2,7 @@
 
 namespace Omnipay\Braintree\Message;
 
+use Braintree\Configuration;
 use Omnipay\Tests\TestCase;
 
 class AuthorizeRequestTest extends TestCase
@@ -15,7 +16,7 @@ class AuthorizeRequestTest extends TestCase
     {
         parent::setUp();
 
-        $this->request = new AuthorizeRequest($this->getHttpClient(), $this->getHttpRequest(), \Braintree_Configuration::gateway());
+        $this->request = new AuthorizeRequest($this->getHttpClient(), $this->getHttpRequest(), Configuration::gateway());
         $this->request->initialize(
             array(
                 'amount' => '10.00',
@@ -48,7 +49,7 @@ class AuthorizeRequestTest extends TestCase
         $this->assertFalse(isset($data['billingAddressId']));
 
         $this->request->configure();
-        $this->assertSame('production', \Braintree_Configuration::environment());
+        $this->assertSame('production', Configuration::environment());
     }
 
     public function testPaymentMethodToken()
@@ -138,7 +139,7 @@ class AuthorizeRequestTest extends TestCase
         $this->request->setTestMode(true);
 
         $this->request->configure();
-        $this->assertSame('sandbox', \Braintree_Configuration::environment());
+        $this->assertSame('sandbox', Configuration::environment());
     }
 
     public function testServiceFeeAmount()
@@ -169,7 +170,7 @@ class AuthorizeRequestTest extends TestCase
     public function testGetServiceFeeAmountNoDecimalsRounding()
     {
         $this->markTestSkipped('Omnipay does not round the amount.');
-        
+
         $this->assertSame($this->request, $this->request->setServiceFeeAmount('136.5'));
         $this->assertSame($this->request, $this->request->setCurrency('JPY'));
         $this->assertSame('137', $this->request->getServiceFeeAmount());

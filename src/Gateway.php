@@ -2,31 +2,32 @@
 
 namespace Omnipay\Braintree;
 
+use Braintree\Configuration;
+use Braintree\Gateway as BraintreeGateway;
+use Braintree\WebhookNotification;
 use Omnipay\Common\AbstractGateway;
-use Braintree_Gateway;
-use Braintree_Configuration;
 use Omnipay\Common\Http\ClientInterface;
 use Symfony\Component\HttpFoundation\Request as HttpRequest;
 /**
- * Braintree Gateway
+ * Braintree Gateway.
  */
 class Gateway extends AbstractGateway
 {
     /**
-     * @var \Braintree_Gateway
+     * @var BraintreeGateway
      */
     protected $braintree;
 
     /**
-     * Create a new gateway instance
+     * Create a new gateway instance.
      *
-     * @param ClientInterface $httpClient  A Guzzle client to make API calls with
-     * @param HttpRequest     $httpRequest A Symfony HTTP request object
-     * @param Braintree_Gateway $braintree The Braintree gateway
+     * @param ClientInterface  $httpClient  A Guzzle client to make API calls with
+     * @param HttpRequest      $httpRequest A Symfony HTTP request object
+     * @param BraintreeGateway $braintree   The Braintree gateway
      */
-    public function __construct(ClientInterface $httpClient = null, HttpRequest $httpRequest = null, Braintree_Gateway $braintree = null)
+    public function __construct(ClientInterface $httpClient = null, HttpRequest $httpRequest = null, BraintreeGateway $braintree = null)
     {
-        $this->braintree = $braintree ?: Braintree_Configuration::gateway();
+        $this->braintree = $braintree ?: Configuration::gateway();
 
         parent::__construct($httpClient, $httpRequest);
     }
@@ -48,12 +49,12 @@ class Gateway extends AbstractGateway
 
     public function getDefaultParameters()
     {
-        return array(
+        return [
             'merchantId' => '',
             'publicKey' => '',
             'privateKey' => '',
             'testMode' => false,
-        );
+        ];
     }
 
     public function getMerchantId()
@@ -88,33 +89,37 @@ class Gateway extends AbstractGateway
 
     /**
      * @param array $parameters
+     *
      * @return Message\AuthorizeRequest
      */
-    public function authorize(array $parameters = array())
+    public function authorize(array $parameters = [])
     {
         return $this->createRequest('\Omnipay\Braintree\Message\AuthorizeRequest', $parameters);
     }
 
     /**
      * @param array $parameters
+     *
      * @return Message\PurchaseRequest
      */
-    public function capture(array $parameters = array())
+    public function capture(array $parameters = [])
     {
         return $this->createRequest('\Omnipay\Braintree\Message\CaptureRequest', $parameters);
     }
 
     /**
      * @param array $parameters
+     *
      * @return Message\ClientTokenRequest
      */
-    public function clientToken(array $parameters = array())
+    public function clientToken(array $parameters = [])
     {
         return $this->createRequest('\Omnipay\Braintree\Message\ClientTokenRequest', $parameters);
     }
 
     /**
      * @param string $id
+     *
      * @return Message\FindCustomerRequest
      */
     public function findCustomer($id)
@@ -124,117 +129,130 @@ class Gateway extends AbstractGateway
 
     /**
      * @param array $parameters
+     *
      * @return Message\CreateCustomerRequest
      */
-    public function createCustomer(array $parameters = array())
+    public function createCustomer(array $parameters = [])
     {
         return $this->createRequest('\Omnipay\Braintree\Message\CreateCustomerRequest', $parameters);
     }
 
     /**
      * @param array $parameters
+     *
      * @return Message\DeleteCustomerRequest
      */
-    public function deleteCustomer(array $parameters = array())
+    public function deleteCustomer(array $parameters = [])
     {
         return $this->createRequest('\Omnipay\Braintree\Message\DeleteCustomerRequest', $parameters);
     }
 
     /**
      * @param array $parameters
+     *
      * @return Message\UpdateCustomerRequest
      */
-    public function updateCustomer(array $parameters = array())
+    public function updateCustomer(array $parameters = [])
     {
         return $this->createRequest('\Omnipay\Braintree\Message\UpdateCustomerRequest', $parameters);
     }
 
     /**
      * @param array $parameters
+     *
      * @return Message\PurchaseRequest
      */
-    public function find(array $parameters = array())
+    public function find(array $parameters = [])
     {
         return $this->createRequest('\Omnipay\Braintree\Message\FindRequest', $parameters);
     }
 
     /**
      * @param array $parameters
+     *
      * @return Message\CreateMerchantAccountRequest
      */
-    public function createMerchantAccount(array $parameters = array())
+    public function createMerchantAccount(array $parameters = [])
     {
         return $this->createRequest('\Omnipay\Braintree\Message\CreateMerchantAccountRequest', $parameters);
     }
 
     /**
      * @param array $parameters
+     *
      * @return Message\UpdateMerchantAccountRequest
      */
-    public function updateMerchantAccount(array $parameters = array())
+    public function updateMerchantAccount(array $parameters = [])
     {
         return $this->createRequest('\Omnipay\Braintree\Message\UpdateMerchantAccountRequest', $parameters);
     }
 
     /**
      * @param array $parameters
+     *
      * @return Message\CreatePaymentMethodRequest
      */
-    public function createPaymentMethod(array $parameters = array())
+    public function createPaymentMethod(array $parameters = [])
     {
         return $this->createRequest('\Omnipay\Braintree\Message\CreatePaymentMethodRequest', $parameters);
     }
 
     /**
      * @param array $parameters
+     *
      * @return Message\DeletePaymentMethodRequest
      */
-    public function deletePaymentMethod(array $parameters = array())
+    public function deletePaymentMethod(array $parameters = [])
     {
         return $this->createRequest('\Omnipay\Braintree\Message\DeletePaymentMethodRequest', $parameters);
     }
 
     /**
      * @param array $parameters
+     *
      * @return Message\UpdatePaymentMethodRequest
      */
-    public function updatePaymentMethod(array $parameters = array())
+    public function updatePaymentMethod(array $parameters = [])
     {
         return $this->createRequest('\Omnipay\Braintree\Message\UpdatePaymentMethodRequest', $parameters);
     }
 
     /**
      * @param array $parameters
+     *
      * @return Message\PurchaseRequest
      */
-    public function purchase(array $parameters = array())
+    public function purchase(array $parameters = [])
     {
         return $this->createRequest('\Omnipay\Braintree\Message\PurchaseRequest', $parameters);
     }
 
     /**
      * @param array $parameters
+     *
      * @return Message\PurchaseRequest
      */
-    public function refund(array $parameters = array())
+    public function refund(array $parameters = [])
     {
         return $this->createRequest('\Omnipay\Braintree\Message\RefundRequest', $parameters);
     }
 
     /**
      * @param array $parameters
+     *
      * @return Message\PurchaseRequest
      */
-    public function releaseFromEscrow(array $parameters = array())
+    public function releaseFromEscrow(array $parameters = [])
     {
         return $this->createRequest('\Omnipay\Braintree\Message\ReleaseFromEscrowRequest', $parameters);
     }
 
     /**
      * @param array $parameters
+     *
      * @return Message\PurchaseRequest
      */
-    public function void(array $parameters = array())
+    public function void(array $parameters = [])
     {
         return $this->createRequest('\Omnipay\Braintree\Message\VoidRequest', $parameters);
     }
@@ -244,7 +262,7 @@ class Gateway extends AbstractGateway
      *
      * @return \Omnipay\Common\Message\AbstractRequest
      */
-    public function createSubscription(array $parameters = array())
+    public function createSubscription(array $parameters = [])
     {
         return $this->createRequest('\Omnipay\Braintree\Message\CreateSubscriptionRequest', $parameters);
     }
@@ -264,19 +282,19 @@ class Gateway extends AbstractGateway
      */
     public function plans()
     {
-        return $this->createRequest('\Omnipay\Braintree\Message\PlanRequest', array());
+        return $this->createRequest('\Omnipay\Braintree\Message\PlanRequest', []);
     }
 
     /**
      * @param array $parameters
      *
-     * @return \Braintree_WebhookNotification
+     * @return WebhookNotification
      *
-     * @throws \Braintree_Exception_InvalidSignature
+     * @throws \Braintree\Exception\InvalidSignature
      */
-    public function parseNotification(array $parameters = array())
+    public function parseNotification(array $parameters = [])
     {
-        return \Braintree_WebhookNotification::parse(
+        return WebhookNotification::parse(
             $parameters['bt_signature'],
             $parameters['bt_payload']
         );
@@ -284,9 +302,10 @@ class Gateway extends AbstractGateway
 
     /**
      * @param array $parameters
+     *
      * @return Message\FindRequest
      */
-    public function fetchTransaction(array $parameters = array())
+    public function fetchTransaction(array $parameters = [])
     {
         return $this->createRequest('\Omnipay\Braintree\Message\FindRequest', $parameters);
     }

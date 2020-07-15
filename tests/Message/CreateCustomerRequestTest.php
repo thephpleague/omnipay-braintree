@@ -2,6 +2,7 @@
 
 namespace Omnipay\Braintree\Message;
 
+use Braintree\Configuration;
 use Omnipay\Tests\TestCase;
 
 class CreateCustomerRequestTest extends TestCase
@@ -15,7 +16,7 @@ class CreateCustomerRequestTest extends TestCase
     {
         parent::setUp();
 
-        $this->request = new CreateCustomerRequest($this->getHttpClient(), $this->getHttpRequest(), \Braintree_Configuration::gateway());
+        $this->request = new CreateCustomerRequest($this->getHttpClient(), $this->getHttpRequest(), Configuration::gateway());
         $this->request->initialize(
             array(
                 'customerData' => array(

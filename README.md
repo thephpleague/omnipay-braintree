@@ -7,7 +7,7 @@
 [![Total Downloads](https://poser.pugx.org/omnipay/braintree/d/total.png)](https://packagist.org/packages/omnipay/braintree)
 
 [Omnipay](https://github.com/thephpleague/omnipay) is a framework agnostic, multi-gateway payment
-processing library for PHP 5.3+. This package implements Braintree support for Omnipay.
+processing library for PHP 7.2+. This package implements Braintree support for Omnipay.
 
 ## Installation
 
@@ -15,7 +15,7 @@ Omnipay is installed via [Composer](http://getcomposer.org/). To install, simply
 to your `composer.json` file:
 
 ```
-composer require omnipay/braintree:"~3.0@dev"
+composer require omnipay/braintree:"~4.0@dev"
 ```
 
 ## Basic Usage
