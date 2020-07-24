@@ -428,6 +428,40 @@ abstract class AbstractRequest extends BaseAbstractRequest
         }
     }
 
+    /**
+     * @return array
+     */
+    public function getLineItems()
+    {
+        $line_items = array();
+
+        if (! $this->getItems()) {
+            return $line_items;
+        }
+
+        foreach ($items as $item) {
+
+            $item_kind = ($item->getPrice() >= 0.00)
+                ? 'debit'
+                : 'credit';
+
+            $unit_amount = ($item->getQuantity() > 0)
+                ? $item->getPrice() / $item->getQuantity()
+                : $item->getPrice();
+
+            array_push($line_items, array(
+                'name' => $item->getName(),
+                'description' => $item->getDescription(),
+                'totalAmount' => $item->getPrice(),
+                'unitAmount' => $unit_amount,
+                'kind' => $item_kind,
+                'quantity' => $item->getQuantity(),
+            ));
+        }
+
+        return $line_items;
+    }
+ 
     protected function createResponse($data)
     {
         return $this->response = new Response($this, $data);

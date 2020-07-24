@@ -32,6 +32,7 @@ class AuthorizeRequest extends AbstractRequest
             'shippingAddressId' => $this->getShippingAddressId(),
             'taxAmount' => $this->getTaxAmount(),
             'taxExempt' => $this->getTaxExempt(),
+            'lineItems' => $this->getLineItems(),
         ];
 
         // special validation
