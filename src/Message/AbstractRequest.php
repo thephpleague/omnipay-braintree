@@ -452,8 +452,8 @@ abstract class AbstractRequest extends BaseAbstractRequest
             array_push($line_items, array(
                 'name' => $item->getName(),
                 'description' => $item->getDescription(),
-                'totalAmount' => $item->getPrice(),
-                'unitAmount' => $unit_amount,
+                'totalAmount' => abs($item->getPrice()),
+                'unitAmount' => abs($unit_amount),
                 'kind' => $item_kind,
                 'quantity' => $item->getQuantity(),
             ));
