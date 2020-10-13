@@ -140,7 +140,6 @@ class AbstractRequestTest extends TestCase
             'storeShippingAddressInVault'      => true,
             'verifyCard'                       => false,
             'verificationMerchantAccountId'    => true,
-            'transactionSource'                => 'recurring',
         );
         $this->request->initialize($options);
         $data = $this->request->getOptionData();
@@ -154,6 +153,5 @@ class AbstractRequestTest extends TestCase
         $this->assertSame($options['storeShippingAddressInVault'], $data['options']['storeShippingAddressInVault']);
         $this->assertSame($options['verifyCard'], $data['options']['verifyCard']);
         $this->assertSame($options['verificationMerchantAccountId'], $data['options']['verificationMerchantAccountId']);
-        $this->assertSame($options['transactionSource'], $data['options']['transactionSource']);
     }
 }
