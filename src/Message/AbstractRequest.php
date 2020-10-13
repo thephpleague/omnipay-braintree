@@ -189,6 +189,16 @@ abstract class AbstractRequest extends BaseAbstractRequest
         return $this->setParameter('recurring', (bool) $value);
     }
 
+    public function getTransactionSource()
+    {
+        return $this->getParameter('transactionSource');
+    }
+
+    public function setTransactionSource(string $value)
+    {
+        return $this->setParameter('transactionSource', $value);
+    }
+    
     public function getAddBillingAddressToPaymentMethod()
     {
         return $this->getParameter('addBillingAddressToPaymentMethod');

@@ -45,6 +45,7 @@ class AbstractRequestTest extends TestCase
             array('deviceSessionId', 'abc123'),
             array('merchantAccountId', 'abc123'),
             array('recurring', true),
+            array('transactionSource', 'recurring'),
             array('addBillingAddressToPaymentMethod', true),
             array('holdInEscrow', true),
             array('storeInVault', true),

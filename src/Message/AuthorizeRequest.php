@@ -28,6 +28,7 @@ class AuthorizeRequest extends AbstractRequest
             'orderId' => $this->getTransactionId(),
             'purchaseOrderNumber' => $this->getPurchaseOrderNumber(),
             'recurring' => $this->getRecurring(),
+            'transactionSource' => $this->getTransactionSource(),
             'serviceFeeAmount' => $this->getServiceFeeAmount(),
             'shippingAddressId' => $this->getShippingAddressId(),
             'taxAmount' => $this->getTaxAmount(),
