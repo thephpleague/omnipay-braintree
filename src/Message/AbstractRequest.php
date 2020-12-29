@@ -187,7 +187,7 @@ abstract class AbstractRequest extends BaseAbstractRequest
 
     public function setRecurring($value)
     {
-        return $this->setParameter('recurring', (bool) $value);
+        return $this->setParameter('recurring', (bool)$value);
     }
 
     public function getAddBillingAddressToPaymentMethod()
@@ -197,7 +197,7 @@ abstract class AbstractRequest extends BaseAbstractRequest
 
     public function setAddBillingAddressToPaymentMethod($value)
     {
-        return $this->setParameter('addBillingAddressToPaymentMethod', (bool) $value);
+        return $this->setParameter('addBillingAddressToPaymentMethod', (bool)$value);
     }
 
     public function getHoldInEscrow()
@@ -207,7 +207,7 @@ abstract class AbstractRequest extends BaseAbstractRequest
 
     public function setHoldInEscrow($value)
     {
-        return $this->setParameter('holdInEscrow', (bool) $value);
+        return $this->setParameter('holdInEscrow', (bool)$value);
     }
 
     public function getServiceFeeAmount()
@@ -233,6 +233,16 @@ abstract class AbstractRequest extends BaseAbstractRequest
         return $this->setParameter('serviceFeeAmount', $value);
     }
 
+    public function setSkipAdvancedFraudChecking($value)
+    {
+        return $this->setParameter('skipAdvancedFraudChecking', (bool)$value);
+    }
+
+    public function getSkipAdvancedFraudChecking()
+    {
+        return (bool)$this->getParameter('skipAdvancedFraudChecking');
+    }
+
     public function getStoreInVault()
     {
         return $this->getParameter('storeInVault');
@@ -240,7 +250,7 @@ abstract class AbstractRequest extends BaseAbstractRequest
 
     public function setStoreInVault($value)
     {
-        return $this->setParameter('storeInVault', (bool) $value);
+        return $this->setParameter('storeInVault', (bool)$value);
     }
 
     public function getStoreInVaultOnSuccess()
@@ -250,7 +260,7 @@ abstract class AbstractRequest extends BaseAbstractRequest
 
     public function setStoreInVaultOnSuccess($value)
     {
-        return $this->setParameter('storeInVaultOnSuccess', (bool) $value);
+        return $this->setParameter('storeInVaultOnSuccess', (bool)$value);
     }
 
     public function getStoreShippingAddressInVault()
@@ -260,7 +270,7 @@ abstract class AbstractRequest extends BaseAbstractRequest
 
     public function setStoreShippingAddressInVault($value)
     {
-        return $this->setParameter('storeShippingAddressInVault', (bool) $value);
+        return $this->setParameter('storeShippingAddressInVault', (bool)$value);
     }
 
     public function getShippingAddressId()
@@ -300,7 +310,7 @@ abstract class AbstractRequest extends BaseAbstractRequest
 
     public function setTaxExempt($value)
     {
-        return $this->setParameter('taxExempt', (bool) $value);
+        return $this->setParameter('taxExempt', (bool)$value);
     }
 
     public function getPaymentMethodToken()
@@ -330,7 +340,7 @@ abstract class AbstractRequest extends BaseAbstractRequest
 
     public function setFailOnDuplicatePaymentMethod($value)
     {
-        return $this->setParameter('failOnDuplicatePaymentMethod', (bool) $value);
+        return $this->setParameter('failOnDuplicatePaymentMethod', (bool)$value);
     }
 
     public function getMakeDefault()
@@ -340,7 +350,7 @@ abstract class AbstractRequest extends BaseAbstractRequest
 
     public function setMakeDefault($value)
     {
-        return $this->setParameter('makeDefault', (bool) $value);
+        return $this->setParameter('makeDefault', (bool)$value);
     }
 
     public function getVerifyCard()
@@ -350,7 +360,7 @@ abstract class AbstractRequest extends BaseAbstractRequest
 
     public function setVerifyCard($value)
     {
-        return $this->setParameter('verifyCard', (bool) $value);
+        return $this->setParameter('verifyCard', (bool)$value);
     }
 
     public function getVerificationMerchantAccountId()
@@ -375,27 +385,27 @@ abstract class AbstractRequest extends BaseAbstractRequest
         }
 
         return array(
-            'billing' => array(
-                'company' => $card->getBillingCompany(),
-                'firstName' => $card->getBillingFirstName(),
-                'lastName' => $card->getBillingLastName(),
-                'streetAddress' => $card->getBillingAddress1(),
-                'extendedAddress' =>  $card->getBillingAddress2(),
-                'locality' => $card->getBillingCity(),
-                'postalCode' => $card->getBillingPostcode(),
-                'region' => $card->getBillingState(),
-                'countryName' => $card->getBillingCountry(),
+            'billing'  => array(
+                'company'         => $card->getBillingCompany(),
+                'firstName'       => $card->getBillingFirstName(),
+                'lastName'        => $card->getBillingLastName(),
+                'streetAddress'   => $card->getBillingAddress1(),
+                'extendedAddress' => $card->getBillingAddress2(),
+                'locality'        => $card->getBillingCity(),
+                'postalCode'      => $card->getBillingPostcode(),
+                'region'          => $card->getBillingState(),
+                'countryName'     => $card->getBillingCountry(),
             ),
             'shipping' => array(
-                'company' => $card->getShippingCompany(),
-                'firstName' => $card->getShippingFirstName(),
-                'lastName' => $card->getShippingLastName(),
-                'streetAddress' => $card->getShippingAddress1(),
-                'extendedAddress' =>  $card->getShippingAddress2(),
-                'locality' => $card->getShippingCity(),
-                'postalCode' => $card->getShippingPostcode(),
-                'region' => $card->getShippingState(),
-                'countryName' => $card->getShippingCountry(),
+                'company'         => $card->getShippingCompany(),
+                'firstName'       => $card->getShippingFirstName(),
+                'lastName'        => $card->getShippingLastName(),
+                'streetAddress'   => $card->getShippingAddress1(),
+                'extendedAddress' => $card->getShippingAddress2(),
+                'locality'        => $card->getShippingCity(),
+                'postalCode'      => $card->getShippingPostcode(),
+                'region'          => $card->getShippingState(),
+                'countryName'     => $card->getShippingCountry(),
             )
         );
     }
@@ -410,6 +420,7 @@ abstract class AbstractRequest extends BaseAbstractRequest
             'failOnDuplicatePaymentMethod'     => $this->getFailOnDuplicatePaymentMethod(),
             'holdInEscrow'                     => $this->getHoldInEscrow(),
             'makeDefault'                      => $this->getMakeDefault(),
+            'skipAdvancedFraudChecking'        => $this->getSkipAdvancedFraudChecking(),
             'storeInVault'                     => $this->getStoreInVault(),
             'storeInVaultOnSuccess'            => $this->getStoreInVaultOnSuccess(),
             'storeShippingAddressInVault'      => $this->getStoreShippingAddressInVault(),
@@ -418,8 +429,8 @@ abstract class AbstractRequest extends BaseAbstractRequest
         );
 
         // Remove null values
-        $data = array_filter($data, function($value){
-            return ! is_null($value);
+        $data = array_filter($data, function ($value) {
+            return !is_null($value);
         });
 
         if (empty($data)) {
@@ -433,6 +444,7 @@ abstract class AbstractRequest extends BaseAbstractRequest
      * Set the items in this order
      *
      * @param ItemBag|array $items An array of items in this order
+     *
      * @return $this
      */
     public function setItems($items)
