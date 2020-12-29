@@ -233,16 +233,6 @@ abstract class AbstractRequest extends BaseAbstractRequest
         return $this->setParameter('serviceFeeAmount', $value);
     }
 
-    public function setSkipAdvancedFraudChecking($value)
-    {
-        return $this->setParameter('skipAdvancedFraudChecking', (bool)$value);
-    }
-
-    public function getSkipAdvancedFraudChecking()
-    {
-        return (bool)$this->getParameter('skipAdvancedFraudChecking');
-    }
-
     public function getStoreInVault()
     {
         return $this->getParameter('storeInVault');
@@ -420,7 +410,6 @@ abstract class AbstractRequest extends BaseAbstractRequest
             'failOnDuplicatePaymentMethod'     => $this->getFailOnDuplicatePaymentMethod(),
             'holdInEscrow'                     => $this->getHoldInEscrow(),
             'makeDefault'                      => $this->getMakeDefault(),
-            'skipAdvancedFraudChecking'        => $this->getSkipAdvancedFraudChecking(),
             'storeInVault'                     => $this->getStoreInVault(),
             'storeInVaultOnSuccess'            => $this->getStoreInVaultOnSuccess(),
             'storeShippingAddressInVault'      => $this->getStoreShippingAddressInVault(),
