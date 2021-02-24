@@ -2,6 +2,7 @@
 
 namespace Omnipay\Braintree\Message;
 
+use Braintree\Configuration;
 use Omnipay\Tests\TestCase;
 
 class ClientTokenResponseTest extends TestCase
@@ -15,7 +16,7 @@ class ClientTokenResponseTest extends TestCase
     {
         parent::setUp();
 
-        $this->request = new ClientTokenRequest($this->getHttpClient(), $this->getHttpRequest(), \Braintree_Configuration::gateway());
+        $this->request = new ClientTokenRequest($this->getHttpClient(), $this->getHttpRequest(), Configuration::gateway());
     }
 
     public function testSuccess()

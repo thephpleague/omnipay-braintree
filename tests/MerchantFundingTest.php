@@ -2,7 +2,7 @@
 
 namespace Omnipay\Braintree;
 
-use Braintree_MerchantAccount;
+use Braintree\MerchantAccount;
 use Omnipay\Tests\TestCase;
 
 class MerchantFundingTest extends TestCase
@@ -29,7 +29,7 @@ class MerchantFundingTest extends TestCase
     {
         $card = new MerchantFunding(array(
             'descriptor' => 'Millsburg National Bank',
-            'destination' => Braintree_MerchantAccount::FUNDING_DESTINATION_BANK,
+            'destination' => MerchantAccount::FUNDING_DESTINATION_BANK,
             'email' => 'payment@hoochiesdollarstore.com',
             'mobilePhone' => '501.778.3151',
             'accountNumber' => '1123581321',
@@ -38,7 +38,7 @@ class MerchantFundingTest extends TestCase
 
         $parameters = $card->getParameters();
         $this->assertSame('Millsburg National Bank', $parameters['descriptor']);
-        $this->assertSame(Braintree_MerchantAccount::FUNDING_DESTINATION_BANK, $parameters['destination']);
+        $this->assertSame(MerchantAccount::FUNDING_DESTINATION_BANK, $parameters['destination']);
         $this->assertSame('payment@hoochiesdollarstore.com', $parameters['email']);
         $this->assertSame('501.778.3151', $parameters['mobilePhone']);
         $this->assertSame('1123581321', $parameters['accountNumber']);
@@ -71,8 +71,8 @@ class MerchantFundingTest extends TestCase
 
     public function testDestination()
     {
-        $this->funding->setDestination(Braintree_MerchantAccount::FUNDING_DESTINATION_BANK);
-        $this->assertEquals(Braintree_MerchantAccount::FUNDING_DESTINATION_BANK, $this->funding->getDestination());
+        $this->funding->setDestination(MerchantAccount::FUNDING_DESTINATION_BANK);
+        $this->assertEquals(MerchantAccount::FUNDING_DESTINATION_BANK, $this->funding->getDestination());
     }
 
     public function testEmail()

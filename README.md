@@ -2,12 +2,12 @@
 
 **Braintree driver for the Omnipay PHP payment processing library**
 
-[![Build Status](https://travis-ci.org/thephpleague/omnipay-braintree.png?branch=master)](https://travis-ci.org/thephpleague/omnipay-braintree)
+[![Build Status](https://travis-ci.org/thephpleague/omnipay-braintree.svg?branch=master)](https://travis-ci.org/thephpleague/omnipay-braintree)
 [![Latest Stable Version](https://poser.pugx.org/omnipay/braintree/version.png)](https://packagist.org/packages/omnipay/braintree)
 [![Total Downloads](https://poser.pugx.org/omnipay/braintree/d/total.png)](https://packagist.org/packages/omnipay/braintree)
 
 [Omnipay](https://github.com/thephpleague/omnipay) is a framework agnostic, multi-gateway payment
-processing library for PHP 5.3+. This package implements Braintree support for Omnipay.
+processing library for PHP 7.2+. This package implements Braintree support for Omnipay.
 
 ## Installation
 
@@ -15,7 +15,7 @@ Omnipay is installed via [Composer](http://getcomposer.org/). To install, simply
 to your `composer.json` file:
 
 ```
-composer require omnipay/braintree:"~2.0@dev"
+composer require omnipay/braintree:"~4.0@dev"
 ```
 
 ## Basic Usage
@@ -62,7 +62,7 @@ $customer = $gateway->createCustomer([
 ```
 You can find full list of options [here](https://developers.braintreepayments.com/reference/request/customer/create/php).
 
-###Find customer (By id)
+### Find customer (By ID)
 
 ```php
 $customer = $gateway->findCustomer(1)->send();
@@ -94,7 +94,7 @@ $method = $gateway->updatePaymentMethod([
 ```
 You can find full list of options [here](https://developers.braintreepayments.com/reference/request/payment-method/update/php).
 
-###Create subscription
+### Create subscription
 
 ```php
 $subscription = $gateway->createSubscription([
@@ -107,14 +107,14 @@ $subscription = $gateway->createSubscription([
 ```
 You can find full list of options [here](https://developers.braintreepayments.com/reference/request/subscription/create/php)
 
-###Cancel subscription
+### Cancel subscription
 
 ```php
 $subscription = $gateway->cancelSubscription('id')->send();
 ```
 You can find full list of options [here](https://developers.braintreepayments.com/reference/request/subscription/cancel/php)
 
-###Parse webhook notification
+### Parse webhook notification
 
 ```php
 $notification = $gateway->parseNotification([

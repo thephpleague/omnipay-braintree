@@ -4,7 +4,7 @@ namespace Omnipay\Braintree\Message;
 use Omnipay\Common\Message\ResponseInterface;
 
 /**
- * Merchant account Request
+ * Merchant account Request.
  *
  * @method Response send()
  */
@@ -12,13 +12,13 @@ class CreateMerchantAccountRequest extends AbstractMerchantAccountRequest
 {
     public function getData()
     {
-        $data = array(
+        $data = [
             'id' => $this->getMerchantAccountId(),
             'masterMerchantAccountId' => $this->getMasterMerchantAccountId(),
             'tosAccepted' => $this->getTosAccepted(),
-        );
+        ];
         // Remove null values
-        $data = array_filter($data, function($value){
+        $data = array_filter($data, function ($value) {
             return ! is_null($value);
         });
         $data += $this->getBusinessData() + $this->getFundingData() + $this->getIndividualData();
@@ -27,9 +27,10 @@ class CreateMerchantAccountRequest extends AbstractMerchantAccountRequest
     }
 
     /**
-     * Send the request with specified data
+     * Send the request with specified data.
      *
-     * @param  mixed $data The data to send
+     * @param mixed $data The data to send
+     *
      * @return ResponseInterface
      */
     public function sendData($data)

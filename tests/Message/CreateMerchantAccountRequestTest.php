@@ -2,7 +2,8 @@
 
 namespace Omnipay\Braintree\Message;
 
-use Braintree_MerchantAccount;
+use Braintree\Configuration;
+use Braintree\MerchantAccount;
 use Omnipay\Tests\TestCase;
 
 class CreateMerchantAccountRequestTest extends TestCase
@@ -16,7 +17,7 @@ class CreateMerchantAccountRequestTest extends TestCase
     {
         parent::setUp();
 
-        $this->request = new CreateMerchantAccountRequest($this->getHttpClient(), $this->getHttpRequest(), \Braintree_Configuration::gateway());
+        $this->request = new CreateMerchantAccountRequest($this->getHttpClient(), $this->getHttpRequest(), Configuration::gateway());
         $this->request->initialize(
             array(
                 'individual' => array(
@@ -42,7 +43,7 @@ class CreateMerchantAccountRequestTest extends TestCase
                 ),
                 'funding' => array(
                     'descriptor' => 'Blue Ladders',
-                    'destination' => Braintree_MerchantAccount::FUNDING_DESTINATION_BANK,
+                    'destination' => MerchantAccount::FUNDING_DESTINATION_BANK,
                     'email' => 'funding@blueladders.com',
                     'mobilePhone' => '5555555555',
                     'accountNumber' => '1123581321',
@@ -71,7 +72,7 @@ class CreateMerchantAccountRequestTest extends TestCase
             'funding' => array(
                 'accountNumber' => '1123581321',
                 'descriptor' => 'Blue Ladders',
-                'destination' => Braintree_MerchantAccount::FUNDING_DESTINATION_BANK,
+                'destination' => MerchantAccount::FUNDING_DESTINATION_BANK,
                 'email' => 'funding@blueladders.com',
                 'mobilePhone' => '5555555555',
                 'routingNumber' => '071101307',

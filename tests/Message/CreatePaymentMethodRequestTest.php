@@ -2,6 +2,7 @@
 
 namespace Omnipay\Braintree\Message;
 
+use Braintree\Configuration;
 use Omnipay\Tests\TestCase;
 
 class CreatePaymentMethodRequestTest extends TestCase
@@ -92,6 +93,6 @@ class CreatePaymentMethodRequestTest extends TestCase
      */
     private function createPaymentMethodRequest()
     {
-        return new CreatePaymentMethodRequest($this->getHttpClient(), $this->getHttpRequest(), \Braintree_Configuration::gateway());
+        return new CreatePaymentMethodRequest($this->getHttpClient(), $this->getHttpRequest(), Configuration::gateway());
     }
 }
