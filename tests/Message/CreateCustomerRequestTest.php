@@ -81,22 +81,24 @@ class CreateCustomerRequestTest extends TestCase
             'lastName' => 'Jones',
             'email' => 'mike.jones@example.com',
             'paymentMethodNonce' => 'testnonce',
-            'options' => [
-                'addBillingAddressToPaymentMethod' => true,
-                'failOnDuplicatePaymentMethod'     => false,
-                'makeDefault'                      => true,
-                'verifyCard'                       => true,
-            ],
-            'billingAddress'               => [
-                'company' => 'Apple Inc',
-                'countryCodeAlpha3' => 'USA',
-                'extendedAddress' => 'Suite 101',
-                'firstName' => 'John',
-                'lastName' => 'Doe',
-                'locality' => 'Los Angeles',
-                'postalCode' => '90210',
-                'region' => 'CA',
-                'streetAddress' => '123 Main Street',
+            'creditCard' => [
+                'options' => [
+                    'addBillingAddressToPaymentMethod' => true,
+                    'failOnDuplicatePaymentMethod'     => false,
+                    'makeDefault'                      => true,
+                    'verifyCard'                       => true,
+                ],
+                'billingAddress'               => [
+                    'company' => 'Apple Inc',
+                    'countryCodeAlpha3' => 'USA',
+                    'extendedAddress' => 'Suite 101',
+                    'firstName' => 'John',
+                    'lastName' => 'Doe',
+                    'locality' => 'Los Angeles',
+                    'postalCode' => '90210',
+                    'region' => 'CA',
+                    'streetAddress' => '123 Main Street',
+                ],
             ],
         ];
         $this->assertSame($expectedData, $this->request->getData());

@@ -11,13 +11,13 @@ class CreateCustomerRequest extends AbstractRequest
     public function getData()
     {
         $data = $this->getCustomerData();
-        
-        $data += $this->getOptionData();
-        
+
+        $data['creditCard'] = $this->getOptionData();
+
         $creditCard = $this->getCardData();
 
         if (array_key_exists('billing', $creditCard) && !empty($billingAddress = $creditCard['billing'])) {
-            $data['billingAddress'] = [
+            $data['creditCard']['billingAddress'] = [
                 'company' => $billingAddress['company'],
                 'countryCodeAlpha3' => $billingAddress['countryName'],
                 'extendedAddress' => $billingAddress['extendedAddress'],
