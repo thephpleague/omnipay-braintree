@@ -55,6 +55,55 @@ class CreatePaymentMethodRequestTest extends TestCase
         $this->assertSame($expectedData, $request->getData());
     }
 
+    public function testGetDataWithAVS()
+    {
+        $request = $this->createPaymentMethodRequest();
+        $request->initialize(
+            [
+                'customerId' => '4815162342',
+                'token' => 'abc123',
+                'addBillingAddressToPaymentMethod' => true,
+                'failOnDuplicatePaymentMethod'     => false,
+                'makeDefault'                      => true,
+                'verifyCard'                       => true,
+                'card'               => [
+                    'billingFirstName' => 'John',
+                    'billingLastName'  => 'Doe',
+                    'billingAddress1'  => '123 Main Street',
+                    'billingAddress2'  => 'Suite 101',
+                    'billingCity'      => 'Los Angeles',
+                    'billingState'     => 'CA',
+                    'billingPostcode'  => '90210',
+                    'billingCountry'   => 'USA',
+                    'billingCompany'   => 'Apple Inc',
+                ],
+            ]
+        );
+
+        $expectedData = [
+            'customerId' => '4815162342',
+            'paymentMethodNonce' => 'abc123',
+            'options' => [
+                'addBillingAddressToPaymentMethod' => true,
+                'failOnDuplicatePaymentMethod'     => false,
+                'makeDefault'                      => true,
+                'verifyCard'                       => true,
+            ],
+            'billingAddress'               => [
+                'company' => 'Apple Inc',
+                'countryCodeAlpha3' => 'USA',
+                'extendedAddress' => 'Suite 101',
+                'firstName' => 'John',
+                'lastName' => 'Doe',
+                'locality' => 'Los Angeles',
+                'postalCode' => '90210',
+                'region' => 'CA',
+                'streetAddress' => '123 Main Street',
+            ],
+        ];
+        $this->assertSame($expectedData, $request->getData());
+    }
+
     /**
      * @return CreatePaymentMethodRequest
      */
