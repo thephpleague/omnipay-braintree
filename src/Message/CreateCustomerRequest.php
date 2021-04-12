@@ -10,7 +10,27 @@ class CreateCustomerRequest extends AbstractRequest
 {
     public function getData()
     {
-        return $this->getCustomerData();
+        $data = $this->getCustomerData();
+        
+        $data += $this->getOptionData();
+        
+        $creditCard = $this->getCardData();
+
+        if (array_key_exists('billing', $creditCard) && !empty($billingAddress = $creditCard['billing'])) {
+            $data['billingAddress'] = [
+                'company' => $billingAddress['company'],
+                'countryCodeAlpha3' => $billingAddress['countryName'],
+                'extendedAddress' => $billingAddress['extendedAddress'],
+                'firstName' => $billingAddress['firstName'],
+                'lastName' => $billingAddress['lastName'],
+                'locality' => $billingAddress['locality'],
+                'postalCode' => $billingAddress['postalCode'],
+                'region' => $billingAddress['region'],
+                'streetAddress' => $billingAddress['streetAddress'],
+            ];
+        }
+
+        return $data;
     }
 
     /**
