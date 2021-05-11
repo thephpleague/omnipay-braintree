@@ -32,24 +32,28 @@ class CreatePaymentMethodRequest extends AbstractRequest
 
         $data['billingAddress'] = [];
 
-        if ($this->getStreetAddress() !== '') {
+        if ($this->getStreetAddress() !== NULL && $this->getStreetAddress() !== '') {
             $data['billingAddress']['streetAddress'] = $this->getStreetAddress();
         }
 
-        if ($this->getLocality() !== '') {
+        if ($this->getLocality() !== NULL && $this->getLocality() !== '') {
             $data['billingAddress']['locality'] = $this->getLocality();
         }
 
-        if ($this->getPostalCode() !== '') {
+        if ($this->getPostalCode() !== NULL && $this->getPostalCode() !== '') {
             $data['billingAddress']['postalCode'] = $this->getPostalCode();
         }
 
-        if ($this->getRegion() !== '') {
+        if ($this->getRegion() !== NULL && $this->getRegion() !== '') {
             $data['billingAddress']['region'] = $this->getRegion();
         }
 
-        if ($this->getCountryCodeAlpha2() !== '') {
+        if ($this->getCountryCodeAlpha2() !== NULL && $this->getCountryCodeAlpha2() !== '') {
             $data['billingAddress']['countryCodeAlpha2'] = $this->getCountryCodeAlpha2();
+        }
+
+        if (count($data['billingAddress']) === 0) {
+            unset($data['billingAddress']);
         }
 
         $data = array_merge($data, $this->getOptionData());
