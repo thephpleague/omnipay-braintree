@@ -26,7 +26,7 @@ The following gateways are provided by this package:
 
 You need to set your `merchantId`, `publicKey` and `privateKey`. Setting `testMode` to true will use the `sandbox` environment.
 
-This gateway supports purchase through a token (payment nonce) only. You can generate a clientToken for Javascript:
+This gateway supports purchase through a token (payment nonce), which is the method recommended by Braintree. You can generate a clientToken for Javascript:
 
 ```php
 $clientToken = $gateway->clientToken()->send()->getToken();
@@ -42,6 +42,20 @@ Use the `payment_method_nonce` to process your customer order like so:
 $response = $gateway->purchase([
             'amount' => '10.00',
             'token' => $_POST['payment_method_nonce']
+        ])->send();
+```
+
+It also supports making purchases when the credit card number is specified:
+
+```php
+$response = $gateway->purchase([
+            'amount' => '10.00',
+            'card' => [
+                'number' => '4111111111111111',
+                'expiryMonth' => '6',
+                'expiryYear' => '2025',
+                'cvv' => '123',
+            ]
         ])->send();
 ```
 

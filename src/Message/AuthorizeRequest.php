@@ -35,15 +35,20 @@ class AuthorizeRequest extends AbstractRequest
             'lineItems' => $this->getLineItems(),
         ];
 
-        // special validation
-        if ($this->getPaymentMethodToken()) {
-            $data['paymentMethodToken'] = $this->getPaymentMethodToken();
-        } elseif ($this->getToken()) {
-            $data['paymentMethodNonce'] = $this->getToken();
-        } elseif ($this->getCustomerId()) {
-            $data['customerId'] = $this->getCustomerId();
-        } else {
-            throw new InvalidRequestException('The token (payment nonce), paymentMethodToken or customerId field should be set.');
+        $cardData = $this->getCardData();
+
+        if (empty($cardData['creditCard']['number'])) {
+            // special validation if the card number
+            // is not specified
+            if ($this->getPaymentMethodToken()) {
+                $data['paymentMethodToken'] = $this->getPaymentMethodToken();
+            } elseif ($this->getToken()) {
+                $data['paymentMethodNonce'] = $this->getToken();
+            } elseif ($this->getCustomerId()) {
+                $data['customerId'] = $this->getCustomerId();
+            } else {
+                throw new InvalidRequestException('The token (payment nonce), paymentMethodToken or customerId field should be set.');
+            }
         }
 
         // Remove null values
@@ -58,7 +63,7 @@ class AuthorizeRequest extends AbstractRequest
         }
 
         $data += $this->getOptionData();
-        $data += $this->getCardData();
+        $data += $cardData;
         $data['options']['submitForSettlement'] = false;
 
         return $data;
