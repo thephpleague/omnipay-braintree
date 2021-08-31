@@ -435,7 +435,7 @@ abstract class AbstractRequest extends BaseAbstractRequest
     {
         $line_items = array();
 
-        if (! $this->getItems()) {
+        if (!$items = $this->getItems()) {
             return $line_items;
         }
 
@@ -461,7 +461,7 @@ abstract class AbstractRequest extends BaseAbstractRequest
 
         return $line_items;
     }
- 
+
     protected function createResponse($data)
     {
         return $this->response = new Response($this, $data);
