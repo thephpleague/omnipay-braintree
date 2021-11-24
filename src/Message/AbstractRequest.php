@@ -445,15 +445,11 @@ abstract class AbstractRequest extends BaseAbstractRequest
                 ? 'debit'
                 : 'credit';
 
-            $unit_amount = ($item->getQuantity() > 0)
-                ? $item->getPrice() / $item->getQuantity()
-                : $item->getPrice();
-
             array_push($line_items, array(
                 'name' => $item->getName(),
                 'description' => $item->getDescription(),
-                'totalAmount' => abs($item->getPrice()),
-                'unitAmount' => abs($unit_amount),
+                'totalAmount' => abs(round($item->getQuantity() * $item->getPrice(), $this->getCurrencyDecimalPlaces())),
+                'unitAmount' => abs(round($item->getPrice(), $this->getCurrencyDecimalPlaces())),
                 'kind' => $item_kind,
                 'quantity' => $item->getQuantity(),
             ));
