@@ -35,14 +35,14 @@ class FindCustomerRequestTest extends TestCase
 
     protected function buildMockGateway()
     {
-        $gateway = $this->getMockBuilder('\Braintree_Gateway')
+        $gateway = $this->getMockBuilder('\Braintree\Gateway')
             ->disableOriginalConstructor()
             ->setMethods(array(
                 'customer'
             ))
             ->getMock();
 
-        $customer = $this->getMockBuilder('\Braintree_CustomerGateway')
+        $customer = $this->getMockBuilder('\Braintree\CustomerGateway')
             ->disableOriginalConstructor()
             ->getMock();
 

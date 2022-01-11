@@ -5,7 +5,7 @@ use Omnipay\Common\Exception\InvalidRequestException;
 use Omnipay\Common\Message\ResponseInterface;
 
 /**
- * Authorize Request
+ * Authorize Request.
  *
  * @method Response send()
  */
@@ -15,7 +15,7 @@ class AuthorizeRequest extends AbstractRequest
     {
         $this->validate('amount');
 
-        $data = array(
+        $data = [
             'amount' => $this->getAmount(),
             'billingAddressId' => $this->getBillingAddressId(),
             'channel' => $this->getChannel(),
@@ -32,7 +32,8 @@ class AuthorizeRequest extends AbstractRequest
             'shippingAddressId' => $this->getShippingAddressId(),
             'taxAmount' => $this->getTaxAmount(),
             'taxExempt' => $this->getTaxExempt(),
-        );
+            'lineItems' => $this->getLineItems(),
+        ];
 
         // special validation
         if ($this->getPaymentMethodToken()) {
@@ -42,18 +43,18 @@ class AuthorizeRequest extends AbstractRequest
         } elseif ($this->getCustomerId()) {
             $data['customerId'] = $this->getCustomerId();
         } else {
-            throw new InvalidRequestException("The token (payment nonce), paymentMethodToken or customerId field should be set.");
+            throw new InvalidRequestException('The token (payment nonce), paymentMethodToken or customerId field should be set.');
         }
 
         // Remove null values
-        $data = array_filter($data, function($value){
+        $data = array_filter($data, function ($value) {
             return ! is_null($value);
         });
 
         if ($this->getCardholderName()) {
-            $data['creditCard'] = array(
+            $data['creditCard'] = [
                 'cardholderName' => $this->getCardholderName(),
-            );
+            ];
         }
 
         $data += $this->getOptionData();
@@ -64,9 +65,10 @@ class AuthorizeRequest extends AbstractRequest
     }
 
     /**
-     * Send the request with specified data
+     * Send the request with specified data.
      *
-     * @param  mixed $data The data to send
+     * @param mixed $data The data to send
+     *
      * @return ResponseInterface
      */
     public function sendData($data)
@@ -79,15 +81,17 @@ class AuthorizeRequest extends AbstractRequest
     /**
      * [optional] The cardholder name associated with the credit card. 175 character maximum.
      * Required for iOS integration because its missing in "tokenizeCard" function there.
-     * See: https://developers.braintreepayments.com/reference/request/transaction/sale/php#credit_card.cardholder_name
+     * See: https://developers.braintreepayments.com/reference/request/transaction/sale/php#credit_card.cardholder_name.
      *
      * @param $value
+     *
      * @return mixed
      */
     public function setCardholderName($value)
     {
         $cardholderName = trim($value);
-        $cardholderName = strlen($cardholderName)>0 ? $cardholderName : null;
+        $cardholderName = strlen($cardholderName) > 0 ? $cardholderName : null;
+
         return $this->setParameter('cardholderName', $cardholderName);
     }
 

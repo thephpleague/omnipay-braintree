@@ -1,9 +1,9 @@
 <?php
+
 namespace Omnipay\Braintree\Message;
 
 /**
  * Find Customer Request
- *
  * @method CustomerResponse send()
  */
 class FindCustomerRequest extends AbstractRequest
@@ -16,8 +16,9 @@ class FindCustomerRequest extends AbstractRequest
     /**
      * Send the request with specified data
      *
-     * @param  mixed $data The data to send
-     * @return CustomerResponse
+     * @param mixed $data
+     *
+     * @return \Omnipay\Braintree\Message\CustomerResponse|\Omnipay\Common\Message\ResponseInterface
      */
     public function sendData($data)
     {

@@ -3,6 +3,7 @@
 namespace Omnipay\Braintree\Message;
 
 use Omnipay\Tests\TestCase;
+use Braintree\Configuration;
 
 class PurchaseRequestTest extends TestCase
 {
@@ -15,7 +16,7 @@ class PurchaseRequestTest extends TestCase
     {
         parent::setUp();
 
-        $this->request = new PurchaseRequest($this->getHttpClient(), $this->getHttpRequest(), \Braintree_Configuration::gateway());
+        $this->request = new PurchaseRequest($this->getHttpClient(), $this->getHttpRequest(), Configuration::gateway());
         $this->request->initialize(
             array(
                 'amount' => '10.00',

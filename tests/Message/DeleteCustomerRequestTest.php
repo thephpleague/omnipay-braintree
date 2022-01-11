@@ -2,6 +2,7 @@
 
 namespace Omnipay\Braintree\Message;
 
+use Braintree\Configuration;
 use Omnipay\Tests\TestCase;
 
 class DeleteCustomerRequestTest extends TestCase
@@ -15,7 +16,7 @@ class DeleteCustomerRequestTest extends TestCase
     {
         parent::setUp();
 
-        $this->request = new DeleteCustomerRequest($this->getHttpClient(), $this->getHttpRequest(), \Braintree_Configuration::gateway());
+        $this->request = new DeleteCustomerRequest($this->getHttpClient(), $this->getHttpRequest(), Configuration::gateway());
         $this->request->initialize(
             array(
                 'customerId' => '4815162342'
