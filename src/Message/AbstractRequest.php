@@ -373,30 +373,40 @@ abstract class AbstractRequest extends BaseAbstractRequest
             return [];
         }
 
-        return [
-            'billing' => [
-                'company' => $card->getBillingCompany(),
-                'firstName' => $card->getBillingFirstName(),
-                'lastName' => $card->getBillingLastName(),
-                'streetAddress' => $card->getBillingAddress1(),
-                'extendedAddress' => $card->getBillingAddress2(),
-                'locality' => $card->getBillingCity(),
-                'postalCode' => $card->getBillingPostcode(),
-                'region' => $card->getBillingState(),
-                'countryName' => $card->getBillingCountry(),
-            ],
-            'shipping' => [
-                'company' => $card->getShippingCompany(),
-                'firstName' => $card->getShippingFirstName(),
-                'lastName' => $card->getShippingLastName(),
-                'streetAddress' => $card->getShippingAddress1(),
-                'extendedAddress' => $card->getShippingAddress2(),
-                'locality' => $card->getShippingCity(),
-                'postalCode' => $card->getShippingPostcode(),
-                'region' => $card->getShippingState(),
-                'countryName' => $card->getShippingCountry(),
-            ],
+        $number = $card->getNumber();
+        if ($number) {
+            $cardData['creditCard'] = [
+                'number' => $number,
+                'expirationDate' => sprintf('%s/%s', $card->getExpiryMonth(), $card->getExpiryYear()),
+                'cvv' => $card->getCvv(),
+            ];
+        }
+
+        $cardData['billing'] = [
+            'company' => $card->getBillingCompany(),
+            'firstName' => $card->getBillingFirstName(),
+            'lastName' => $card->getBillingLastName(),
+            'streetAddress' => $card->getBillingAddress1(),
+            'extendedAddress' => $card->getBillingAddress2(),
+            'locality' => $card->getBillingCity(),
+            'postalCode' => $card->getBillingPostcode(),
+            'region' => $card->getBillingState(),
+            'countryName' => $card->getBillingCountry(),
         ];
+
+        $cardData['shipping'] = [
+            'company' => $card->getShippingCompany(),
+            'firstName' => $card->getShippingFirstName(),
+            'lastName' => $card->getShippingLastName(),
+            'streetAddress' => $card->getShippingAddress1(),
+            'extendedAddress' => $card->getShippingAddress2(),
+            'locality' => $card->getShippingCity(),
+            'postalCode' => $card->getShippingPostcode(),
+            'region' => $card->getShippingState(),
+            'countryName' => $card->getShippingCountry(),
+        ];
+
+        return $cardData;
     }
 
     /**
