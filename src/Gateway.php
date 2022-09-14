@@ -278,11 +278,49 @@ class Gateway extends AbstractGateway
     }
 
     /**
-     * @return \Omnipay\Common\Message\PlansRequest
+     * @param string $subscriptionId
+     *
+     * @return \Omnipay\Common\Message\AbstractRequest
+     */
+    public function findSubscription($subscriptionId)
+    {
+        return $this->createRequest('\Omnipay\Braintree\Message\FindSubscriptionRequest', array('id' => $subscriptionId));
+    }
+
+    /**
+     * @param array $parameters
+     *
+     * @return Message\UpdateSubscriptionRequest
+     */
+    public function updateSubscription(array $parameters = [])
+    {
+        return $this->createRequest('\Omnipay\Braintree\Message\UpdateSubscriptionRequest', $parameters);
+    }
+
+    /**
+     * @return Message\PlanRequest
      */
     public function plans()
     {
         return $this->createRequest('\Omnipay\Braintree\Message\PlanRequest', []);
+    }
+
+    /**
+     * @return Message\DiscountRequest
+     */
+    public function discounts()
+    {
+        return $this->createRequest('\Omnipay\Braintree\Message\DiscountRequest', []);
+    }
+
+    /**
+     * @param array $parameters
+     *
+     * @return Message\SearchRequest
+     */
+    public function searchTransactions(array $parameters = [])
+    {
+        return $this->createRequest('\Omnipay\Braintree\Message\SearchRequest', $parameters);
     }
 
     /**
