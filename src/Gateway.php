@@ -13,6 +13,8 @@ use Symfony\Component\HttpFoundation\Request as HttpRequest;
  */
 class Gateway extends AbstractGateway
 {
+    use ConfigurationAwareTrait;
+
     /**
      * @var BraintreeGateway
      */
@@ -332,6 +334,8 @@ class Gateway extends AbstractGateway
      */
     public function parseNotification(array $parameters = [])
     {
+        $this->configure();
+
         return WebhookNotification::parse(
             $parameters['bt_signature'],
             $parameters['bt_payload']
@@ -346,5 +350,10 @@ class Gateway extends AbstractGateway
     public function fetchTransaction(array $parameters = [])
     {
         return $this->createRequest('\Omnipay\Braintree\Message\FindRequest', $parameters);
+    }
+
+    public function getBraintree(): BraintreeGateway
+    {
+        return $this->braintree;
     }
 }

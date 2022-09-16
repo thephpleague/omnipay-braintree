@@ -3,6 +3,7 @@
 namespace Omnipay\Braintree\Message;
 
 use Braintree\Gateway;
+use Omnipay\Braintree\ConfigurationAwareTrait;
 use Omnipay\Common\Exception\InvalidRequestException;
 use Omnipay\Common\Http\ClientInterface;
 use Omnipay\Common\Message\AbstractRequest as BaseAbstractRequest;
@@ -13,6 +14,8 @@ use Symfony\Component\HttpFoundation\Request as HttpRequest;
  */
 abstract class AbstractRequest extends BaseAbstractRequest
 {
+    use ConfigurationAwareTrait;
+
     /**
      * @var Gateway
      */
@@ -42,21 +45,6 @@ abstract class AbstractRequest extends BaseAbstractRequest
         $this->configure();
 
         return parent::send();
-    }
-
-    public function configure()
-    {
-        // When in testMode, use the sandbox environment
-        if ($this->getTestMode()) {
-            $this->braintree->config->environment('sandbox');
-        } else {
-            $this->braintree->config->environment('production');
-        }
-
-        // Set the keys
-        $this->braintree->config->merchantId($this->getMerchantId());
-        $this->braintree->config->publicKey($this->getPublicKey());
-        $this->braintree->config->privateKey($this->getPrivateKey());
     }
 
     public function getMerchantId()
@@ -461,5 +449,10 @@ abstract class AbstractRequest extends BaseAbstractRequest
     protected function createResponse($data)
     {
         return $this->response = new Response($this, $data);
+    }
+
+    public function getBraintree(): Gateway
+    {
+        return $this->braintree;
     }
 }

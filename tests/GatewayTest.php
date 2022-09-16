@@ -179,31 +179,21 @@ class GatewayTest extends GatewayTestCase
 
     public function testParseNotification()
     {
-        if(Version::MAJOR >= 3) {
-            $xml = '<notification></notification>';
-            $payload = base64_encode($xml);
-            $signature = Digest::hexDigestSha1(Configuration::privateKey(), $payload);
-            $gatewayMock = $this->buildGatewayMock($payload);
-            $gateway = new Gateway($this->getHttpClient(), $this->getHttpRequest(), $gatewayMock);
-            $params = array(
-                'bt_signature' => $payload.'|'.$signature,
-                'bt_payload' => $payload
-            );
-            $request = $gateway->parseNotification($params);
-            $this->assertInstanceOf('\Braintree\WebhookNotification', $request);
+        if (Version::MAJOR >= 3) {
+            $xml = '<notification><subject></subject><kind></kind></notification>';
         } else {
             $xml = '<notification><subject></subject></notification>';
-            $payload = base64_encode($xml);
-            $signature = Digest::hexDigestSha1(Configuration::privateKey(), $payload);
-            $gatewayMock = $this->buildGatewayMock($payload);
-            $gateway = new Gateway($this->getHttpClient(), $this->getHttpRequest(), $gatewayMock);
-            $params = array(
-                'bt_signature' => $payload.'|'.$signature,
-                'bt_payload' => $payload
-            );
-            $request = $gateway->parseNotification($params);
-            $this->assertInstanceOf('\Braintree\WebhookNotification', $request);
         }
+        $payload = base64_encode($xml);
+        $signature = Digest::hexDigestSha1(Configuration::privateKey(), $payload);
+        $gatewayMock = $this->buildGatewayMock($payload);
+        $gateway = new Gateway($this->getHttpClient(), $this->getHttpRequest(), $gatewayMock);
+        $params = array(
+            'bt_signature' => $payload.'|'.$signature,
+            'bt_payload' => $payload
+        );
+        $request = $gateway->parseNotification($params);
+        $this->assertInstanceOf('\Braintree\WebhookNotification', $request);
     }
 
     /**
