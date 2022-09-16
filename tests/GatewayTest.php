@@ -147,33 +147,53 @@ class GatewayTest extends GatewayTestCase
         $this->assertInstanceOf('Omnipay\Braintree\Message\CancelSubscriptionRequest', $request);
     }
 
+    public function testFindSubscription()
+    {
+        $request = $this->gateway->findSubscription('1');
+        $this->assertInstanceOf('Omnipay\Braintree\Message\FindSubscriptionRequest', $request);
+    }
+
+    public function testUpdateSubscription()
+    {
+        $request = $this->gateway->updateSubscription();
+        $this->assertInstanceOf('Omnipay\Braintree\Message\UpdateSubscriptionRequest', $request);
+    }
+
+    public function testPlans()
+    {
+        $request = $this->gateway->plans();
+        $this->assertInstanceOf('Omnipay\Braintree\Message\PlanRequest', $request);
+    }
+
+    public function testDiscounts()
+    {
+        $request = $this->gateway->discounts();
+        $this->assertInstanceOf('Omnipay\Braintree\Message\DiscountRequest', $request);
+    }
+
+    public function testSearchTransactions()
+    {
+        $request = $this->gateway->searchTransactions();
+        $this->assertInstanceOf('Omnipay\Braintree\Message\SearchRequest', $request);
+    }
+
     public function testParseNotification()
     {
-        if(Version::MAJOR >= 3) {
-            $xml = '<notification></notification>';
-            $payload = base64_encode($xml);
-            $signature = Digest::hexDigestSha1(Configuration::privateKey(), $payload);
-            $gatewayMock = $this->buildGatewayMock($payload);
-            $gateway = new Gateway($this->getHttpClient(), $this->getHttpRequest(), $gatewayMock);
-            $params = array(
-                'bt_signature' => $payload.'|'.$signature,
-                'bt_payload' => $payload
-            );
-            $request = $gateway->parseNotification($params);
-            $this->assertInstanceOf('\Braintree\WebhookNotification', $request);
+        if (Version::MAJOR >= 3) {
+            $xml = '<notification><subject></subject><kind></kind></notification>';
         } else {
             $xml = '<notification><subject></subject></notification>';
-            $payload = base64_encode($xml);
-            $signature = Digest::hexDigestSha1(Configuration::privateKey(), $payload);
-            $gatewayMock = $this->buildGatewayMock($payload);
-            $gateway = new Gateway($this->getHttpClient(), $this->getHttpRequest(), $gatewayMock);
-            $params = array(
-                'bt_signature' => $payload.'|'.$signature,
-                'bt_payload' => $payload
-            );
-            $request = $gateway->parseNotification($params);
-            $this->assertInstanceOf('\Braintree\WebhookNotification', $request);
         }
+        $payload = base64_encode($xml);
+        $signature = Digest::hexDigestSha1(Configuration::privateKey(), $payload);
+        $gatewayMock = $this->buildGatewayMock($payload);
+        $gateway = new Gateway($this->getHttpClient(), $this->getHttpRequest(), $gatewayMock);
+        $params = array(
+            'bt_signature' => $payload.'|'.$signature,
+            'bt_payload' => $payload
+        );
+        $request = $gateway->parseNotification($params);
+        $this->assertInstanceOf('\Braintree\WebhookNotification', $request);
     }
 
     /**

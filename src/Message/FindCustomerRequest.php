@@ -10,7 +10,7 @@ class FindCustomerRequest extends AbstractRequest
 {
     public function getData()
     {
-        return $this->getCustomerData();
+        return null;
     }
 
     /**
