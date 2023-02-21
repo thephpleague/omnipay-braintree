@@ -12,7 +12,7 @@ class AbstractRequestTest extends TestCase
      */
     private $request;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->request = Mockery::mock('\Omnipay\Braintree\Message\AbstractRequest')->makePartial();
         $this->request->initialize();
