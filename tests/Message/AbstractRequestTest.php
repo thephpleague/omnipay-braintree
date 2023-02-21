@@ -42,7 +42,6 @@ class AbstractRequestTest extends TestCase
             array('customerId', 'abc123'),
             array('descriptor', array('a' => 'b')),
             array('deviceData', 'abc123'),
-            array('deviceSessionId', 'abc123'),
             array('merchantAccountId', 'abc123'),
             array('recurring', true),
             array('addBillingAddressToPaymentMethod', true),
