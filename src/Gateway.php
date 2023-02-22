@@ -309,4 +309,22 @@ class Gateway extends AbstractGateway
     {
         return $this->createRequest('\Omnipay\Braintree\Message\FindRequest', $parameters);
     }
+
+    /**
+     * Find transactions by criteria
+     *
+     * Example usage:
+     *
+     *      $collections = $brainTree->findTransactions(['customerId' => '12345678']);
+     *
+     * The parameter key has to one of the static methods from \Braintree\TransactionSearch
+     * @see https://developers.braintreepayments.com/reference/request/transaction/search/php
+     *
+     * @param array $parameters
+     * @return mixed|\Omnipay\Common\Message\AbstractRequest
+     */
+    public function findTransactions(array $parameters = array())
+    {
+        return $this->createRequest('\Omnipay\Braintree\Message\FindTransactions', $parameters);
+    }
 }
