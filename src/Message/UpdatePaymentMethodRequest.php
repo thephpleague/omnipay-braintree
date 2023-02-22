@@ -21,6 +21,14 @@ class UpdatePaymentMethodRequest extends AbstractRequest
             $data['options'] = $options;
         }
 
+        foreach (array('cardholderName', 'expirationDate') as $key) {
+            $value = $this->parameters->get($key);
+
+            if (null !== $value) {
+                $data[$key] = $value;
+            }
+        }
+
         return $data;
     }
 
@@ -66,5 +74,25 @@ class UpdatePaymentMethodRequest extends AbstractRequest
     public function setOptions(array $options = [])
     {
         return $this->setParameter('paymentMethodOptions', $options);
+    }
+
+    /**
+     * @param string $value
+     *
+     * @return \Omnipay\Common\Message\AbstractRequest
+     */
+    public function setCardholderName($value)
+    {
+        return $this->setParameter('cardholderName', $value);
+    }
+
+    /**
+     * @param string $value
+     *
+     * @return \Omnipay\Common\Message\AbstractRequest
+     */
+    public function setExpirationDate($value)
+    {
+        return $this->setParameter('expirationDate', $value);
     }
 }

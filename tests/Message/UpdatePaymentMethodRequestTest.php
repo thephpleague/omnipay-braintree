@@ -22,6 +22,8 @@ class UpdatePaymentMethodRequestTest extends TestCase
         $this->request->initialize(
             array(
                 'paymentMethodToken' => 'abcd1234',
+                'cardholderName' => 'John Doe',
+                'expirationDate' => '06/2030',
                 'options' => array(
                     'makeDefault' => true,
                 )
@@ -32,6 +34,8 @@ class UpdatePaymentMethodRequestTest extends TestCase
             'options' => array(
                 'makeDefault' => true,
             ),
+            'cardholderName' => 'John Doe',
+            'expirationDate' => '06/2030',
         );
         $this->assertSame($expected, $this->request->getData());
     }
