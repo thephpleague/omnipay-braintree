@@ -184,7 +184,7 @@ class MerchantIndividual
     {
         $names = explode(' ', $value, 2);
         $this->setFirstName($names[0]);
-        $this->setLastName(isset($names[1]) ? $names[1] : null);
+        $this->setLastName($names[1] ?? null);
 
         return $this;
     }
