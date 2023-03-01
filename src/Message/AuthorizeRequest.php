@@ -23,7 +23,6 @@ class AuthorizeRequest extends AbstractRequest
             'customerId' => $this->getCustomerId(),
             'descriptor' => $this->getDescriptor(),
             'deviceData' => $this->getDeviceData(),
-            'deviceSessionId' => $this->getDeviceSessionId(),
             'merchantAccountId' => $this->getMerchantAccountId(),
             'orderId' => $this->getTransactionId(),
             'purchaseOrderNumber' => $this->getPurchaseOrderNumber(),

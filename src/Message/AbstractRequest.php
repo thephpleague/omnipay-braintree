@@ -159,16 +159,6 @@ abstract class AbstractRequest extends BaseAbstractRequest
         return $this->setParameter('deviceData', $value);
     }
 
-    public function getDeviceSessionId()
-    {
-        return $this->getParameter('deviceSessionId');
-    }
-
-    public function setDeviceSessionId($value)
-    {
-        return $this->setParameter('deviceSessionId', $value);
-    }
-
     public function getMerchantAccountId()
     {
         return $this->getParameter('merchantAccountId');

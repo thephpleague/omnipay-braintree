@@ -12,7 +12,7 @@ class AbstractRequestTest extends TestCase
      */
     private $request;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->request = Mockery::mock('\Omnipay\Braintree\Message\AbstractRequest')->makePartial();
         $this->request->initialize();
@@ -42,7 +42,6 @@ class AbstractRequestTest extends TestCase
             array('customerId', 'abc123'),
             array('descriptor', array('a' => 'b')),
             array('deviceData', 'abc123'),
-            array('deviceSessionId', 'abc123'),
             array('merchantAccountId', 'abc123'),
             array('recurring', true),
             array('addBillingAddressToPaymentMethod', true),

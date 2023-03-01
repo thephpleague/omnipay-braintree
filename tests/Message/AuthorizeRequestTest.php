@@ -4,6 +4,7 @@ namespace Omnipay\Braintree\Message;
 
 use Braintree\Configuration;
 use Omnipay\Tests\TestCase;
+use Omnipay\Common\Exception\InvalidRequestException;
 
 class AuthorizeRequestTest extends TestCase
 {
@@ -12,7 +13,7 @@ class AuthorizeRequestTest extends TestCase
      */
     private $request;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 
@@ -176,23 +177,24 @@ class AuthorizeRequestTest extends TestCase
         $this->assertSame('137', $this->request->getServiceFeeAmount());
     }
 
-    /**
-     * @expectedException \Omnipay\Common\Exception\InvalidRequestException
-     */
     public function testServiceFeeAmountWithIntThrowsException()
     {
         // ambiguous value, avoid errors upgrading from v0.9
         $this->assertSame($this->request, $this->request->setServiceFeeAmount(10));
+
+        $this->expectException(InvalidRequestException::class);
+
         $this->request->getServiceFeeAmount();
+
     }
 
-    /**
-     * @expectedException \Omnipay\Common\Exception\InvalidRequestException
-     */
     public function testServiceFeeAmountWithIntStringThrowsException()
     {
         // ambiguous value, avoid errors upgrading from v0.9
         $this->assertSame($this->request, $this->request->setServiceFeeAmount('10'));
+
+        $this->expectException(InvalidRequestException::class);
+
         $this->request->getServiceFeeAmount();
     }
 }
