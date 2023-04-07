@@ -2,7 +2,7 @@
 
 **Braintree driver for the Omnipay PHP payment processing library**
 
-[![Build Status](https://travis-ci.org/thephpleague/omnipay-braintree.svg?branch=master)](https://travis-ci.org/thephpleague/omnipay-braintree)
+[![Unit Tests](https://github.com/thephpleague/omnipay-braintree/actions/workflows/run-tests.yml/badge.svg)](https://github.com/thephpleague/omnipay-braintree/actions/workflows/run-tests.yml)
 [![Latest Stable Version](https://poser.pugx.org/omnipay/braintree/version.png)](https://packagist.org/packages/omnipay/braintree)
 [![Total Downloads](https://poser.pugx.org/omnipay/braintree/d/total.png)](https://packagist.org/packages/omnipay/braintree)
 
