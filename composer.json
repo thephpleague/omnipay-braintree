@@ -34,7 +34,7 @@
         "php": "^8.1",
         "omnipay/common": "^3",
         "braintree/braintree_php": "^5.0",
-        "symfony/http-client": "^6.3"
+        "symfony/http-client": "6.0"
     },
     "require-dev": {
         "omnipay/tests": "^4",
