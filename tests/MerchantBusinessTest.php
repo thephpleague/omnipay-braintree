@@ -8,7 +8,7 @@ use Omnipay\Tests\TestCase;
 
 class MerchantBusinessTest extends TestCase
 {
-    public function setUp()
+    public function setUp(): void
     {
         $this->business = new MerchantBusiness();
     }

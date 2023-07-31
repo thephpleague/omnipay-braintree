@@ -2,6 +2,7 @@
 
 namespace Omnipay\Braintree\Message;
 
+use Braintree\Configuration;
 use Omnipay\Tests\TestCase;
 
 class ReleaseFromEscrowRequestTest extends TestCase
@@ -11,15 +12,15 @@ class ReleaseFromEscrowRequestTest extends TestCase
      */
     private $request;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 
-        $this->request = new ReleaseFromEscrowRequest($this->getHttpClient(), $this->getHttpRequest(), \Braintree_Configuration::gateway());
+        $this->request = new ReleaseFromEscrowRequest($this->getHttpClient(), $this->getHttpRequest(), Configuration::gateway());
         $this->request->initialize(
-            array(
+            [
                 'transactionId' => 'abc123',
-            )
+            ]
         );
     }
 

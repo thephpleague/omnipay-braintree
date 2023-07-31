@@ -1,6 +1,8 @@
 <?php
 namespace Omnipay\Braintree\Message;
 
+use Braintree\CustomerGateway;
+use Braintree\Gateway;
 use Omnipay\Tests\TestCase;
 
 class FindCustomerRequestTest extends TestCase
@@ -10,13 +12,13 @@ class FindCustomerRequestTest extends TestCase
      */
     private $request;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 
         $gateway = $this->buildMockGateway();
         $this->request = new FindCustomerRequest($this->getHttpClient(), $this->getHttpRequest(), $gateway);
-        $this->request->initialize(array('customerId' => 1));
+        $this->request->initialize(['customerId' => 1]);
     }
 
     public function testGetData()
@@ -27,7 +29,7 @@ class FindCustomerRequestTest extends TestCase
 
     public function testSendData()
     {
-        $data = array();
+        $data = [];
         $response = $this->request->sendData($data);
 
         $this->assertInstanceOf('Omnipay\Braintree\Message\CustomerResponse', $response);
@@ -35,14 +37,14 @@ class FindCustomerRequestTest extends TestCase
 
     protected function buildMockGateway()
     {
-        $gateway = $this->getMockBuilder('\Braintree_Gateway')
+        $gateway = $this->getMockBuilder(Gateway::class)
             ->disableOriginalConstructor()
-            ->setMethods(array(
+            ->setMethods([
                 'customer'
-            ))
+            ])
             ->getMock();
 
-        $customer = $this->getMockBuilder('\Braintree_CustomerGateway')
+        $customer = $this->getMockBuilder(CustomerGateway::class)
             ->disableOriginalConstructor()
             ->getMock();
 

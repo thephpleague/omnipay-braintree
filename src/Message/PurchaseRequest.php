@@ -1,4 +1,5 @@
 <?php
+
 namespace Omnipay\Braintree\Message;
 
 /**
@@ -12,8 +13,19 @@ class PurchaseRequest extends AuthorizeRequest
     {
         $data = parent::getData();
 
-        $data['options']['submitForSettlement'] = true;
+        $data['options']['submitForSettlement']       = true;
+        $data['options']['skipAdvancedFraudChecking'] = $this->getSkipAdvancedFraudChecking();
 
         return $data;
+    }
+
+    public function setSkipAdvancedFraudChecking($value)
+    {
+        return $this->setParameter('skipAdvancedFraudChecking', (bool)$value);
+    }
+
+    public function getSkipAdvancedFraudChecking()
+    {
+        return (bool)$this->getParameter('skipAdvancedFraudChecking');
     }
 }

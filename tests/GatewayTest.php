@@ -2,6 +2,9 @@
 
 namespace Omnipay\Braintree;
 
+use Braintree\Configuration;
+use Braintree\Digest;
+use Braintree\WebhookNotification;
 use Omnipay\Tests\GatewayTestCase;
 
 class GatewayTest extends GatewayTestCase
@@ -11,7 +14,7 @@ class GatewayTest extends GatewayTestCase
      */
     protected $gateway;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 
@@ -19,7 +22,7 @@ class GatewayTest extends GatewayTestCase
 
         $this->options = array(
             'amount' => '10.00',
-            'token' => 'abcdef',
+            'token'  => 'abcdef',
         );
     }
 
@@ -67,7 +70,7 @@ class GatewayTest extends GatewayTestCase
         $request = $this->gateway->createMerchantAccount();
         $this->assertInstanceOf('Omnipay\Braintree\Message\CreateMerchantAccountRequest', $request);
     }
-    
+
     public function testUpdateMerchantAccount()
     {
         $request = $this->gateway->updateMerchantAccount();
@@ -145,55 +148,41 @@ class GatewayTest extends GatewayTestCase
 
     public function testParseNotification()
     {
-        if(\Braintree_Version::MAJOR >= 3) {
-            $xml = '<notification></notification>';
-            $payload = base64_encode($xml);
-            $signature = \Braintree_Digest::hexDigestSha1(\Braintree_Configuration::privateKey(), $payload);
-            $gatewayMock = $this->buildGatewayMock($payload);
-            $gateway = new Gateway($this->getHttpClient(), $this->getHttpRequest(), $gatewayMock);
-            $params = array(
-                'bt_signature' => $payload.'|'.$signature,
-                'bt_payload' => $payload
-            );
-            $request = $gateway->parseNotification($params);
-            $this->assertInstanceOf('\Braintree_WebhookNotification', $request);
-        } else {
-            $xml = '<notification><subject></subject></notification>';
-            $payload = base64_encode($xml);
-            $signature = \Braintree_Digest::hexDigestSha1(\Braintree_Configuration::privateKey(), $payload);
-            $gatewayMock = $this->buildGatewayMock($payload);
-            $gateway = new Gateway($this->getHttpClient(), $this->getHttpRequest(), $gatewayMock);
-            $params = array(
-                'bt_signature' => $payload.'|'.$signature,
-                'bt_payload' => $payload
-            );
-            $request = $gateway->parseNotification($params);
-            $this->assertInstanceOf('\Braintree_WebhookNotification', $request);
-        }
+        $xml         = '<notification><subject></subject><kind></kind></notification>';
+        $payload     = base64_encode($xml);
+        $signature   = Digest::hexDigestSha1(Configuration::privateKey(), $payload);
+        $gatewayMock = $this->buildGatewayMock($payload);
+        $gateway     = new Gateway($this->getHttpClient(), $this->getHttpRequest(), $gatewayMock);
+        $params      = [
+            'bt_signature' => $payload . '|' . $signature,
+            'bt_payload'   => $payload
+        ];
+        $request     = $gateway->parseNotification($params);
+        $this->assertInstanceOf(WebhookNotification::class, $request);
     }
 
     /**
      * @param $payload
      *
-     * @return \Braintree_Gateway
+     * @return Gateway
      */
     protected function buildGatewayMock($payload)
     {
-        $configuration = $this->getMockBuilder('\Braintree_Configuration')
+        $configuration = $this->getMockBuilder(Configuration::class)
             ->disableOriginalConstructor()
-            ->setMethods(array(
+            ->setMethods([
                 'assertHasAccessTokenOrKeys'
-            ))
+            ])
             ->getMock();
         $configuration->expects($this->any())
             ->method('assertHasAccessTokenOrKeys')
             ->will($this->returnValue(null));
 
 
-
         $configuration->setPublicKey($payload);
 
-        \Braintree_Configuration::$global = $configuration;
-        return \Braintree_Configuration::gateway();
+        Configuration::$global = $configuration;
+
+        return Configuration::gateway();
     }
 }

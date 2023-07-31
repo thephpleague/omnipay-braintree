@@ -2,7 +2,7 @@
 
 namespace Omnipay\Braintree\Message;
 
-use Braintree_MerchantAccount;
+use Braintree\MerchantAccount;
 use Mockery;
 use Omnipay\Tests\TestCase;
 
@@ -13,9 +13,9 @@ class AbstractMerchantAccountRequestTest extends TestCase
      */
     private $request;
 
-    public function setUp()
+    public function setUp(): void
     {
-        $this->request = Mockery::mock('\Omnipay\Braintree\Message\AbstractMerchantAccountRequest')->makePartial();
+        $this->request = Mockery::mock(AbstractMerchantAccountRequest::class)->makePartial();
         $this->request->initialize();
     }
 
@@ -32,11 +32,11 @@ class AbstractMerchantAccountRequestTest extends TestCase
     }
 
     public function provideKeepsData(){
-        return array(
-            array('merchantAccountId', 'blue_ladders_store'),
-            array('masterMerchantAccountId', '14ladders_marketplace'),
-            array('tosAccepted', true),
-        );
+        return [
+            ['merchantAccountId', 'blue_ladders_store'],
+            ['masterMerchantAccountId', '14ladders_marketplace'],
+            ['tosAccepted', true],
+        ];
     }
 
     /**
@@ -55,14 +55,14 @@ class AbstractMerchantAccountRequestTest extends TestCase
     }
 
     public function provideMakesBool(){
-        return array(
-          array('tosAccepted'),
-        );
+        return [
+          ['tosAccepted'],
+        ];
     }
 
     public function testBusinessData()
     {
-        $business = array(
+        $business = [
             'legalName' => 'Jane\'s Ladders',
             'dbaName' => 'Jane\'s Ladders',
             'taxId' => '98-7654321',
@@ -70,7 +70,7 @@ class AbstractMerchantAccountRequestTest extends TestCase
             'city' => 'Chicago',
             'state' => 'IL',
             'postCode' => '60622',
-        );
+        ];
 
         $this->request->setBusiness($business);
         $data = $this->request->getBusinessData();
@@ -86,14 +86,14 @@ class AbstractMerchantAccountRequestTest extends TestCase
 
     public function testFundingData()
     {
-        $funding = array(
+        $funding = [
             'descriptor' => 'Blue Ladders',
-            'destination' => Braintree_MerchantAccount::FUNDING_DESTINATION_BANK,
+            'destination' => MerchantAccount::FUNDING_DESTINATION_BANK,
             'email' => 'funding@blueladders.com',
             'mobilePhone' => '5555555555',
             'accountNumber' => '1123581321',
             'routingNumber' => '071101307',
-        );
+        ];
 
         $this->request->setFunding($funding);
         $data = $this->request->getFundingData();
@@ -108,7 +108,7 @@ class AbstractMerchantAccountRequestTest extends TestCase
 
     public function testIndividualData()
     {
-        $individual = array(
+        $individual = [
             'firstName' => 'Jane',
             'lastName' => 'Doe',
             'email' => 'jane@14ladders.com',
@@ -119,7 +119,7 @@ class AbstractMerchantAccountRequestTest extends TestCase
             'city' => 'Chicago',
             'state' => 'IL',
             'postCode' => '60622',
-        );
+        ];
 
         $this->request->setIndividual($individual);
         $data = $this->request->getIndividualData();
