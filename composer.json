@@ -31,16 +31,23 @@
         "psr-4": { "Omnipay\\Braintree\\" : "src/" }
     },
     "require": {
-        "php": "^7.1",
+        "php": "^8",
         "omnipay/common": "^3",
-        "braintree/braintree_php": "^5.0"
+        "braintree/braintree_php": "^5.0",
+        "symfony/http-client": "^6.3"
     },
     "require-dev": {
-        "omnipay/tests": "^3"
+        "omnipay/tests": "^4",
+        "http-interop/http-factory-guzzle": "^1.2"
     },
     "extra": {
         "branch-alias": {
             "dev-master": "3.0.x-dev"
+        }
+    },
+    "config": {
+        "allow-plugins": {
+            "php-http/discovery": true
         }
     }
 }
